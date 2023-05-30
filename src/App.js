@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Main from './pages/Main';
 import Home from './pages/Home';
 import PropertyDetailsHome from './pages/PropertyDetailsHome';
@@ -19,6 +19,7 @@ import JoinRequestDetails from './pages/JoinRequestDetails';
 import ReportPreview from './pages/ReportPreview';
 import TenantInfo from './pages/TenantInfo';
 import ErrorPage from './pages/ErrorPage';
+import PostProperty from './pages/PostProperty';
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
           <Route path='*' element={<ErrorPage />} />
           <Route path='' element={<Home />} />
           <Route path='property/:id' element={<PropertyDetailsHome />} />
-          <Route path='user/:fullName' element={<UserAccount />} >
+          
+          {/* Unrestricted Routes  */}
+          <Route path='post' element={<PostProperty />} />
+          <Route path='user/:fullName' element={localStorage.getItem(`userTkn`) ? <UserAccount /> : <Navigate replace to='/' />} >
             <Route path='' element={<UserAccountHome />} />
             <Route path='contracts' element={<Contracts />} />
             <Route path='settings' element={<UserAccountSettings />} />
