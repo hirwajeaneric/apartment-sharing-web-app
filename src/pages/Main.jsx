@@ -3,7 +3,7 @@ import NavigationBar from '../components/sections/NavigationBar';
 import Footer from '../components/sections/Footer';
 import { Outlet } from 'react-router-dom';
 
-export default function index() {
+export default function Main() {
   return (
     <>
         <NavigationBar />

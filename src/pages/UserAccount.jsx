@@ -1,7 +1,10 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 export default function UserAccount() {
   return (
-    <div>UserAccount</div>
+    <div>
+      <Outlet />
+    </div>
   )
 }
