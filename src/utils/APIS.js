@@ -12,10 +12,10 @@ let APIS = {
         resetPassword: `${mainAddress}user/resetPassword?id=`,
         updateUserAccount: `${mainAddress}user/update?id=`,
         findById: `${mainAddress}user/findById?id=`,
-        findByRole: `${mainAddress}user/findByRole?role=`,
+        findByEmail: `${mainAddress}user/findByEmail?email=`,
         list: `${mainAddress}user/list`,
     },
-    bookingApis: {
+    contractApis: {
         createNew: `${mainAddress}booking/add`,
         update: `${mainAddress}booking/update?id=`,
         delete: `${mainAddress}booking/delete?id=`,
@@ -31,7 +31,28 @@ let APIS = {
         findByWorkStatus: `${mainAddress}booking/findByWorkStatus?workStatus=`,
         findByClientConfirmation: `${mainAddress}booking/findByClientConfirmation?clientConfirmation=`,
     },
-    scheduleApis: {
+    propertyApis: {
+        list: `${mainAddress}schedule/list`,
+        findByPostDate: `${mainAddress}schedule/findByPostDate?postDate=`,
+        findById: `${mainAddress}schedule/findById?id=`,
+        update: `${mainAddress}schedule/update?id=`,
+        delete: `${mainAddress}schedule/delete?id=`,
+    },
+    joinPostApis: {
+        list: `${mainAddress}schedule/list`,
+        findByPostDate: `${mainAddress}schedule/findByPostDate?postDate=`,
+        findById: `${mainAddress}schedule/findById?id=`,
+        update: `${mainAddress}schedule/update?id=`,
+        delete: `${mainAddress}schedule/delete?id=`,
+    },
+    joinRequestApis: {
+        list: `${mainAddress}schedule/list`,
+        findByPostDate: `${mainAddress}schedule/findByPostDate?postDate=`,
+        findById: `${mainAddress}schedule/findById?id=`,
+        update: `${mainAddress}schedule/update?id=`,
+        delete: `${mainAddress}schedule/delete?id=`,
+    },
+    rentRequestApis: {
         list: `${mainAddress}schedule/list`,
         findByPostDate: `${mainAddress}schedule/findByPostDate?postDate=`,
         findById: `${mainAddress}schedule/findById?id=`,
@@ -39,7 +60,8 @@ let APIS = {
         delete: `${mainAddress}schedule/delete?id=`,
     },
     files: {
-        file: `${mainAddress}files/`,
+        profiles: `${mainAddress}profiles/`,
+        property: `${mainAddress}property/`,
     }
 }
 
