@@ -7,20 +7,16 @@ import { AccountCircle, Close, Menu as MenuIcon } from '@mui/icons-material';
 import { useState } from 'react';
 import { DesktopNav, Logo, MobileNav, MobileNavButton } from '../styled-components/navigationStyledComponents';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 const style = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  left: '0px',
+  bottom: '0px',
+  height: '90vh',
+  width: '70%',
+  background: 'white',
   boxShadow: 24,
-  p: 4,
 };
 
 export default function NavigationBar() {
@@ -50,15 +46,12 @@ export default function NavigationBar() {
     setAnchorEl(null);
   };
 
-  const signup = (e) => {
-    e.preventDefault();
-
+  const displaySignupForm = () => {
 
   }
 
-  const signin = (e) => {
-    e.preventDefault();
-
+  const displaySigninForm = () => {
+  
     
   }
 
@@ -85,8 +78,8 @@ export default function NavigationBar() {
             }
             {!localStorage.getItem('usrTkn') && 
               <>
-                <button type='button' onClick={signin}>Sign In</button>
-                <button type='button' onClick={signup}>Sign Up</button>
+                <button type='button' onClick={displaySigninForm}>Sign In</button>
+                <button type='button' onClick={displaySignupForm}>Sign Up</button>
               </>
             }
             {localStorage.getItem('usrTkn') && 
@@ -108,19 +101,19 @@ export default function NavigationBar() {
             {open ? <Close /> : <MenuIcon />}
           </MobileNavButton>
           <Modal open={open} onClose={handleCloseNav} aria-labelledby="modal-nav" aria-describedby="modal-modal-description">
-            <Box sx={style}>
+            <Box sx={{position: 'absolute', left: '0px', bottom: '0px', height: '90vh', width: '70%', background: 'white', boxShadow: 24 }}>
               <MobileNav>
-                <NavLink to={'/'}>Home</NavLink>
-                <NavLink to={'/aboutus'}>About Us</NavLink>
-                <NavLink to={'/contactus'}>Contact Us</NavLink>
-                <NavLink to={'/post'}>Post New Property</NavLink>
+                <NavLink to={'/'} onClick={handleCloseNav}>Home</NavLink>
+                <NavLink to={'/aboutus'} onClick={handleCloseNav}>About Us</NavLink>
+                <NavLink to={'/contactus'} onClick={handleCloseNav}>Contact Us</NavLink>
+                <NavLink to={'/post'} onClick={handleCloseNav}>Post New Property</NavLink>
                 {localStorage.getItem('usrTkn') &&
-                  <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}`}>My Account</NavLink>
+                  <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}`} onClick={handleCloseNav}>My Account</NavLink>
                 }
                 {!localStorage.getItem('usrTkn') && 
                   <>
-                    <button type='button' onClick={signin}>Sign In</button>
-                    <button type='button' onClick={signup}>Sign Up</button>
+                    <button type='button' onClick={() => {displaySigninForm(); setOpen(false);}}>Sign In</button>
+                    <button type='button' onClick={() => {displaySignupForm(); setOpen(false);}}>Sign Up</button>
                   </>
                 }
                 {localStorage.getItem('usrTkn') && 

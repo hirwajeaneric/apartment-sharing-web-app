@@ -77,16 +77,18 @@ export const MobileNav = styled.div`
     align-items: center;
     justify-content: center;
     gap: 10px;
-    position: fixed;
-    top: 100px;
     width: 100%;
-    background: white;
     border-top: 1px solid green; 
 
     button {
         background: none;
         font-size: 100%;
         border: none;
+        text-align: left;
+
+        &:hover {
+            color: blue;
+        }
     }
 
     a, button {
@@ -94,6 +96,7 @@ export const MobileNav = styled.div`
         text-decoration: none;
         padding: 20px 12px;
         cursor: pointer;
+        width: 100%;
     }
 
     a { 
