@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainAppContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     background: #f0f5f5;
     min-height: 100vh;
@@ -26,7 +26,7 @@ export const FullWidthContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
+    width: 100%;
 
     @media (max-width: 1080px) {
             
@@ -41,22 +41,23 @@ export const FullWidthContainer = styled.div`
     }
 `;
 
-export const PageSizedConainer = styled.div`
+export const PageSizedContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1100px;
+    width: 90vw;
 
     @media (max-width: 1080px) {
             
     }
 
-    @media (max-width: 768px) {
-        
+    @media (max-width: 800px) {
+        width: 95vw;
     }
 
     @media (max-width: 480px) {
-        
+        width: 98vw;
     }
 `;
 

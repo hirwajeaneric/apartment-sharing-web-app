@@ -37,7 +37,7 @@ function App() {
             
             {/* Unrestricted Routes  */}
             <Route path='post' element={<PostProperty />} />
-            <Route path='user/:fullName' element={localStorage.getItem(`userTkn`) ? <UserAccount /> : <Navigate replace to='/' />} >
+            <Route path='user/:fullName' element={localStorage.getItem(`usrTkn`) ? <UserAccount /> : <Navigate replace to='/' />} >
               <Route path='' element={<UserAccountHome />} />
               <Route path='contracts' element={<Contracts />} />
               <Route path='settings' element={<UserAccountSettings />} />
