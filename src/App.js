@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import GlobalStyles from './globalStyles';
 import Main from './pages/Main';
 import Home from './pages/Home';
 import PropertyDetailsHome from './pages/PropertyDetailsHome';
@@ -23,35 +24,39 @@ import PostProperty from './pages/PostProperty';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Unrestricted Routes  */}
-        <Route path='/' element={<Main />}>
-          <Route path='*' element={<ErrorPage />} />
-          <Route path='' element={<Home />} />
-          <Route path='property/:id' element={<PropertyDetailsHome />} />
-          
+    <>
+      <GlobalStyles />
+
+      <BrowserRouter>
+        <Routes>
           {/* Unrestricted Routes  */}
-          <Route path='post' element={<PostProperty />} />
-          <Route path='user/:fullName' element={localStorage.getItem(`userTkn`) ? <UserAccount /> : <Navigate replace to='/' />} >
-            <Route path='' element={<UserAccountHome />} />
-            <Route path='contracts' element={<Contracts />} />
-            <Route path='settings' element={<UserAccountSettings />} />
-            <Route path='rented-properties' element={<RentedProperties />} />
-            <Route path='owned-properties' element={<OwnedProperties />} />
-            <Route path='rent-requests' element={<RentRequestList />} />
-            <Route path='join-requests' element={<JoinRequestList />} />
-            <Route path='tenants' element={<ListOfTenants />} />
-            <Route path='report-preview' element={<ReportPreview />} />
-            <Route path='property/:propertyId' element={<PropertyDetailsUserAccount />} />
-            <Route path='contract/:contractId' element={<ContractDetails />} />
-            <Route path='rent-request/:rentRequestId/:number' element={<RentRequestDetails />} />
-            <Route path='join-request/:joinRequestId/:number' element={<JoinRequestDetails />} />
-            <Route path='tenant/:tenantId' element={<TenantInfo />} />
+          <Route path='/' element={<Main />}>
+            <Route path='*' element={<ErrorPage />} />
+            <Route path='' element={<Home />} />
+            <Route path='property/:id' element={<PropertyDetailsHome />} />
+            
+            {/* Unrestricted Routes  */}
+            <Route path='post' element={<PostProperty />} />
+            <Route path='user/:fullName' element={localStorage.getItem(`userTkn`) ? <UserAccount /> : <Navigate replace to='/' />} >
+              <Route path='' element={<UserAccountHome />} />
+              <Route path='contracts' element={<Contracts />} />
+              <Route path='settings' element={<UserAccountSettings />} />
+              <Route path='rented-properties' element={<RentedProperties />} />
+              <Route path='owned-properties' element={<OwnedProperties />} />
+              <Route path='rent-requests' element={<RentRequestList />} />
+              <Route path='join-requests' element={<JoinRequestList />} />
+              <Route path='tenants' element={<ListOfTenants />} />
+              <Route path='report-preview' element={<ReportPreview />} />
+              <Route path='property/:propertyId' element={<PropertyDetailsUserAccount />} />
+              <Route path='contract/:contractId' element={<ContractDetails />} />
+              <Route path='rent-request/:rentRequestId/:number' element={<RentRequestDetails />} />
+              <Route path='join-request/:joinRequestId/:number' element={<JoinRequestDetails />} />
+              <Route path='tenant/:tenantId' element={<TenantInfo />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
