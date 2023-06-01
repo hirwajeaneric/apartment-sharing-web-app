@@ -109,14 +109,14 @@ export const AuthenticationPageContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 
     h2 {
-        margin-bottom: 40px;
+        margin: 40px 0;
     }
 
     @media (max-width: 1080px) {
@@ -124,11 +124,15 @@ export const InnerContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        
+        h2 {
+            margin: 20px 0;
+        }
     }
 
     @media (max-width: 480px) {
-        
+        h2 {
+            margin: 20px 0;
+        }
     }
 `;
 

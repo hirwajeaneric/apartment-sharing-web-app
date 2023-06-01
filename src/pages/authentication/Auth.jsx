@@ -1,14 +1,18 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { FullWidthContainer, PageSizedContainer, TwoSidedContainer } from '../../components/styled-components/generalComponents'
+import { FullWidthContainer, LeftContainer, PageSizedContainer, RightContainer, TwoSidedContainer } from '../../components/styled-components/generalComponents'
 
 export default function Auth() {
   return (
     <FullWidthContainer>
         <PageSizedContainer>
             <TwoSidedContainer>
-                <div>Authentication page</div>
-                <Outlet />
+                <LeftContainer>
+                    <div>Authentication page</div>
+                </LeftContainer>
+                <RightContainer>
+                    <Outlet />
+                </RightContainer>
             </TwoSidedContainer>
         </PageSizedContainer>
     </FullWidthContainer>

@@ -117,6 +117,44 @@ export const TwoSidedContainer = styled.div`
     }
 `;
 
+export const LeftContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+`;
+
+export const RightContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+`;
+
 export const ThreeSidedContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -146,7 +184,7 @@ export const PageWithSideBarContainer = styled.div`
         width: 70%;
     }
 
-    &.righttSide {
+    &.rightSide {
         width: 28%;
     }
 
