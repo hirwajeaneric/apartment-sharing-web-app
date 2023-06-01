@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import {SearchFromContainer} from '../styled-components/formsStyledComponent';
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select } from '@mui/material';
 import { GridSearchIcon } from '@mui/x-data-grid';
 import { CustomFormControlOne } from '../styled-components/generalComponents';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchForm() {
+    const navigate = useNavigate();
+
     const [propertyType, setPropertyType] = useState('');
     const [status, setStatus] = useState('');
     const [location, setLocation] = useState('');
@@ -31,6 +34,9 @@ export default function SearchForm() {
         }
 
         console.log(searchData);
+        
+        navigate('/search');
+        
     }
 
     return (
@@ -101,7 +107,10 @@ export default function SearchForm() {
         </CustomFormControlOne>
         
         {/* Search Button  */}
-        <Button type='submit' variant="contained" size='large' startIcon={<GridSearchIcon />}></Button>
+        {window.location.pathname === '/search' ? 
+            <Button type='submit' variant="contained" size='large' startIcon={<GridSearchIcon />}> Search</Button> : 
+            <Button type='submit' variant="contained" size='large' startIcon={<GridSearchIcon />}></Button>
+        }   
     </SearchFromContainer>
   )
 }

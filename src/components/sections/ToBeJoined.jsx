@@ -8,7 +8,6 @@ export default function ToBeJoined() {
   return (
     <FullWidthContainer>
       <PageSizedContainer style={{ flexDirection: 'column', margin: '80px 0'}}>
-        <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px', padding:'0 20px 20px', borderBottom: '1px solid gray'}}>To be Joined</HeaderOne>
         <TopLeftFlexAlignedContainer style={{ justifyContent: 'center' }}>
           <Grid container spacing={4} sx={{ width: '100%' }}>
             {cards.map((card) => (
