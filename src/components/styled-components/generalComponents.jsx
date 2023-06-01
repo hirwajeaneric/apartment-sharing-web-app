@@ -1,4 +1,4 @@
-import { FormControl } from '@mui/material';
+import { Card, FormControl } from '@mui/material';
 import styled from 'styled-components';
 
 export const MainAppContainer = styled.div`
@@ -84,7 +84,7 @@ export const TopLeftFlexAlignedContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    
+    width: 100%;
 
     @media (max-width: 1080px) {
             
@@ -311,5 +311,24 @@ export const CustomFormControl = styled(FormControl)`
 
     @media (max-width: 480px) {
         
+    }
+`;
+
+export const CustomPropertyCard = styled(Card)`
+    height: 100%; 
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+
+    }
+
+    @media (max-width: 480px) {
+    
     }
 `;
