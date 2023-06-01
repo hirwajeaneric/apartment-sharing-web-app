@@ -109,11 +109,14 @@ export const AuthenticationPageContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    background: white;
+    border-top: 4px solid green;
+    margin: 40px 0;
 
     h2 {
         margin: 40px 0;

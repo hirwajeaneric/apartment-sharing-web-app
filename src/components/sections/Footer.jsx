@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <FullWidthContainer style={{ background: 'white' }}>
+    <FullWidthContainer style={{ background: 'white', borderTop: '2px solid green' }}>
         <PageSizedContainer style={{ flexDirection: 'column', alignItems: 'center' }}>
             <TwoSidedContainer style={{ margin: '40px 0', padding: '0 10px' }}>
               <LeftContainer style={{ flexDirection: 'column', alignItems: 'flex-start' }}>

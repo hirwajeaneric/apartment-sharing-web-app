@@ -4,11 +4,17 @@ import { FullWidthContainer, LeftContainer, PageSizedContainer, RightContainer, 
 
 export default function Auth() {
   return (
-    <FullWidthContainer>
+    <FullWidthContainer 
+        style={{ 
+            background:'url("/imgs/bannerImage.jpg"), rgba(0,0,0,0.5)',
+            backgroundSize:'cover',
+            backgroundBlendMode: 'darken',
+            backgroundRepeat: 'no-repeat',
+        }}>
         <PageSizedContainer>
             <TwoSidedContainer>
                 <LeftContainer>
-                    <div>Authentication page</div>
+                    {/* <div>Authentication page</div> */}
                 </LeftContainer>
                 <RightContainer>
                     <Outlet />
