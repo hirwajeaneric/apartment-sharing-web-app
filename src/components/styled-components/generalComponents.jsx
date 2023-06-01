@@ -123,7 +123,7 @@ export const LeftContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 49%;
+    width: 46%;
 
     @media (max-width: 1080px) {
             
@@ -142,7 +142,7 @@ export const RightContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 49%; 
+    width: 46%;
 
     @media (max-width: 1080px) {
             
