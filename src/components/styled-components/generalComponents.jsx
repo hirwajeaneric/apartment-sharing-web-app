@@ -102,13 +102,14 @@ export const TwoSidedContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    flex-wrap: nowrap;
 
     @media (max-width: 1080px) {
             
     }
 
     @media (max-width: 768px) {
-        
+        flex-wrap: wrap;
     }
 
     @media (max-width: 480px) {

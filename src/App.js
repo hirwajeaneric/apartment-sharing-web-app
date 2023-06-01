@@ -21,10 +21,11 @@ import ReportPreview from './pages/ReportPreview';
 import TenantInfo from './pages/TenantInfo';
 import ErrorPage from './pages/ErrorPage';
 import PostProperty from './pages/PostProperty';
-import Signin from './pages/Signin';
-import Signup from './pages/Signup';
-import ResetPassword from './pages/ResetPassword';
-import RequestPasswordReset from './pages/RequestPasswordReset';
+import Signin from './pages/authentication/Signin';
+import Signup from './pages/authentication/Signup';
+import ResetPassword from './pages/authentication/ResetPassword';
+import RequestPasswordReset from './pages/authentication/RequestPasswordReset';
+import Auth from './pages/authentication/Auth';
 
 function App() {
   return (
@@ -39,10 +40,12 @@ function App() {
             <Route path='' element={<Home />} />
             <Route path='property/:id' element={<PropertyDetailsHome />} />
             
-            <Route path='signin' element={<Signin />} />
-            <Route path='signup' element={<Signup />} />
-            <Route path='reset-password' element={<ResetPassword />} />
-            <Route path='forgot-password' element={<RequestPasswordReset />} />
+            <Route path='' element={<Auth />}>
+              <Route path='signin' element={<Signin />} />
+              <Route path='signup' element={<Signup />} />
+              <Route path='reset-password' element={<ResetPassword />} />
+              <Route path='forgot-password' element={<RequestPasswordReset />} />
+            </Route>
 
             {/* Unrestricted Routes  */}
             <Route path='post' element={localStorage.getItem(`usrTkn`) ? <PostProperty /> : <Navigate replace to='/signin' />} />

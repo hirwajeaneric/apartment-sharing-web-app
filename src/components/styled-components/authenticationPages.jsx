@@ -89,11 +89,11 @@ export const AuthPagesContainer = styled.div`
 `;
 
 export const AuthenticationPageContainer = styled.div`
-    margin: 0 auto;
-    height: 100%;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
-    background: white;
 
     @media (max-width: 1080px) {
             
@@ -109,8 +109,7 @@ export const AuthenticationPageContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-    margin-top: 40px;
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;

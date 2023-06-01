@@ -1,7 +1,8 @@
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../components/styled-components/authenticationPages';
+import { Link } from 'react-router-dom'
+import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages'
+import APIS from '../../utils/APIS';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
@@ -14,19 +15,15 @@ import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
-import Apis from '../utils/APIS';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
-const ResetPassword = () => {
-  const params = useParams();
-  
+const Signin = () => {  
   // States
   const [showPassword, setShowPassword] = React.useState(false);
-  const [formData, setFormData] = useState({ password: '' });
+  const [formData, setFormData] = useState({ email: '', registrationNumber: 0, password: '' });
   const [progress, setProgress] = useState({ value: '', disabled: false});
   const [open, setOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''})
@@ -43,40 +40,34 @@ const ResetPassword = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => { event.preventDefault() };
 
-  // Reseting the password
   const submitForm = (e) => {
     e.preventDefault();
-    const data = {};
-    const { password } = formData;
-    data.password = password;
-
-    if (data.password === '') {
-      setResponseMessage({ message: 'You must provide a password.', severity: 'error' });
+    
+    const { email, password } = formData;
+     
+    if (!email) {
+      setResponseMessage({ message: 'Email address must be provided.', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (!password) {
+      setResponseMessage({ message: 'Password is required.', severity: 'error' });
       setOpen(true);
       return;
     } else {
-      setProgress({ value: 'Reseting password ...', disabled: true});
+      setProgress({ value: 'Signing in ...', disabled: true});
 
-      // Setting headers
-      const config = {
-        headers: { 
-          'Authorization' : `Bearer ${params.token}`,
-        }
-      }
-
-      // API Call
-      axios.put(`${Apis.userApis.resetPassword}${params.userId}`, data, config)
+      axios.post(APIS.userApis.signIn, formData)
       .then(response => {
         setTimeout(()=>{
           if (response.status === 200) {
-            setResponseMessage({ message: response.data.message, severity: 'success' });
-            setOpen(true);
+            const { token, ...userInfo } = response.data.user;
+            
             setProgress({ value: '', disabled: false });
+            localStorage.setItem('admnInfo', JSON.stringify(userInfo));
+            localStorage.setItem('admnTkn', token);
+            window.location.replace('/admin/');
           }
         }, 2000); 
-        setTimeout(()=>{
-          window.location.replace('../signin');
-        },2000);
       })
       .catch(error => {
         if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -89,26 +80,29 @@ const ResetPassword = () => {
   }
 
   return (
-    <AuthenticationPageContainer>
+    <>
       <Helmet>
-        <title>Reset Password</title>
-        <meta name="description" content={`Change password`} /> 
+        <title>Sign In</title>
+        <meta name="description" content={`Sign in to your ISMA Account.`} /> 
       </Helmet>
-
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>Reset Password</h2>
+        <h2 style={{ textAlign: 'center' }}>Sign In to your account</h2>
         <AuthFormContainer onSubmit={submitForm}>
+          <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
           <FormControl variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">New Password</InputLabel>
+            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
             <FilledInput id="filled-adornment-password" type={showPassword ? 'text' : 'password'} size='small' name='password' value={formData.password || ''} onChange={handleChange}
               endAdornment={<InputAdornment position="end"><IconButton aria-label="toggle password visibility"onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment>}
             />
           </FormControl>
+          <CommandButtons>
+            {!progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary'>Sign in </Button>}
+            {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>Signing in ... </Button>}
 
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            {!progress.disabled && <Button type='submit' style={{width: '100%' }} variant='contained' size='medium' color='primary'>Update password </Button>}
-            {progress.disabled && <Button type='submit' style={{width: '100%' }} variant='contained' size='medium' color='primary' disabled>{progress.value}</Button>}
-            <p style={{ width: '100%', marginTop: '20px', textAlign: 'center' }}>Do you want to sign in? <Link style={{color: 'black'}} to={'../signin'}>Sign in.</Link></p>
+            <p>Are you new here? <Link style={{color: 'black'}} to={'../signup'}>Create an account.</Link></p>
+          </CommandButtons>
+          <div>
+          <p style={{ width: '100%' }}>Forgot your password? Click here to <Link style={{color: 'black'}} to={'../forgot-password'}>Reset password.</Link></p>
           </div>
         </AuthFormContainer>
       </InnerContainer>
@@ -117,8 +111,8 @@ const ResetPassword = () => {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>
-    </AuthenticationPageContainer>
+    </>
   )
 }
 
-export default ResetPassword
+export default Signin
