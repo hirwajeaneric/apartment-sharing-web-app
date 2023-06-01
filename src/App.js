@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import GlobalStyles from './globalStyles';
 import Main from './pages/Main';
 import Home from './pages/Home';
 import PropertyDetailsHome from './pages/PropertyDetailsHome';
@@ -30,8 +29,6 @@ import Auth from './pages/authentication/Auth';
 function App() {
   return (
     <>
-      <GlobalStyles />
-
       <BrowserRouter>
         <Routes>
           {/* Unrestricted Routes  */}

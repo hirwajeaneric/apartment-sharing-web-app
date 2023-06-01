@@ -130,9 +130,7 @@ export const InnerContainer = styled.div`
     }
 
     @media (max-width: 480px) {
-        h2 {
-            margin: 20px 0;
-        }
+        
     }
 `;
 

@@ -26,7 +26,7 @@ export const FullWidthContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 100vw;
 
     @media (max-width: 1080px) {
             
@@ -46,7 +46,7 @@ export const PageSizedContainer = styled.div`
     justify-content: center;
     align-items: center;
     max-width: 1100px;
-    width: 90vw;
+    width: 90%;
 
     @media (max-width: 1080px) {
             
@@ -83,6 +83,7 @@ export const TopLeftFlexAlignedContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    
 
     @media (max-width: 1080px) {
             
@@ -121,7 +122,7 @@ export const LeftContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48%;
+    width: 49%;
 
     @media (max-width: 1080px) {
             
@@ -140,7 +141,7 @@ export const RightContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48%;
+    width: 49%; 
 
     @media (max-width: 1080px) {
             
