@@ -89,11 +89,11 @@ export const AuthPagesContainer = styled.div`
 `;
 
 export const AuthenticationPageContainer = styled.div`
-    margin: 0 auto;
-    height: 100%;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
-    background: #f0f5f5;
 
     @media (max-width: 1080px) {
             
@@ -109,15 +109,17 @@ export const AuthenticationPageContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-    margin-top: 40px;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    background: white;
+    border-top: 4px solid green;
+    margin: 40px 0;
 
     h2 {
-        margin-bottom: 40px;
+        margin: 40px 0;
     }
 
     @media (max-width: 1080px) {
@@ -125,7 +127,9 @@ export const InnerContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        
+        h2 {
+            margin: 20px 0;
+        }
     }
 
     @media (max-width: 480px) {
@@ -138,7 +142,7 @@ export const AuthFormContainer = styled.form`
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    width: 30%;
+    width: 70%;
     margin-bottom: 80px;
 
     input, button, div {

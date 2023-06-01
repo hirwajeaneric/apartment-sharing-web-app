@@ -1,9 +1,10 @@
 import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../styled-components/authenticationPages'
-import Apis from '../../utils/Apis';
+import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
+import Apis from '../../utils/APIS';
 
+import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
@@ -72,9 +73,13 @@ const RequestPasswordReset = () => {
   }
 
   return (
-    <AuthenticationPageContainer>
+    <>
+      <Helmet>
+        <title>Forgot Password</title>
+        <meta name="description" content={`Forgot password page.`} /> 
+      </Helmet>
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>FORGOT PASSWORD</h2>
+        <h2 style={{ textAlign: 'center' }}>Forgot Password?</h2>
         <p style={{ textAlign: 'center', padding: '20px', marginBottom: '20px' }}>Do you want to reset your password? Provide the email address you used to sign up.</p>
         <AuthFormContainer onSubmit={submitForm}>
           <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
@@ -91,7 +96,7 @@ const RequestPasswordReset = () => {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>
-    </AuthenticationPageContainer>
+    </>
   )
 }
 

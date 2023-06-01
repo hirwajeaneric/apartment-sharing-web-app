@@ -1,8 +1,10 @@
 import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../styled-components/authenticationPages'
-import APIS from '../../utils/Apis';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages';
+import axios from 'axios';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
@@ -11,21 +13,21 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
+import Apis from '../../utils/APIS';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const Signin = () => {  
+
+const Signup = () => {  
   // States
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [formData, setFormData] = useState({ email: '', registrationNumber: 0, password: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', role: 'admin', password: '' });
   const [progress, setProgress] = useState({ value: '', disabled: false});
   const [open, setOpen] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''})
+  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -41,24 +43,18 @@ const Signin = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    
-    const { email, password } = formData;
-     
-    if (!email) {
-      setResponseMessage({ message: 'Email address must be provided.', severity: 'error' });
-      setOpen(true);
-      return;
-    } else if (!password) {
-      setResponseMessage({ message: 'Password is required.', severity: 'error' });
+
+    if (formData.fullName.length <= 3) {
+      setResponseMessage({ message: 'Your name must be more than 3 characters long ', severity: 'error' });
       setOpen(true);
       return;
     } else {
-      setProgress({ value: 'Signing in ...', disabled: true});
+      setProgress({ value: 'Signing up ...', disabled: true });
 
-      axios.post(APIS.userApis.signIn, formData)
+      axios.post(Apis.userApis.signUp, formData)
       .then(response => {
         setTimeout(()=>{
-          if (response.status === 200) {
+          if (response.status === 201) {
             const { token, ...userInfo } = response.data.user;
             
             setProgress({ value: '', disabled: false });
@@ -75,15 +71,22 @@ const Signin = () => {
           setProgress({ value: '', disabled: false });
         }
       });
-    }
+
+    } 
   }
 
   return (
-    <AuthenticationPageContainer>
+    <>
+      <Helmet>
+        <title>Create an account</title>
+        <meta name="description" content={`Admin sign up form.`} /> 
+      </Helmet>
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>ADMIN SIGN IN</h2>
+        <h2 style={{ textAlign: 'center' }}>Create an account</h2>
         <AuthFormContainer onSubmit={submitForm}>
-          <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
+          <TextField id="fullName" sx={{ m: 1, width: '40ch' }}  size='small' label="Full name" variant="filled" name='fullName' value={formData.fullName || ''} onChange={handleChange}/>
+          <TextField id="email" sx={{ m: 1, width: '40ch' }}  size='small' label="Email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
+          <TextField id="phone" sx={{ m: 1, width: '40ch' }}  size='small' label="Phone" variant="filled" name='phone' value={formData.phone || ''} onChange={handleChange}/>
           <FormControl variant="filled">
             <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
             <FilledInput id="filled-adornment-password" type={showPassword ? 'text' : 'password'} size='small' name='password' value={formData.password || ''} onChange={handleChange}
@@ -91,23 +94,20 @@ const Signin = () => {
             />
           </FormControl>
           <CommandButtons>
-            {!progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary'>Sign in </Button>}
-            {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>Signing in ... </Button>}
+            {!progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary'>Sign up </Button>}
+            {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>{progress.value} </Button>}
 
-            <p>Are you new here? <Link style={{color: 'black'}} to={'../signup'}>Create an account.</Link></p>
+            <p>Do you already have an account? <Link style={{color: 'black'}} to={'../signin'}>Sign In Here</Link></p>
           </CommandButtons>
-          <div>
-          <p style={{ width: '100%' }}>Forgot your password? Click here to <Link style={{color: 'black'}} to={'../forgot-password'}>Reset password.</Link></p>
-          </div>
         </AuthFormContainer>
       </InnerContainer>
-
+      
       {/* Response message  */}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>
-    </AuthenticationPageContainer>
+    </>
   )
 }
 
-export default Signin
+export default Signup;

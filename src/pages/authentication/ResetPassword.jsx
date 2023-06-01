@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../styled-components/authenticationPages'
+import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
@@ -10,10 +10,11 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
-import Apis from '../../utils/Apis';
+import Apis from '../../utils/APIS';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -88,9 +89,14 @@ const ResetPassword = () => {
   }
 
   return (
-    <AuthenticationPageContainer>
+    <>
+      <Helmet>
+        <title>Reset Password</title>
+        <meta name="description" content={`Change password`} /> 
+      </Helmet>
+
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>RESET PASSWORD</h2>
+        <h2 style={{ textAlign: 'center' }}>Reset Password</h2>
         <AuthFormContainer onSubmit={submitForm}>
           <FormControl variant="filled">
             <InputLabel htmlFor="filled-adornment-password">New Password</InputLabel>
@@ -111,7 +117,7 @@ const ResetPassword = () => {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>
-    </AuthenticationPageContainer>
+    </>
   )
 }
 
