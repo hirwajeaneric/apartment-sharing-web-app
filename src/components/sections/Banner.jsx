@@ -1,5 +1,6 @@
 import React from 'react'
-import { FullWidthContainer, PageSizedContainer } from '../styled-components/generalComponents'
+import { FullWidthContainer, HeaderOne, HeaderTwo, PageSizedContainer } from '../styled-components/generalComponents'
+import SearchForm from '../forms/SearchForm';
 
 export default function Banner() {
   return (
@@ -10,8 +11,12 @@ export default function Banner() {
           backgroundBlendMode: 'darken',
           backgroundRepeat: 'no-repeat',
       }}>
-      <PageSizedContainer>
-          <h1>Hello World</h1>
+      <PageSizedContainer style={{ height: '100vh' }}>
+          <div style={{ width: '80%'}}>
+            <HeaderOne style={{color: 'white' }}>Find your best stay with few searches.</HeaderOne>
+            <SearchForm />
+            <HeaderTwo style={{color: 'white',}}>45 free apartments, 10 to join, 10 for sale. </HeaderTwo>
+          </div>
       </PageSizedContainer>
     </FullWidthContainer>
   )

@@ -1,3 +1,4 @@
+import { FormControl } from '@mui/material';
 import styled from 'styled-components';
 
 export const MainAppContainer = styled.div`
@@ -220,6 +221,85 @@ export const PageDetailsContainer = styled.div`
     h3 {
 
     }
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const HeaderOne = styled.h1`
+    font-size: 300%;
+    font-weight: 400;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        font-size: 200%;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const HeaderTwo = styled.h2`
+    font-weight: 400;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const HeaderThree = styled.h3`
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const CustomFormControlOne = styled(FormControl)`
+    width: 25%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const CustomFormControl = styled(FormControl)`
 
     @media (max-width: 1080px) {
             
