@@ -9,29 +9,14 @@ import { DesktopNav, Logo, MobileNav, MobileNavButton } from '../styled-componen
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
-const style = {
-  position: 'absolute',
-  left: '0px',
-  bottom: '0px',
-  height: '90vh',
-  width: '70%',
-  background: 'white',
-  boxShadow: 24,
-};
-
 export default function NavigationBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({ id: '', email: '', fullName: '', phone: '', nationality: '', nationalId: '', passportNumber: '', profilePicturer: '' });
-  const [openNav, setOpenNav] = useState(false);
 
   const handleOpenNav = () => setOpen(true);
   const handleCloseNav = () => setOpen(false);
-
-  const toggleMenu = () => {
-    setOpenNav(!openNav);
-  }
 
   useEffect(()=> {
     setUserInfo(JSON.parse(localStorage.getItem('usrInfo')));
@@ -46,14 +31,6 @@ export default function NavigationBar() {
     setAnchorEl(null);
   };
 
-  const displaySignupForm = () => {
-
-  }
-
-  const displaySigninForm = () => {
-  
-    
-  }
 
   const signout = () => {
     localStorage.removeItem('usrTkn');
@@ -78,8 +55,8 @@ export default function NavigationBar() {
             }
             {!localStorage.getItem('usrTkn') && 
               <>
-                <button type='button' onClick={displaySigninForm}>Sign In</button>
-                <button type='button' onClick={displaySignupForm}>Sign Up</button>
+                <NavLink to={'/signin'}>Sign In</NavLink>
+                <NavLink to={'/signup'}>Sign Up</NavLink>
               </>
             }
             {localStorage.getItem('usrTkn') && 
@@ -112,20 +89,12 @@ export default function NavigationBar() {
                 }
                 {!localStorage.getItem('usrTkn') && 
                   <>
-                    <button type='button' onClick={() => {displaySigninForm(); setOpen(false);}}>Sign In</button>
-                    <button type='button' onClick={() => {displaySignupForm(); setOpen(false);}}>Sign Up</button>
+                    <NavLink to={'/signin'} onClick={handleCloseNav}>Sign In</NavLink>
+                    <NavLink to={'/signup'} onClick={handleCloseNav}>Sign Up</NavLink>
                   </>
                 }
                 {localStorage.getItem('usrTkn') && 
-                  <div>
-                    <IconButton size="large" sx={{ padding: '0px' }} aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
-                      <AccountCircle style={{ color: 'green' }}/>
-                    </IconButton>
-                    <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={Boolean(anchorEl)} onClose={handleClose}>
-                      <MenuItem onClick={() => { navigate(`/user/${userInfo.fullName.split(' ').join('')}/settings`); handleClose(); }}>Profile/Settings</MenuItem>
-                      <MenuItem onClick={() => { signout(); handleClose(); }}>Log out</MenuItem>
-                    </Menu>
-                  </div>
+                  <MenuItem onClick={() => { signout(); handleClose(); }}>Log out</MenuItem>
                 }
               </MobileNav>
             </Box>

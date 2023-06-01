@@ -1,8 +1,8 @@
 import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../styled-components/authenticationPages'
-import APIS from '../../utils/Apis';
+import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../components/styled-components/authenticationPages'
+import APIS from '../utils/APIS';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +11,7 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
@@ -62,9 +63,9 @@ const Signin = () => {
             const { token, ...userInfo } = response.data.user;
             
             setProgress({ value: '', disabled: false });
-            localStorage.setItem('usrInfo', JSON.stringify(userInfo));
-            localStorage.setItem('usrTkn', token);
-            window.location.replace('/');
+            localStorage.setItem('admnInfo', JSON.stringify(userInfo));
+            localStorage.setItem('admnTkn', token);
+            window.location.replace('/admin/');
           }
         }, 2000); 
       })
@@ -80,8 +81,12 @@ const Signin = () => {
 
   return (
     <AuthenticationPageContainer>
+      <Helmet>
+        <title>Sign In</title>
+        <meta name="description" content={`Sign in to your ISMA Account.`} /> 
+      </Helmet>
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>ADMIN SIGN IN</h2>
+        <h2 style={{ textAlign: 'center' }}>Sign In to your account</h2>
         <AuthFormContainer onSubmit={submitForm}>
           <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
           <FormControl variant="filled">

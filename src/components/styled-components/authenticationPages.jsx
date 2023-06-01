@@ -93,7 +93,7 @@ export const AuthenticationPageContainer = styled.div`
     height: 100%;
     min-height: 100vh;
     width: 100%;
-    background: #f0f5f5;
+    background: white;
 
     @media (max-width: 1080px) {
             
@@ -138,7 +138,7 @@ export const AuthFormContainer = styled.form`
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    width: 30%;
+    width: 70%;
     margin-bottom: 80px;
 
     input, button, div {
