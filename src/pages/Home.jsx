@@ -1,6 +1,9 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import Banner from '../components/sections/Banner'
+import AboutUsSection from '../components/sections/AboutUsSection'
+import RecentlyPosted from '../components/sections/RecentlyPosted'
+import ToBeJoined from '../components/sections/ToBeJoined'
 
 export default function Home() {
   return (
@@ -10,6 +13,9 @@ export default function Home() {
         <meta name="description" content={`The best apartment sharing application for students and solo travellers.`} /> 
       </Helmet>
       <Banner />
+      <RecentlyPosted />
+      <AboutUsSection />
+      <ToBeJoined />
     </>
   )
 }

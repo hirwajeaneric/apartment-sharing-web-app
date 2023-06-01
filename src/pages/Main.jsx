@@ -8,7 +8,7 @@ export default function Main() {
   return (
     <MainAppContainer>
       <FullWidthContainer style={{ width: '100%', flexDirection: 'column' }}>
-        <NavigationBar />
+        <NavigationBar/>
         <Outlet />
       </FullWidthContainer>
       {/* Footer  */}

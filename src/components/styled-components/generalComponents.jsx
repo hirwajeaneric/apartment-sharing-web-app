@@ -1,3 +1,4 @@
+import { Card, FormControl } from '@mui/material';
 import styled from 'styled-components';
 
 export const MainAppContainer = styled.div`
@@ -83,7 +84,7 @@ export const TopLeftFlexAlignedContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    
+    width: 100%;
 
     @media (max-width: 1080px) {
             
@@ -122,7 +123,7 @@ export const LeftContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 49%;
+    width: 46%;
 
     @media (max-width: 1080px) {
             
@@ -141,7 +142,7 @@ export const RightContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 49%; 
+    width: 46%;
 
     @media (max-width: 1080px) {
             
@@ -231,5 +232,103 @@ export const PageDetailsContainer = styled.div`
 
     @media (max-width: 480px) {
         
+    }
+`;
+
+export const HeaderOne = styled.h1`
+    font-size: 300%;
+    font-weight: 400;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        font-size: 200%;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const HeaderTwo = styled.h2`
+    font-weight: 400;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const HeaderThree = styled.h3`
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const CustomFormControlOne = styled(FormControl)`
+    width: 25%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const CustomFormControl = styled(FormControl)`
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const CustomPropertyCard = styled(Card)`
+    height: 100%; 
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+
+    }
+
+    @media (max-width: 480px) {
+    
     }
 `;

@@ -25,6 +25,7 @@ import Signup from './pages/authentication/Signup';
 import ResetPassword from './pages/authentication/ResetPassword';
 import RequestPasswordReset from './pages/authentication/RequestPasswordReset';
 import Auth from './pages/authentication/Auth';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/' element={<Main />}>
             <Route path='*' element={<ErrorPage />} />
             <Route path='' element={<Home />} />
+            <Route path='search' element={<SearchPage />} />
             <Route path='property/:id' element={<PropertyDetailsHome />} />
             
             <Route path='' element={<Auth />}>
