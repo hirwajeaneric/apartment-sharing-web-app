@@ -39,7 +39,7 @@ export default function NavigationBar() {
   }
 
   return (
-    <FullWidthContainer style={{ background: 'white', boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)' }}>
+    <FullWidthContainer style={{ background: 'white', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', position: 'sticky', top: '0', zIndex:'1000' }}>
       <PageSizedContainer>
         <TwoSidedContainer style={{ position: 'relative' }}>
           <Logo to={'/'} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px', fontWeight: '700'}}>

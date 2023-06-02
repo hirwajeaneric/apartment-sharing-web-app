@@ -7,7 +7,7 @@ import { FullWidthContainer, MainAppContainer } from '../components/styled-compo
 export default function Main() {
   return (
     <MainAppContainer>
-      <FullWidthContainer style={{ width: '100%', flexDirection: 'column' }}>
+      <FullWidthContainer style={{ width: '100%', flexDirection: 'column', position:'relative' }}>
         <NavigationBar/>
         <Outlet />
       </FullWidthContainer>

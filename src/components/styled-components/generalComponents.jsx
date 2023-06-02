@@ -182,12 +182,14 @@ export const PageWithSideBarContainer = styled.div`
     align-items: flex-start;
     width: 100%;
 
-    &.leftSide {
+    div.leftSide {
         width: 70%;
+        background: 'blue';
     }
 
-    &.rightSide {
+    div.rightSide {
         width: 28%;
+        background: 'red';
     }
 
     @media (max-width: 1080px) {
