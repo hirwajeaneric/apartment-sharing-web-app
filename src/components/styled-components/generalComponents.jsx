@@ -181,15 +181,14 @@ export const PageWithSideBarContainer = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    flex-wrap: wrap;
 
     div.leftSide {
         width: 70%;
-        background: 'blue';
     }
 
     div.rightSide {
         width: 28%;
-        background: 'red';
     }
 
     @media (max-width: 1080px) {
@@ -197,7 +196,14 @@ export const PageWithSideBarContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        
+        gap: 20px;
+        div.leftSide {
+            width: 100%;
+        }
+
+        div.rightSide {
+            width: 100%;
+        }
     }
 
     @media (max-width: 480px) {

@@ -31,7 +31,6 @@ export default function NavigationBar() {
     setAnchorEl(null);
   };
 
-
   const signout = () => {
     localStorage.removeItem('usrTkn');
     localStorage.removeItem('usrInfo');

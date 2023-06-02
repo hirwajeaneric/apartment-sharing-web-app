@@ -11,7 +11,7 @@ export const Logo = styled(Link)`
     }
 
     @media (max-width: 768px) {
-        
+        margin-left: 10px;
     }
 
     @media (max-width: 480px) {
