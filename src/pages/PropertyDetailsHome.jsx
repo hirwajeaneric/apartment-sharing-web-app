@@ -6,6 +6,8 @@ import { PageWithSideBarContainer } from '../components/styled-components/genera
 import ImageSlider from '../components/sections/ImageCarousel';
 import PropertyMajorDetails from '../components/sections/PropertyMajorDetails';
 import LocationMap from '../components/sections/LocationMap';
+import RentRequestForm from '../components/forms/RentRequestForm';
+import JoinRequestForm from '../components/forms/JoinRequestForm';
 
 export default function PropertyDetailsHome() {
   const params = useParams();
@@ -32,8 +34,12 @@ export default function PropertyDetailsHome() {
             <PropertyMajorDetails />
             <LocationMap />
           </div>
-          <div className='rightSide'>
-            <h1>Right</h1>
+
+          <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
+            <HeaderTwo>Do you want to Rent this Apartment?</HeaderTwo>
+            <p style={{ fontWeight: '400', margin: '20px 0' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
+            {/* <RentRequestForm /> */}
+            <JoinRequestForm />
           </div>
         </PageWithSideBarContainer>
       </PageSizedContainer>

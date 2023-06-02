@@ -368,7 +368,7 @@ export const PropertyDetailsStyles = styled.div`
     justify-content: space-between; 
     gap: 20px;
     align-items: flex-start;
-    // margin-top: 40px;
+    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
 
     @media (max-width: 1080px) {
             
@@ -421,6 +421,7 @@ export const MapContainer = styled.div`
     height: 400px;
     margin: 40px 0;
     border: 1px solid black;
+    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
 
     iframe {
         width: 100%;

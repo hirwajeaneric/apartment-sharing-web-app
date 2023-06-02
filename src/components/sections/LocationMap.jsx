@@ -3,7 +3,7 @@ import { MapContainer } from '../styled-components/generalComponents'
 
 export default function LocationMap() {
   return (
-    <MapContainer style={{ width: '100%'}}>
+    <MapContainer>
         <iframe
             frameborder="0"
             referrerpolicy="no-referrer-when-downgrade"
