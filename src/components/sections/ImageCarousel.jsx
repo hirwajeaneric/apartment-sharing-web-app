@@ -1,6 +1,6 @@
 import React from 'react';
-import Carousel from 'react-material-ui-carousel'
 import { Paper } from '@mui/material';
+import { CustomCarousel } from '../styled-components/generalComponents';
 
 export default function ImageCarousel() {
   var items = [
@@ -23,10 +23,9 @@ export default function ImageCarousel() {
   ];
 
   return (
-    <Carousel 
-      sx={{ width: '100%' }}>
+    <CustomCarousel>
         { items.map( (item, i) => <Item key={i} item={item} /> )}
-    </Carousel>
+    </CustomCarousel>
   )
 }
 
