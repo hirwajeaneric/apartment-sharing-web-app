@@ -30,9 +30,7 @@ export default function PropertyDetailsHome() {
               </p>
             </PropertyDescriptionSection>
             <PropertyMajorDetails />
-            <LocationMap>
-
-            </LocationMap>
+            <LocationMap />
           </div>
           <div className='rightSide'>
             <h1>Right</h1>
