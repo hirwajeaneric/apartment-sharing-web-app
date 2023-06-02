@@ -19,7 +19,7 @@ export default function PropertyDetailsHome() {
       </Helmet>
       <PageSizedContainer style={{ flexDirection: 'column', marginTop:'40px', padding: '0 10px' }}>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-          <HeaderTwo style={{color: 'black', textAlign:'left'}}>Apartment For Share in Kibagabaga</HeaderTwo>
+          <HeaderTwo style={{color: 'black', textAlign:'left'}}><strong>Apartment For Share in Kibagabaga</strong></HeaderTwo>
           <HeaderTwo style={{color: 'red', textAlign:'left', fontSize: '210%'}}><strong>USD</strong> 200</HeaderTwo>
         </div>
         <PageWithSideBarContainer style={{ margin:'40px 0' }}>
@@ -37,7 +37,7 @@ export default function PropertyDetailsHome() {
 
           <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
             <HeaderTwo>Do you want to Rent this Apartment?</HeaderTwo>
-            <p style={{ fontWeight: '400', margin: '20px 0' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
+            <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
             {/* <RentRequestForm /> */}
             <JoinRequestForm />
           </div>

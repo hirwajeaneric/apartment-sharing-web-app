@@ -25,18 +25,20 @@ export const SearchFromContainer = styled.form`
     }
 `;
 
-export const x = styled.div`
+export const FormContainer = styled.form`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100%;
 
     @media (max-width: 1080px) {
             
     }
 
     @media (max-width: 768px) {
-        
+        flex-wrap: wrap;
     }
 
     @media (max-width: 480px) {
