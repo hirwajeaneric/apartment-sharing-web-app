@@ -1,9 +1,11 @@
 import React from 'react';
-import { CustomPropertyCard, FullWidthContainer, HeaderOne, PageSizedContainer, TopLeftFlexAlignedContainer } from '../styled-components/generalComponents';
+import { CustomPropertyCard, FullWidthContainer, PageSizedContainer, TopLeftFlexAlignedContainer } from '../styled-components/generalComponents';
 import { Button, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { LocationOn } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 export default function ToBeJoined() {
+  const navigate = useNavigate();
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <FullWidthContainer>
@@ -21,7 +23,7 @@ export default function ToBeJoined() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View Details</Button>
+                    <Button size="small" onClick={() => navigate('/property/123424343re234ds')}>View Details</Button>
                   </CardActions>
                 </CustomPropertyCard>
               </Grid>

@@ -2,8 +2,10 @@ import React from 'react';
 import { CustomPropertyCard, FullWidthContainer, HeaderOne, PageSizedContainer, TopLeftFlexAlignedContainer } from '../styled-components/generalComponents';
 import { Button, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { LocationOn } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecentlyPosted() {
+  const navigate = useNavigate();
   const cards = [1, 2, 3];
   return (
     <FullWidthContainer>
@@ -22,7 +24,7 @@ export default function RecentlyPosted() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View Details</Button>
+                    <Button size="small" onClick={() => navigate('/property/230483423d98h23')}>View Details</Button>
                   </CardActions>
                 </CustomPropertyCard>
               </Grid>

@@ -1,4 +1,5 @@
 import { Card, FormControl } from '@mui/material';
+import Carousel from 'react-material-ui-carousel';
 import styled from 'styled-components';
 
 export const MainAppContainer = styled.div`
@@ -181,12 +182,13 @@ export const PageWithSideBarContainer = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    flex-wrap: wrap;
 
-    &.leftSide {
+    div.leftSide {
         width: 70%;
     }
 
-    &.rightSide {
+    div.rightSide {
         width: 28%;
     }
 
@@ -195,7 +197,14 @@ export const PageWithSideBarContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-        
+        gap: 20px;
+        div.leftSide {
+            width: 100%;
+        }
+
+        div.rightSide {
+            width: 100%;
+        }
     }
 
     @media (max-width: 480px) {
@@ -330,5 +339,79 @@ export const CustomPropertyCard = styled(Card)`
 
     @media (max-width: 480px) {
     
+    }
+`;
+
+export const CustomCarousel = styled(Carousel)`
+    width: 100%; 
+    margin-bottom: 70px;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        margin-bottom: 50px;
+    }
+
+    @media (max-width: 480px) {
+    }
+`;
+
+export const PropertyDetailsStyles = styled.div`
+    padding: 20px; 
+    background: #90CAF9; 
+    width: 100%; 
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    gap: 20px;
+    align-items: flex-start;
+    // margin-top: 40px;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        // margin-top: 40px;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
+export const PropertyDescriptionSection = styled.div`
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    flex-wrap: nowrap; 
+    justify-content: flex-start; 
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 60px;
+
+    h2 {
+        padding-bottom: 20px;
+        width: 100%;
+        border-bottom: 1px solid gray;
+    }
+
+    p {
+        line-height: 23px;
+    }
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: 480px) {
+        margin-bottom: 30px;
     }
 `;
