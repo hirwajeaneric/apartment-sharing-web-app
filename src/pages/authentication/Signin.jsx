@@ -62,9 +62,9 @@ const Signin = () => {
             const { token, ...userInfo } = response.data.user;
             
             setProgress({ value: '', disabled: false });
-            localStorage.setItem('admnInfo', JSON.stringify(userInfo));
-            localStorage.setItem('admnTkn', token);
-            window.location.replace('/admin/');
+            localStorage.setItem('usrInfo', JSON.stringify(userInfo));
+            localStorage.setItem('usrTkn', token);
+            window.location.replace('/');
           }
         }, 2000); 
       })

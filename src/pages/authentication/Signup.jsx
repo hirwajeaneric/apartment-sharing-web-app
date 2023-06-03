@@ -45,8 +45,14 @@ const Signup = () => {
     setOpen(false);
   };
 
+  const handleChangeNationality = (event) => {
+    setFormData({...formData, nationality: event.target.value});
+  };
+
   // Functions
-  const handleChange = ({currentTarget: input}) => { setFormData({...formData, [input.name]: input.value}) };
+  const handleChange = ({currentTarget: input}) => { 
+    setFormData({...formData, [input.name]: input.value}) 
+  };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => { event.preventDefault() };
 
@@ -55,6 +61,12 @@ const Signup = () => {
 
     if (formData.otherNationality) {
       formData.nationality = formData.otherNationality
+    }
+
+    if (formData.nationality === 'Rwanda') {
+      formData.passportNumber = '00000000';
+    } else if (formData.nationality !== 'Rwanda') {
+      formData.nationalId = '0000000000000000';
     }
 
     if (formData.fullName.length <= 3) {
@@ -71,9 +83,9 @@ const Signup = () => {
             const { token, ...userInfo } = response.data.user;
             
             setProgress({ value: '', disabled: false });
-            localStorage.setItem('admnInfo', JSON.stringify(userInfo));
-            localStorage.setItem('admnTkn', token);
-            window.location.replace('/admin/');
+            localStorage.setItem('usrInfo', JSON.stringify(userInfo));
+            localStorage.setItem('usrTkn', token);
+            window.location.replace('/');
           }
         }, 2000); 
       })
@@ -105,7 +117,7 @@ const Signup = () => {
           {/* Nationality chooser  */}
           <CustomFormControlOne style={{ width: '100%' }} size='small'>
             <InputLabel id="gender">Nationality</InputLabel>
-            <Select labelId="nationality" id="nationality" name='nationality' onChange={handleChange} label="nationality">
+            <Select labelId="nationality" id="nationality" name='nationality' value={formData.nationality} onChange={handleChangeNationality} label="nationality">
               <MenuItem value="">
                   <em>None</em>
               </MenuItem>
