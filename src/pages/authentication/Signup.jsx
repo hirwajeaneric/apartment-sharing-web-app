@@ -1,4 +1,4 @@
-import { Button, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
+import { Button, FormHelperText, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import React, { useState } from 'react';
@@ -9,7 +9,6 @@ import axios from 'axios';
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -21,14 +20,23 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 const Signup = () => {  
   // States
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', role: 'admin', password: '' });
+  const [formData, setFormData] = useState({ 
+    fullName: '', 
+    email: '', 
+    phone: '', 
+    nationality: '', 
+    otherNationality: '', 
+    nationalId: '', 
+    passportNumber: '', 
+    password: '' 
+  });
   const [progress, setProgress] = useState({ value: '', disabled: false});
   const [open, setOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
+  const [exchangeFormInput, setExchangeFormInput] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -44,6 +52,10 @@ const Signup = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
+
+    if (formData.otherNationality) {
+      formData.nationality = formData.otherNationality
+    }
 
     if (formData.fullName.length <= 3) {
       setResponseMessage({ message: 'Your name must be more than 3 characters long ', severity: 'error' });
@@ -93,14 +105,26 @@ const Signup = () => {
           {/* Nationality chooser  */}
           <CustomFormControlOne style={{ width: '100%' }} size='small'>
             <InputLabel id="gender">Nationality</InputLabel>
-            <Select labelId="nationality" id="nationality" name='nationality' value={formData.nationality} onChange={handleChange} label="nationality">
+            <Select labelId="nationality" id="nationality" name='nationality' onChange={handleChange} label="nationality">
               <MenuItem value="">
                   <em>None</em>
               </MenuItem>
-              <MenuItem value={'Rwanda'}>Rwanda</MenuItem>
-              <MenuItem value={'Other'}>Other</MenuItem>
+              <MenuItem onClick={() => setExchangeFormInput(false)} value={'Rwanda'}>Rwanda</MenuItem>
+              <MenuItem onClick={() => setExchangeFormInput(true)} value={'Other'}>Other</MenuItem>
             </Select>
+            <FormHelperText>If you have both use the nationalId</FormHelperText>
           </CustomFormControlOne>
+
+          {exchangeFormInput ? 
+            <>
+              <TextField id="otherNationality" style={{ width: '100%' }} size='small' label="Other nationality" variant="outlined" name='otherNationality' value={formData.otherNationality || ''} onChange={handleChange}/>
+              <TextField id="passportNumber" style={{ width: '100%' }} size='small' label="Passport number" variant="outlined" name='passportNumber' value={formData.passportNumber || ''} onChange={handleChange}/>
+            </>
+            :
+            <>
+              <TextField id="nationalId" style={{ width: '100%' }} size='small' label="National Id" variant="outlined" name='nationalId' value={formData.nationalId || ''} onChange={handleChange}/>
+            </>
+          }
 
           {/* Password field  */}
           <FormControl sx={{ width: '100%' }} size='small' variant="outlined">
