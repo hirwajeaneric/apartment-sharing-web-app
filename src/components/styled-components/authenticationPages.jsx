@@ -141,31 +141,31 @@ export const AuthFormContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     width: 70%;
     margin-bottom: 80px;
 
-    input, button, div {
-        width: 100%;
+    // input, button, div {
+    //     width: 100%;
 
-        input {
-            width: 100%;
-        }
+    //     input {
+    //         width: 100%;
+    //     }
 
-        div {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
+    //     div {
+    //         width: 100%;
+    //         display: flex;
+    //         flex-direction: row;
 
-            input {
-                width: 100%;
-            }
+    //         input {
+    //             width: 100%;
+    //         }
 
-            div {
-                width: 100%;
-            }
-        }
-    }
+    //         div {
+    //             width: 100%;
+    //         }
+    //     }
+    // }
     
 
     @media (max-width: 1080px) {
@@ -188,6 +188,7 @@ export const CommandButtons = styled.div`
     width: 100%;
     justify-content: space-between; 
     align-items: flex-start;
+    margin-top: 20px;
 
     button, p {
         width: 45%;

@@ -80,10 +80,12 @@ const RequestPasswordReset = () => {
       </Helmet>
       <InnerContainer>
         <h2 style={{ textAlign: 'center' }}>Forgot Password?</h2>
-        <p style={{ textAlign: 'center', padding: '20px', marginBottom: '20px' }}>Do you want to reset your password? Provide the email address you used to sign up.</p>
         <AuthFormContainer onSubmit={submitForm}>
-          <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <p style={{ textAlign: 'center', padding: '20px', width: '100%', lineHeight:'23px' }}>Do you want to reset your password? Provide the email address you used to sign up.</p>
+          
+          <TextField id="email" sx={{ width: '100%' }}  size='small' label="email" variant="outlined" name='email' value={formData.email || ''} onChange={handleChange}/>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '20px', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             {!progress.disabled && <Button type='submit' style={{width: '100%' }} variant='contained' size='medium' color='primary'>Send </Button>}
             {progress.disabled && <Button type='submit' style={{width: '100%' }} variant='contained' size='medium' color='primary' disabled>Sending ... </Button>}
 

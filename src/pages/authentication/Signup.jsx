@@ -1,9 +1,9 @@
-import { Button, TextField } from '@mui/material';
+import { Button, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages';
+import { AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages';
 import axios from 'axios';
 
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +15,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Helmet } from 'react-helmet-async';
 import Apis from '../../utils/APIS';
+import { CustomFormControlOne } from '../../components/styled-components/generalComponents';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -84,15 +85,41 @@ const Signup = () => {
       <InnerContainer>
         <h2 style={{ textAlign: 'center' }}>Create an account</h2>
         <AuthFormContainer onSubmit={submitForm}>
-          <TextField id="fullName" sx={{ m: 1, width: '40ch' }}  size='small' label="Full name" variant="filled" name='fullName' value={formData.fullName || ''} onChange={handleChange}/>
-          <TextField id="email" sx={{ m: 1, width: '40ch' }}  size='small' label="Email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
-          <TextField id="phone" sx={{ m: 1, width: '40ch' }}  size='small' label="Phone" variant="filled" name='phone' value={formData.phone || ''} onChange={handleChange}/>
-          <FormControl variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-            <FilledInput id="filled-adornment-password" type={showPassword ? 'text' : 'password'} size='small' name='password' value={formData.password || ''} onChange={handleChange}
-              endAdornment={<InputAdornment position="end"><IconButton aria-label="toggle password visibility"onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment>}
+          
+          <TextField id="fullName" style={{ width: '100%' }} size='small' label="Full name" variant="outlined" name='fullName' value={formData.fullName || ''} onChange={handleChange}/>
+          <TextField id="email" style={{ width: '100%' }} size='small' label="Email" variant="outlined" name='email' value={formData.email || ''} onChange={handleChange}/>
+          <TextField id="phone" style={{ width: '100%' }} size='small' label="Phone" variant="outlined" name='phone' value={formData.phone || ''} onChange={handleChange}/>
+          
+          {/* Nationality chooser  */}
+          <CustomFormControlOne style={{ width: '100%' }} size='small'>
+            <InputLabel id="gender">Nationality</InputLabel>
+            <Select labelId="nationality" id="nationality" name='nationality' value={formData.nationality} onChange={handleChange} label="nationality">
+              <MenuItem value="">
+                  <em>None</em>
+              </MenuItem>
+              <MenuItem value={'Rwanda'}>Rwanda</MenuItem>
+              <MenuItem value={'Other'}>Other</MenuItem>
+            </Select>
+          </CustomFormControlOne>
+
+          {/* Password field  */}
+          <FormControl sx={{ width: '100%' }} size='small' variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              name='password' 
+              value={formData.password || ''} 
+              onChange={handleChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton>
+                </InputAdornment>
+              }
+              label="Password"
             />
           </FormControl>
+      
           <CommandButtons>
             {!progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary'>Sign up </Button>}
             {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>{progress.value} </Button>}
