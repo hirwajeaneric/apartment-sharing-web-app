@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
+import { AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
 import Apis from '../../utils/APIS';
 
 import { Helmet } from 'react-helmet-async';

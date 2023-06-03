@@ -117,7 +117,7 @@ const Signup = () => {
 
           {exchangeFormInput ? 
             <>
-              <TextField id="otherNationality" style={{ width: '100%' }} size='small' label="Other nationality" variant="outlined" name='otherNationality' value={formData.otherNationality || ''} onChange={handleChange}/>
+              <TextField id="otherNationality" style={{ width: '100%' }} size='small' label="Your nationality" variant="outlined" name='otherNationality' value={formData.otherNationality || ''} onChange={handleChange}/>
               <TextField id="passportNumber" style={{ width: '100%' }} size='small' label="Passport number" variant="outlined" name='passportNumber' value={formData.passportNumber || ''} onChange={handleChange}/>
             </>
             :

@@ -1,12 +1,11 @@
 import { Button, OutlinedInput } from '@mui/material';
 import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
+import { AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
