@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomPropertyCard, FullWidthContainer, PageSizedContainer, TopLeftFlexAlignedContainer } from '../styled-components/generalComponents';
+import { CustomPropertyCard, FullWidthContainer, HeaderOne, PageSizedContainer, TopLeftFlexAlignedContainer } from '../styled-components/generalComponents';
 import { Button, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { LocationOn } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ export default function ToBeJoined() {
   return (
     <FullWidthContainer>
       <PageSizedContainer style={{ flexDirection: 'column', margin: '80px 0'}}>
+        {window.location.pathname === '/' && <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px', padding:'0 20px 20px', borderBottom: '1px solid gray'}}>To be Joined</HeaderOne>}
         <TopLeftFlexAlignedContainer style={{ justifyContent: 'center' }}>
           <Grid container spacing={4} sx={{ width: '100%' }}>
             {cards.map((card) => (

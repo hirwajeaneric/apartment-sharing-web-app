@@ -1,13 +1,12 @@
-import { Button, TextField } from '@mui/material';
+import { Button, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthenticationPageContainer, AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages'
+import { AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages'
 import APIS from '../../utils/APIS';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -63,9 +62,9 @@ const Signin = () => {
             const { token, ...userInfo } = response.data.user;
             
             setProgress({ value: '', disabled: false });
-            localStorage.setItem('admnInfo', JSON.stringify(userInfo));
-            localStorage.setItem('admnTkn', token);
-            window.location.replace('/admin/');
+            localStorage.setItem('usrInfo', JSON.stringify(userInfo));
+            localStorage.setItem('usrTkn', token);
+            window.location.replace('/');
           }
         }, 2000); 
       })
@@ -86,23 +85,35 @@ const Signin = () => {
         <meta name="description" content={`Sign in to your ISMA Account.`} /> 
       </Helmet>
       <InnerContainer>
-        <h2 style={{ textAlign: 'center' }}>Sign In to your account</h2>
+        <h2 style={{ textAlign: 'center' }}>Sign in to your account</h2>
         <AuthFormContainer onSubmit={submitForm}>
-          <TextField id="filled-basic" sx={{ m: 1, width: '40ch' }}  size='small' label="email" variant="filled" name='email' value={formData.email || ''} onChange={handleChange}/>
-          <FormControl variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-            <FilledInput id="filled-adornment-password" type={showPassword ? 'text' : 'password'} size='small' name='password' value={formData.password || ''} onChange={handleChange}
-              endAdornment={<InputAdornment position="end"><IconButton aria-label="toggle password visibility"onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment>}
+          
+          <TextField id="email" sx={{ width: '100%' }}  size='small' label="email" variant="outlined" name='email' value={formData.email || ''} onChange={handleChange}/>
+          {/* Password field  */}
+          <FormControl sx={{ width: '100%' }} size='small' variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              name='password' 
+              value={formData.password || ''} 
+              onChange={handleChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton>
+                </InputAdornment>
+              }
+              label="Password"
             />
           </FormControl>
+
           <CommandButtons>
             {!progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary'>Sign in </Button>}
             {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>Signing in ... </Button>}
-
             <p>Are you new here? <Link style={{color: 'black'}} to={'../signup'}>Create an account.</Link></p>
           </CommandButtons>
           <div>
-          <p style={{ width: '100%' }}>Forgot your password? Click here to <Link style={{color: 'black'}} to={'../forgot-password'}>Reset password.</Link></p>
+            <p style={{ width: '100%' }}>Forgot your password? Click here to <Link style={{color: 'black'}} to={'../forgot-password'}>Reset password.</Link></p>
           </div>
         </AuthFormContainer>
       </InnerContainer>
