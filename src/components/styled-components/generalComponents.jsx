@@ -120,6 +120,27 @@ export const TwoSidedContainer = styled.div`
     }
 `;
 
+export const TwoSidedFormContainer = styled.form`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: nowrap;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
 export const LeftContainer = styled.div`
     display: flex;
     justify-content: center;

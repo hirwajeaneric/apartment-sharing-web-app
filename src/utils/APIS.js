@@ -1,7 +1,7 @@
 // const BACKEND_DOMAIN = '';
 const BACKEND_PORT = '4444';
-// const BACKEND_DOMAIN = '192.168.43.16';
-const BACKEND_DOMAIN = '';
+const BACKEND_DOMAIN = '192.168.43.16';
+// const BACKEND_DOMAIN = '';
 const mainAddress =  `http://${BACKEND_DOMAIN || 'localhost'}:${BACKEND_PORT}/api/v1/isma/`;
 
 let APIS = {
