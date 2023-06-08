@@ -1,38 +1,22 @@
 import React from 'react';
 import { Paper } from '@mui/material';
 import { CustomCarousel } from '../styled-components/generalComponents';
+import { APIS } from '../../utils/APIS';
 
-export default function ImageCarousel() {
-  var items = [
-    {
-      name: "Image 1",
-      file: "/imgs/img-12-01-2023-pexels-alex-staudinger-1732414.jpg"
-    },
-    {
-      name: "Image 2",
-      file: "/imgs/img-04-01-2023-img-14-11-2022-pexels-alex-qian-2343465.jpg"
-    },
-    {
-      name: "Image 2",
-      file: "/imgs/img-12-01-2023-pexels-chris-goodwin-32870.jpg"
-    },
-    {
-      name: "Image 2",
-      file: "/imgs/img-14-11-2022-pexels-binyamin-mellish-1396122.jpg"
-    }
-  ];
-
+export default function ImageCarousel({pictures}) {
+  console.log(pictures);
   return (
     <CustomCarousel>
-        { items.map( (item, i) => <Item key={i} item={item} /> )}
+        { pictures.map((picture, index) => <Item key={index} picture={picture} /> )}
     </CustomCarousel>
   )
 }
 
 function Item(props) {
+  console.log(props.picture);
   return (
     <Paper sx={{ width: '100%' }}>
-        <img style={{ width: '100%' }} src={props.item.file} alt={props.item.name} />
+        <img style={{ width: '100%' }} src={`${APIS.files.property}${props.picture}`} alt={props.picture} />
     </Paper>
   )
 }

@@ -1,84 +1,98 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { links } from '../../utils/APIS';
+import { APIS } from '../../utils/APIS';
 
 const initialState = {
-    listOfImages: [],
-    selectedImage: {},
-    favoriteImages: [], 
-    total: 0,
+    listOfProperties: [],
+    recentProperties: [],
+    selectedProperty: {},
+    rentedProperties: [],
+    ownedProperties: [],
+    rentRequests: [],
+    joinRequests: [],
+    contracts: [],
+    tenants: [],
+    numberOfRentedProperties: 0,
+    numberOfOwnedProperties: 0,
+    numberOfJoinRequests: 0, 
+    numberOfRentRequests: 0,
+    numberOfContracts: 0,
+    numberOfTenants: 0,
+    numberOfProperties: 0,
+    numberOfPropertiesForJoin: 0,
     isLoading: false,
-    isProcessing: false
+    isProcessing: false,
+    signedInUser: {}
 }
 
-export const getImages = createAsyncThunk(
-    'image/getImages',
+export const getProperties = createAsyncThunk(
+    'property/getProperties',
     async (name, thunkAPI) => {
         try {
-            const response = await axios.get(links.list);
-            thunkAPI.dispatch({ type: 'image/generateTotal', payload: response.data.images.length });
-            return response.data; 
+            const response = await axios.get(APIS.propertyApis.list);
+            thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
+            return response.data.properties; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-export const getImageDetails = createAsyncThunk(
-    'image/getImageDetails',
-    async (imageId, thunkAPI) => {
+export const getPropertyDetails = createAsyncThunk(
+    'property/getPropertyDetails',
+    async (propertyId, thunkAPI) => {
         try {
-            const response = await axios.get(links.findById+imageId);    
-            return response.data.image; 
+            const response = await axios.get(APIS.propertyApis.findById+propertyId);    
+            return response.data.property; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-export const addImage = createAsyncThunk(
-    'image/addImage',
-    async ( image, thunkAPI) => {
+export const addProperty = createAsyncThunk(
+    'property/addProperty',
+    async ( property, thunkAPI) => {
         try {
             const config = { headers: { "Content-Type":"multipart/form-data" } }
-            const response = await axios.post(links.add, image, config);
-            thunkAPI.dispatch(getImages());
-            thunkAPI.dispatch({ type: 'image/generateTotal', payload: response.data.images.length });
-            console.log(response.data);
-            return response.data; 
+            const response = await axios.post(APIS.propertyApis.add, property, config);
+            thunkAPI.dispatch(getProperties());
+            thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
+            // console.log(response.data);
+            return response.data.property; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-export const updateImage = createAsyncThunk(
-    'image/updateImage',
+export const updateProperty = createAsyncThunk(
+    'property/updateProperty',
     async ( update, thunkAPI) => {
         try {
-            const { id, image } = update;
+            const { id, property } = update;
             const config = { headers: { "Content-Type":"multipart/form-data" } }
             var response = {};
-            if (!image.name) {
-                response = await axios.put(links.update+id, image);
+            if (!property.pictures) {
+                response = await axios.put(APIS.propertyApis.update+id, property);
             } else {
-                response = await axios.put(links.update+id, image, config);
+                response = await axios.put(APIS.propertyApis.update+id, property, config);
             }
-            thunkAPI.dispatch({ type: 'image/updateSelectedImage', payload: response.data });
-            thunkAPI.dispatch(getImages());
-            return response.data; 
+            thunkAPI.dispatch({ type: 'property/updateSelectedProperty', payload: response.data.property });
+            thunkAPI.dispatch(getProperties());
+            return response.data.property; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-const imageSlice = createSlice({
-    name: 'image',
+const propertySlice = createSlice({
+    name: 'property',
     initialState,
     reducers: {
-        updateSelectedImage: (state, action) => {
-            state.selectedImage = action.payload.image;
+        updateSelectedProperty: (state, action) => {
+            state.selectedProperty = action.payload.property;
         },
         addNew: {
 
@@ -93,53 +107,53 @@ const imageSlice = createSlice({
 
         },
         generateTotal: (state, action) => {
-            state.total = action.payload;
+            state.numberOfProperties = action.payload;
         },
-        generateTotalFavorites: {
+        generateNumberOfPropertiesForJoin: (state, action) => {
 
         }
     },
     extraReducers: {
-        [getImages.pending] : (state)=> {
+        [getProperties.pending] : (state)=> {
             state.isLoading = true;
         },
-        [getImages.fulfilled] : (state,action) => {
+        [getProperties.fulfilled] : (state,action) => {
             state.isLoading = false;
-            state.listOfImages = action.payload;
+            state.listOfProperties = action.payload;
         },
-        [getImages.rejected] : (state) => {
+        [getProperties.rejected] : (state) => {
             state.isLoading = false;
         },
-        [getImageDetails.pending] : (state)=> {
+        [getPropertyDetails.pending] : (state)=> {
             state.isLoading = true;
         },
-        [getImageDetails.fulfilled] : (state,action) => {
+        [getPropertyDetails.fulfilled] : (state,action) => {
             state.isLoading = false;
-            state.selectedImage = action.payload;
+            state.selectedProperty = action.payload;
         },
-        [getImageDetails.rejected] : (state) => {
+        [getPropertyDetails.rejected] : (state) => {
             state.isLoading = false;
         },
-        [addImage.pending] : (state)=> {
+        [addProperty.pending] : (state)=> {
             state.isProcessing = true;
         },
-        [addImage.fulfilled] : (state,action) => {
+        [addProperty.fulfilled] : (state,action) => {
             state.isProcessing = false;
         },
-        [addImage.rejected] : (state) => {
+        [addProperty.rejected] : (state) => {
             state.isProcessing = false;
         },
-        [updateImage.pending] : (state)=> {
+        [updateProperty.pending] : (state)=> {
             state.isProcessing = true;
         },
-        [updateImage.fulfilled] : (state,action) => {
+        [updateProperty.fulfilled] : (state,action) => {
             state.isProcessing = false;
         },
-        [updateImage.rejected] : (state) => {
+        [updateProperty.rejected] : (state) => {
             state.isProcessing = false;
         },
     }
 });
 
-export const { listAll, addNew, edit, trash, trashAll, generateTotal, generateTotalFavorites  } = imageSlice.actions;
-export default imageSlice.reducer;
+export const { listAll, addNew, edit, trash, trashAll, generateTotal, generateNumberOfPropertiesForJoin  } = propertySlice.actions;
+export default propertySlice.reducer;

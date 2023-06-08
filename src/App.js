@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Main from './pages/Main';
 import Home from './pages/Home';
@@ -26,8 +26,16 @@ import ResetPassword from './pages/authentication/ResetPassword';
 import RequestPasswordReset from './pages/authentication/RequestPasswordReset';
 import Auth from './pages/authentication/Auth';
 import SearchPage from './pages/SearchPage';
+import { useDispatch } from 'react-redux';
+import { getProperties } from './redux/features/propertySlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProperties());
+  }, [dispatch]);
+
   return (
     <>
       <BrowserRouter>

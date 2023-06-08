@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FullWidthContainer, HeaderTwo, PageSizedContainer, PropertyDescriptionSection } from '../components/styled-components/generalComponents';
@@ -9,10 +9,21 @@ import LocationMap from '../components/sections/LocationMap';
 import RentRequestForm from '../components/forms/RentRequestForm';
 import JoinRequestForm from '../components/forms/JoinRequestForm';
 import { Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPropertyDetails } from '../redux/features/propertySlice';
 
 export default function PropertyDetailsHome() {
   const navigate = useNavigate();
   const params = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPropertyDetails(params.id));
+  },[dispatch, params.id]);
+
+  const { selectedProperty, isLoading } = useSelector((state) => state.property);
+  // console.log(selectedProperty);
+
   return (
     <FullWidthContainer>
       <Helmet>
@@ -21,12 +32,12 @@ export default function PropertyDetailsHome() {
       </Helmet>
       <PageSizedContainer style={{ flexDirection: 'column', marginTop:'40px', padding: '0 10px' }}>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-          <HeaderTwo style={{color: 'black', textAlign:'left'}}><strong>Apartment For Share in Kibagabaga</strong></HeaderTwo>
-          <HeaderTwo style={{color: 'red', textAlign:'left', fontSize: '210%'}}><strong>USD</strong> 200</HeaderTwo>
+          <HeaderTwo style={{color: 'black', textAlign:'left'}}><strong>Apartment {selectedProperty.status} in {selectedProperty.location}</strong></HeaderTwo>
+          <HeaderTwo style={{color: 'red', textAlign:'left', fontSize: '210%'}}><strong>RWF</strong> {selectedProperty.rentPrice}</HeaderTwo>
         </div>
         <PageWithSideBarContainer style={{ margin:'40px 0' }}>
           <div className='leftSide'>
-            <ImageSlider />
+            <ImageSlider pictures={selectedProperty.picturers} />
             <PropertyDescriptionSection>
               <HeaderTwo>Description</HeaderTwo>
               <p>
