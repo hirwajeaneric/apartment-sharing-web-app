@@ -41,11 +41,11 @@ export default function PropertyDetailsHome() {
             <PropertyDescriptionSection>
               <HeaderTwo>Description</HeaderTwo>
               <p>
-                Live in style and comfort – a beautiful house in a desirable neighborhood available for rent at only $1500/month (negotiable). Located in Kibagabaga, this  fully furnished house has 4 bedrooms, 3.5 bathrooms, boys quarters, large garden & ample parking space.
+                {selectedProperty.description}
               </p>
             </PropertyDescriptionSection>
-            <PropertyMajorDetails />
-            <LocationMap />
+            <PropertyMajorDetails descriptions={selectedProperty} />
+            <LocationMap coordinates={selectedProperty.mapCoordinates} />
           </div>
 
           <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>

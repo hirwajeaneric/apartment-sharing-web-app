@@ -11,11 +11,11 @@ export default function ImageCarousel({pictures}) {
  
   return (
     <CustomCarousel>
-        { images && images.map((image, index) => 
-          <Paper key={index} sx={{ width: '100%' }}>
-            <img style={{ width: '100%' }} src={`${APIS.files.property}${image}`} alt={image} />
-          </Paper>
-        )}
+      { images && images.map((image, index) => 
+        <Paper key={index} sx={{ width: '100%' }}>
+          <img style={{ width: '100%' }} src={`${APIS.files.property}${image}`} alt={image} />
+        </Paper>
+      )}
     </CustomCarousel>
   )
 }
