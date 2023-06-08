@@ -2,7 +2,7 @@ import { Button, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthFormContainer, CommandButtons, InnerContainer } from '../../components/styled-components/authenticationPages'
-import APIS from '../../utils/APIS';
+import { APIS } from '../../utils/APIS';
 
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
@@ -55,7 +55,7 @@ const Signin = () => {
     } else {
       setProgress({ value: 'Signing in ...', disabled: true});
 
-      axios.post(APIS.userApis.signIn, formData)
+      axios.post(APIS.userApis.signIn , formData)
       .then(response => {
         setTimeout(()=>{
           if (response.status === 200) {

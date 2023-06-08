@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
-import Apis from '../../utils/APIS';
+import { APIS } from '../../utils/APIS';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -64,7 +64,7 @@ const ResetPassword = () => {
       }
 
       // API Call
-      axios.put(`${Apis.userApis.resetPassword}${params.userId}`, data, config)
+      axios.put(`${APIS.userApis.resetPassword}${params.userId}`, data, config)
       .then(response => {
         setTimeout(()=>{
           if (response.status === 200) {

@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
 import { TextField, InputLabel, MenuItem, Select, Button } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import axios from 'axios';
+import { APIS } from '../../utils/APIS';
+import { useParams } from 'react-router-dom';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function PostPropertyForm() {
+  const params = useParams();
   const [userData, setUserData] = useState({});
   const [pictures, setPictures] = useState([]);
   const [formData, setFormData] = useState({
@@ -17,9 +27,34 @@ export default function PostPropertyForm() {
     furnished: '',
   });
   
+  const [progress, setProgress] = useState({ value: '', disabled: false});
+  const [open, setOpen] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''})
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const resetFields = () => {
+    setFormData({
+      propertyType: '',
+      rentPrice: '',
+      location: '',
+      mapCoordinates: '',
+      dimensions: '',
+      description: '',
+      bedRooms: '',
+      bathRooms: '',
+      furnished: '',
+    });
+    setPictures([]);
+  }
 
   useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem('ursInfo')));
+    setUserData(JSON.parse(localStorage.getItem('usrInfo')));
   },[]);
 
   const handleChange = ({currentTarget: input}) => { 
@@ -44,9 +79,32 @@ export default function PostPropertyForm() {
     var data = formData;
     data.ownerId = userData.id; 
     data.status = 'For Rent';
-    data.pictures = []; 
-
+    if (pictures) {
+      data.pictures = pictures; 
+    }
     console.log(data);
+
+    setProgress({ value: 'Processing ...', disabled: true});
+
+    axios.post(APIS.propertyApis.add , data)
+    .then(response => {
+      setTimeout(()=>{
+        if (response.status === 200) {
+          setResponseMessage({ message: response.data.message, severity: 'success' });
+          setOpen(true);
+
+          setProgress({ value: '', disabled: false });
+          window.location.replace(`/user/${params.fullName}/overview`);
+        }
+      }, 2000); 
+    })
+    .catch(error => {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        setResponseMessage({ message: error.response.data.msg, severity: 'error' });
+        setOpen(true);
+        setProgress({ value: '', disabled: false });
+      }
+    });
   };
 
   return (
@@ -84,12 +142,18 @@ export default function PostPropertyForm() {
             <MenuItem value={'false'}>No</MenuItem>
           </Select>
         </CustomFormControlOne>
-        <input type='file' multiple width={'100%'} onChange={handleFileInput} name='pictures' />
+        <TextField type='file' multiple width={'100%'} id="file" style={{ width: '100%' }} size='small' variant="outlined" onChange={handleFileInput} name='pictures' />
         <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'space-between', alignItems:'center', width: '100%' }}>
-          <Button type='submit' variant='contained' color='primary' size='small'>SUBMIT</Button>
-          <Button type='cancel' variant='contained' color='secondary' size='small'>CANCEL</Button>
+          {!progress.disabled && <Button type='submit' variant='contained' size='small' color='primary'>SUBMIT</Button>}
+          {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>{progress.value}</Button>}
+          <Button type='cancel' variant='contained' color='secondary' size='small' onClick={resetFields}>CANCEL</Button>
         </div>
       </RightContainer>
+      
+      {/* Response message  */}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
+      </Snackbar>
     </TwoSidedFormContainer>
   )
 }

@@ -49,12 +49,26 @@ export default function PropertyDetailsHome() {
           </div>
 
           <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
-            <HeaderTwo>Do you want to Rent this Apartment?</HeaderTwo>
-            <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
-            <Button type='button' variant='contained' color='primary' size='small' onClick={() => navigate('/signin')}>Rent this apartment</Button>
-            <RentRequestForm />
-            <Button type='button' variant='contained' color='secondary' size='small' onClick={() => navigate('/signin')}>Join this apartment</Button>
-            <JoinRequestForm />
+            {selectedProperty.status === 'For Rent' ?
+              <>
+              <HeaderTwo>Do you want to Rent this Apartment?</HeaderTwo>
+              <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
+            </>
+            :
+            selectedProperty.status === 'For Join' ?
+            <>
+              <HeaderTwo>Do you want to Join this Apartment?</HeaderTwo>
+              <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to send a join request.</p>
+            </>
+            :
+            <></>  
+          }
+
+            {!localStorage.getItem('usrTkn') && selectedProperty.status === 'For Rent' ? <Button type='button' variant='contained' color='primary' size='small' style={{ marginBottom: '20px' }} onClick={() => navigate('/signin')}>Rent this apartment</Button> : <></>}
+            {localStorage.getItem('usrTkn') && selectedProperty.status === 'For Rent' ? <RentRequestForm /> : <></>}
+
+            {!localStorage.getItem('usrTkn') && selectedProperty.status === 'For Join' ? <Button type='button' variant='contained' color='secondary' size='small' onClick={() => navigate('/signin')}>Join this apartment</Button> : <></>}
+            {localStorage.getItem('usrTkn') && selectedProperty.status === 'For Join' ? <JoinRequestForm /> : <></>}
           </div>
         </PageWithSideBarContainer>
       </PageSizedContainer>

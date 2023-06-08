@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthFormContainer, InnerContainer } from '../../components/styled-components/authenticationPages';
-import Apis from '../../utils/APIS';
+import { APIS } from '../../utils/APIS';
 
 import { Helmet } from 'react-helmet-async';
 import Snackbar from '@mui/material/Snackbar';
@@ -37,7 +37,7 @@ const RequestPasswordReset = () => {
     const data = {};
 
     // Setting up the url to call
-    var link = Apis.userApis.requestPasswordReset;
+    var link = APIS.userApis.requestPasswordReset;
     
     // Validation 
     if (formData.email === '') {

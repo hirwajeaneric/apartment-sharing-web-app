@@ -13,7 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Helmet } from 'react-helmet-async';
-import Apis from '../../utils/APIS';
+import { APIS } from '../../utils/APIS';
 import { CustomFormControlOne } from '../../components/styled-components/generalComponents';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -76,7 +76,7 @@ const Signup = () => {
     } else {
       setProgress({ value: 'Signing up ...', disabled: true });
 
-      axios.post(Apis.userApis.signUp, formData)
+      axios.post(APIS.userApis.signUp, formData)
       .then(response => {
         setTimeout(()=>{
           if (response.status === 201) {
