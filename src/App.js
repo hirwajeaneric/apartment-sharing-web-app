@@ -49,7 +49,7 @@ function App() {
             {/* Unrestricted Routes  */}
             <Route path='post' element={localStorage.getItem(`usrTkn`) ? <PostProperty /> : <Navigate replace to='/signin' />} />
             <Route path='user/:fullName' element={localStorage.getItem(`usrTkn`) ? <UserAccount /> : <Navigate replace to='/signin' />} >
-              <Route path='' element={<UserAccountHome />} />
+              <Route path='overview' element={<UserAccountHome />} />
               <Route path='contracts' element={<Contracts />} />
               <Route path='settings' element={<UserAccountSettings />} />
               <Route path='rented-properties' element={<RentedProperties />} />
