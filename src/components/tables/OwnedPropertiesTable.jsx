@@ -77,7 +77,7 @@ export const TableStyles = {
 
 var rows = [];
 
-export default function TenantsTable({data = []}) {
+export default function OwnedPropertiesTable({data = []}) {
   // data.forEach(element => {
   //   element.serviceDay = new Date(element.serviceDay).toDateString();
   // })

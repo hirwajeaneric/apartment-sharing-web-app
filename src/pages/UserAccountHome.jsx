@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { StatsCard, ThreeSidedContainer } from '../components/styled-components/generalComponents'
 import { InnerContainer } from '../components/styled-components/authenticationPages'
 import { Link } from 'react-router-dom'
-import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import { ArrowForward } from '@mui/icons-material'
 
 export default function UserAccountHome() {
   return (
