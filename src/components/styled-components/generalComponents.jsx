@@ -233,6 +233,42 @@ export const PageWithSideBarContainer = styled.div`
     }
 `;
 
+export const PageWithSideMenuContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+
+    div.leftSide {
+        width: 20%;
+    }
+
+    div.rightSide {
+        width: 77%;
+    }
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        gap: 20px;
+
+        div.leftSide {
+            width: 100%;
+        }
+
+        div.rightSide {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        
+    }
+`;
+
 export const PageDetailsContainer = styled.div`
     padding: 20px;    
     display: flex;
@@ -299,6 +335,7 @@ export const HeaderTwo = styled.h2`
 `;
 
 export const HeaderThree = styled.h3`
+    font-weight: 400;
 
     @media (max-width: 1080px) {
             
@@ -461,5 +498,71 @@ export const MapContainer = styled.div`
     @media (max-width: 480px) {
         height: 200px;
         margin: 20px 0;
+    }
+`;
+
+export const SideMenu = styled.div`
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    gap: 5px;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+
+
+    h3 {
+        width: 100%;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #d1e0e0;
+        margin-bottom: 10px; 
+    }
+
+    h3.menu-header {
+        margin-top: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 90%;
+        width: 100%;
+        padding: 3px 5px;
+        display: flex; 
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center;
+
+        span.quantity {
+            padding: 2px;
+            border-radius: 5px;
+            background: #66cc99;
+            font-size: 80%;
+        }
+
+
+        &:hover {
+            color: blue;
+        }
+
+        &.active {
+            background-color: green;
+            font-weight: 700;
+            font-size: 100%;
+            color: white;
+            padding: 5px 10px;
+        }
+    }
+
+    @media (max-width: 768px) {
+    
+    }
+
+    @media (max-width: 480px) {
+    
     }
 `;

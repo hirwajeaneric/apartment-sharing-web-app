@@ -50,7 +50,7 @@ export default function NavigationBar() {
             <NavLink to={'/contactus'}>Contact Us</NavLink>
             <NavLink to={'/post'}>Post New Property</NavLink>
             {localStorage.getItem('usrTkn') &&
-              <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}`}>My Account</NavLink>
+              <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}/overview`}>My Account</NavLink>
             }
             {!localStorage.getItem('usrTkn') && 
               <>
@@ -84,7 +84,7 @@ export default function NavigationBar() {
                 <NavLink to={'/contactus'} onClick={handleCloseNav}>Contact Us</NavLink>
                 <NavLink to={'/post'} onClick={handleCloseNav}>Post New Property</NavLink>
                 {localStorage.getItem('usrTkn') &&
-                  <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}`} onClick={handleCloseNav}>My Account</NavLink>
+                  <NavLink to={`/user/${userInfo.fullName.split(' ').join('')}/overview`} onClick={handleCloseNav}>My Account</NavLink>
                 }
                 {!localStorage.getItem('usrTkn') && 
                   <>
