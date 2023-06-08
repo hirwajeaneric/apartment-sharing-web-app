@@ -182,8 +182,9 @@ export const RightContainer = styled.div`
 export const ThreeSidedContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
+    flex-wrap: wrap;
 
     @media (max-width: 1080px) {
             
@@ -564,5 +565,54 @@ export const SideMenu = styled.div`
 
     @media (max-width: 480px) {
     
+    }
+`;
+
+export const StatsCard = styled.div`
+    background: white;
+    width: 31%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    gap: 5px;
+    align-items: center;
+
+    div {
+        with: 60%;
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        gap: 20px;
+        align-items: flex-start;
+
+        a {
+            display: flex; 
+            flex-direction: row; 
+            justify-content: flex-start; 
+            gap: 10px;
+            align-items: center;
+            text-decoration: none;
+            color: green;
+        }
+    }
+
+    p {
+        font-size: 300%;
+    }
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        
     }
 `;

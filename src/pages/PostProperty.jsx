@@ -15,6 +15,5 @@ export default function PostProperty() {
         <PostPropertyForm />
       </PageSizedContainer>
     </FullWidthContainer>
-    
   )
 }
