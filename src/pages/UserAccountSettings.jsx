@@ -21,12 +21,12 @@ export default function UserAccountSettings() {
   };
 
   const handleUserInfoChanges = (e) => {
-    
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   }
 
   const handleUpdate = e => {
     e.preventDefault();
-
+    
 
   }
 
