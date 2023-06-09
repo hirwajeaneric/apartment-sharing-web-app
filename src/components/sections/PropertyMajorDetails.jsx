@@ -1,19 +1,32 @@
-import React, { useState } from 'react'
-import { Bathroom, BathroomRounded, BathroomTwoTone, Bed, Chair, Shower, StarOutlineSharp } from '@mui/icons-material';
-import { FaRuler, FaRulerCombined, FaShower } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react'
+import { Bed, Chair, StarOutlineSharp } from '@mui/icons-material';
+import { FaRulerCombined, FaShower } from 'react-icons/fa';
 import { PropertyDetailsStyles } from '../styled-components/generalComponents';
 
-export default function PropertyMajorDetails() {
+export default function PropertyMajorDetails({descriptions}) {
     const [details, setDetails] = useState({
-        rentPrice: 213,
-        propertyType: '1 BedRoom + Living Room',
-        bedRooms: 3,
-        bathRooms: 2,
-        status: 'For Rent',
-        furnished: true, 
-        dimensions: 234, 
-        location: 'kibagabaga',
-    })
+        rentPrice: 0,
+        propertyType: '',
+        bedRooms: 0,
+        bathRooms: 0,
+        status: '',
+        furnished: false, 
+        dimensions: 0, 
+        location: '',
+    });
+
+    useEffect(() => {
+        setDetails({
+            rentPrice: descriptions.rentPrice,
+            propertyType: descriptions.propertyType,
+            bedRooms: descriptions.bedRooms,
+            bathRooms: descriptions.bathRooms,
+            status: descriptions.status,
+            furnished: descriptions.furnished, 
+            dimensions: descriptions.dimensions, 
+            location: descriptions.location,
+        })
+    },[descriptions])
 
     return (
         <PropertyDetailsStyles>

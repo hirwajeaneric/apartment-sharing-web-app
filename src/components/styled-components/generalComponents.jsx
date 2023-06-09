@@ -241,6 +241,33 @@ export const PageWithSideMenuContainer = styled.div`
     width: 100%;
     flex-wrap: wrap;
 
+    form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+
+        input {
+            100%;
+        }
+    }
+
+    div.profile-picture {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        
+        img {
+            width: 70%;
+            min-height: 200px;
+        }
+    }
+
     div.leftSide {
         width: 20%;
     }
@@ -255,6 +282,14 @@ export const PageWithSideMenuContainer = styled.div`
 
     @media (max-width: 768px) {
         gap: 20px;
+
+        form {
+            width: 100%;
+        }
+
+        div.profile-picture {
+            width: 100%;
+        }
 
         div.leftSide {
             width: 100%;

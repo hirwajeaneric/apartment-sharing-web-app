@@ -11,50 +11,50 @@ const columns = [
     hide:true
   },
   {
-    field: 'startHour',
-    headerName: 'Start hour',
-    width: 90,
+    field: 'rentPrice',
+    headerName: 'Price',
+    width: 80,
   },
   {
-    field: 'serviceDay',
-    headerName: 'Servicing Day',
+    field: 'propertyType',
+    headerName: 'Type',
     width: 130,
   },
   {
-    field: 'vehicleType',
-    headerName: 'Vehicle Type',
-    width: 140,
+    field: 'bedRooms',
+    headerName: 'Bed rooms',
+    width: 90,
   },
   {
-    field: 'vehicleModel',
-    headerName: 'Vehicle Model',
-    width: 140,
+    field: 'bathRooms',
+    headerName: 'Bath rooms',
+    width: 90,
   },
   {
-    field: 'typeOfService',
-    headerName: 'Type of Service',
-    width: 140,
-  },
-  {
-    field: 'clientConfirmation',
-    headerName: 'Client Confirmation',
-    width: 120,
+    field: 'furnished',
+    headerName: 'Furnished',
+    width: 80,
   },
   {
     field: 'status',
     headerName: 'Status',
-    width: 100,
+    width: 80,
   },
   {
-    field: 'workStatus',
-    headerName: 'Progress',
-    width: 100,
+    field: 'dimensions',
+    headerName: 'Dimensions',
+    width: 95,
+  },
+  {
+    field: 'location',
+    headerName: 'Location',
+    width: 110,
   },
   {
     field: 'actions',
     headerName: 'Actions',
     type: 'actions',
-    width: 120,
+    width: 70,
     renderCell: (params) => <TableActions params= {params} />
   },
 ]
@@ -70,19 +70,16 @@ function CustomToolbar() {
 export const TableStyles = {
   padding: '0px',
   width: '100%',
-  height: '270px',
+  height: '300px',
   background: 'white',
   marginTop: '20px' 
 }
 
 var rows = [];
 
-export default function TenantsTable({data = []}) {
-  // data.forEach(element => {
-  //   element.serviceDay = new Date(element.serviceDay).toDateString();
-  // })
+export default function OwnedPropertiesTable({data}) {
   rows = data;
-  
+
   return (
     <Box sx={TableStyles}>
       <DataGrid
