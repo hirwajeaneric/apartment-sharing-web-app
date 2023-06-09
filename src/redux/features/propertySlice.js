@@ -18,8 +18,7 @@ const initialState = {
     numberOfTenants: 0,
     listOfTenants: [],
     isLoading: false,
-    isProcessing: false,
-    signedInUser: {}
+    isProcessing: false
 }
 
 export const getProperties = createAsyncThunk(
@@ -189,8 +188,8 @@ const propertySlice = createSlice({
 });
 
 export const { 
-    generateTotal, 
     getRentedProperties,
     getLisOfTenants,
+    updateSelectedProperty
 } = propertySlice.actions;
 export default propertySlice.reducer;

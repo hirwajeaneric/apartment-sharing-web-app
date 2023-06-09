@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { Preview } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const columns = [
   {   
@@ -55,7 +55,7 @@ const columns = [
     headerName: 'Actions',
     type: 'actions',
     width: 70,
-    renderCell: (params) => <TableActions params= {params} />
+    renderCell: (params) => <TableActions parameters= {params} />
   },
 ]
 
@@ -98,14 +98,15 @@ export default function OwnedPropertiesTable({data}) {
 };
 
 // Table actions
-const TableActions = ({params}) => {
+const TableActions = ({parameters}) => {
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <Box>
       <Tooltip title='View / Edit'>
         <IconButton onClick={() => {  
-          navigate(`/admin/request/${params.row._id}`);
+          navigate(`/user/${params.fullName}/property/${parameters.row._id}`);
           }}>
           <Preview />
         </IconButton>
