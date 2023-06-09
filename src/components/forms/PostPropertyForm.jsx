@@ -5,7 +5,6 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { APIS } from '../../utils/APIS';
-import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getProperties } from '../../redux/features/propertySlice';
 
@@ -15,7 +14,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function PostPropertyForm() {
   const dispatch = useDispatch();
-  const params = useParams();
+  
   const [userData, setUserData] = useState({});
   const [pictures, setPictures] = useState([]);
   const [formData, setFormData] = useState({
@@ -112,15 +111,63 @@ export default function PostPropertyForm() {
   return (
     <TwoSidedFormContainer onSubmit={handlePostProperty} style={{ justifyContent: 'space-around', background: 'white', padding: '20px 10px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius: '5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-        <TextField id="description" style={{ width: '100%' }} size='small' label="Description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />
-        <TextField type='number' id="rentPrice" style={{ width: '100%' }} size='small' label="Rent Price" variant="outlined" name='rentPrice' value={formData.rentPrice || ''} onChange={handleChange}/>
-        <TextField id="location" style={{ width: '100%' }} size='small' label="Location" variant="outlined" name='location' value={formData.location || ''} onChange={handleChange} helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"/>
-        <TextField id="mapCoordinates" style={{ width: '100%' }} size='small' label="Map Coordinates" variant="outlined" name='mapCoordinates' value={formData.mapCoordinates || ''} onChange={handleChange} helperText="Paste or add google map coordinates of the apartment. Example: '-1.951059, 30.094097'"/>
+        <TextField 
+          id="description" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Description" 
+          multiline 
+          rows={4} 
+          variant="outlined" 
+          name='description' 
+          value={formData.description || ''} 
+          onChange={handleChange} 
+        />
+        <TextField 
+          type='number' 
+          id="rentPrice" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Rent Price" 
+          variant="outlined" 
+          name='rentPrice' 
+          value={formData.rentPrice || ''} 
+          onChange={handleChange}
+        />
+        <TextField 
+          id="location" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Location" 
+          variant="outlined" 
+          name='location' 
+          value={formData.location || ''} 
+          onChange={handleChange} 
+          helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"
+        />
+        <TextField 
+          id="mapCoordinates" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Map Coordinates" 
+          variant="outlined" 
+          name='mapCoordinates' 
+          value={formData.mapCoordinates || ''} 
+          onChange={handleChange} 
+          helperText="Paste or add google map coordinates of the apartment. Example: '-1.951059, 30.094097'"
+        />
       </LeftContainer>
       <RightContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <CustomFormControlOne style={{ width: '100%' }} size='small'>
           <InputLabel id="propertyType">Apartment Type</InputLabel>
-          <Select labelId="propertyType" id="propertyType" name='propertyType' value={formData.propertyType} onChange={handleChangePropertyType} label="Apartment Type">
+          <Select 
+            labelId="propertyType" 
+            id="propertyType" 
+            name='propertyType' 
+            value={formData.propertyType} 
+            onChange={handleChangePropertyType} 
+            label="Apartment Type"
+          >
             <MenuItem value="">
                 <em>None</em>
             </MenuItem>
@@ -131,9 +178,40 @@ export default function PostPropertyForm() {
             <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
           </Select>
         </CustomFormControlOne>
-        <TextField type='number' id="dimensions" style={{ width: '100%' }} size='small' label="Dimensions" variant="outlined" name='dimensions' value={formData.dimensions || ''} onChange={handleChange} helperText="The dimensions should be in Square Meters." />
-        <TextField type='number' id="bedRooms" style={{ width: '100%' }} size='small' label="Bed Rooms" variant="outlined" name='bedRooms' value={formData.bedRooms || ''} onChange={handleChange}/>
-        <TextField type='number' id="bathRooms" style={{ width: '100%' }} size='small' label="Bath Rooms" variant="outlined" name='bathRooms' value={formData.bathRooms || ''} onChange={handleChange}/>
+        <TextField 
+          type='number' 
+          id="dimensions" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Dimensions" 
+          variant="outlined" 
+          name='dimensions' 
+          value={formData.dimensions || ''} 
+          onChange={handleChange} 
+          helperText="The dimensions should be in Square Meters." 
+        />
+        <TextField 
+          type='number' 
+          id="bedRooms" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Bed Rooms" 
+          variant="outlined" 
+          name='bedRooms' 
+          value={formData.bedRooms || ''} 
+          onChange={handleChange}
+        />
+        <TextField 
+          type='number' 
+          id="bathRooms" 
+          style={{ width: '100%' }} 
+          size='small' 
+          label="Bath Rooms" 
+          variant="outlined" 
+          name='bathRooms' 
+          value={formData.bathRooms || ''} 
+          onChange={handleChange}
+        />
         <CustomFormControlOne style={{ width: '100%' }} size='small'>
           <InputLabel id="propertyType">Furnished</InputLabel>
             <Select labelId="furnished" id="furnished" name='furnished' value={formData.furnished} onChange={handleChangeFurnished} label="Furnished">
@@ -144,17 +222,46 @@ export default function PostPropertyForm() {
             <MenuItem value={false}>No</MenuItem>
           </Select>
         </CustomFormControlOne>
-        {/* <TextField type='file' multiple id="file" style={{ width: '100%' }} size='small' variant="outlined" onChange={handleFileInput} name='pictures' /> */}
-        <input type='file' id="file" onChange={handleFileInput} name='pictures' />
-        {/* <input type='file' id="file" onChange={handleFileInput} name='pictures' /> */}
+        <input 
+          type='file' 
+          id="file" 
+          onChange={handleFileInput} 
+          name='pictures' 
+        />
+
+        {/* COMMAND BUTTONS ************************************************************************************************ */}
         <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'space-between', alignItems:'center', width: '100%' }}>
-          {!progress.disabled && <Button type='submit' variant='contained' size='small' color='primary'>SUBMIT</Button>}
-          {progress.disabled && <Button type='submit' variant='contained' size='medium' color='primary' disabled>{progress.value}</Button>}
-          <Button type='cancel' variant='contained' color='secondary' size='small' onClick={resetFields}>CANCEL</Button>
+          {!progress.disabled && 
+            <Button 
+              type='submit' 
+              variant='contained' 
+              size='small' 
+              color='primary'>
+                SUBMIT
+            </Button>
+          }
+          {progress.disabled && 
+            <Button 
+              type='submit' 
+              variant='contained' 
+              size='medium' 
+              color='primary' 
+              disabled>
+                {progress.value}
+            </Button>
+          }
+          <Button 
+            type='cancel' 
+            variant='contained' 
+            color='secondary' 
+            size='small' 
+            onClick={resetFields}>
+              CANCEL
+          </Button>
         </div>
       </RightContainer>
 
-      {/* Response message  */}
+      {/* Response message Snackbar ****************************************************************************************  */}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>

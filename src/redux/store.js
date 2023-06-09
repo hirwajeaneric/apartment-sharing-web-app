@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import propertyReducer from './features/propertySlice';
-// import filterReducer from './features/filter/filterSlice';
-// import responseReducer from './features/response/responseSlice';
+import rentRequestReducer from './features/rentRequestsSlice';
+import responseAndProgressReducer from './features/responseAndProgressSlice';
 
 export const store = configureStore({
   reducer: {
     property: propertyReducer,
-    // filter: filterReducer,
-    // response: responseReducer,
+    rentRequest: rentRequestReducer,
+    responseAndProgress: responseAndProgressReducer,
   },
 });
