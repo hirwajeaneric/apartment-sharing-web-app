@@ -10,27 +10,18 @@ const responseAndProgressSlice = createSlice({
     name: 'responseAndProgress',
     initialState,
     reducers: {
-        updateSelectedProperty: (state, action) => {
-            state.selectedProperty = action.payload.property;
+        toggleProcessing: (state) => {
+            state.isProcessing = !state.isProcessing;
         },
-        getRentedProperties : (state, action) => {
-            const rentedProperties = [];
-            const { user, properties } = action.payload;
-            properties.forEach(property => {
-                
-            })
-
-        },
-        getLisOfTenants: (state, action) => {
-            const tenants = [];
-
+        setMessage : (state, action) => {
+            state.message = action.payload.message;
+            state.severity = action.payload.severity;
         }
     },
 });
 
 export const { 
-    getRentedProperties,
-    getLisOfTenants,
-    updateSelectedProperty
+    toggleProcessing,
+    setMessage
 } = responseAndProgressSlice.actions;
 export default responseAndProgressSlice.reducer;

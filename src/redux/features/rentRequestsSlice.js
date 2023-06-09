@@ -7,6 +7,7 @@ const initialState = {
     numberOfRentRequests: 0,
     recentRentRequests: [],
     selectedRentRequest: {},
+    myRentRequests: [],
     isLoading: false,
     isProcessing: false,
 }
@@ -16,23 +17,7 @@ export const getRentRequests = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.rentRequestApis.list);
-            thunkAPI.dispatch({ type: 'rentRequest/getTotal', payload: response.data.rentRequests.length });
-            thunkAPI.dispatch({ type: 'rentRequest/getRentedRentRequests', payload: { user: userId, rentRequests: response.data.rentRequests} });
-            return response.data.rentRequests; 
-        } catch (error) {
-            return thunkAPI.rejectWithValue('Something went wrong!');
-        }
-    }
-);
-
-export const getOwnRentRequests = createAsyncThunk(
-    'rentRequest/getOwnedRentRequests',
-    async (userId, thunkAPI) => {
-        try {
-            const response = await axios.get(APIS.rentRequestApis.findByOwnerId+userId);
-            response.data.rentRequests.forEach(element => {
-                element.id = element._id;
-            });
+            thunkAPI.dispatch({ type: 'rentRequest/getOwnRentRequests', payload: { user: userId, rentRequests: response.data.rentRequests} });
             return response.data.rentRequests; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -56,11 +41,34 @@ export const addRentRequest = createAsyncThunk(
     'rentRequest/addRentRequest',
     async ( rentRequest, thunkAPI) => {
         try {
+            thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
+            
             const response = await axios.post(APIS.rentRequestApis.add, rentRequest);
-            thunkAPI.dispatch(getRentRequests());
-            thunkAPI.dispatch({ type: 'rentRequest/generateTotal', payload: response.data.rentRequests.length });
+            
+            if (response.status === 201) {
+                thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
+                thunkAPI.dispatch({ 
+                    type: 'responseAndProgress/setMessage', 
+                    payload: { 
+                        message: response.data.message, 
+                        severity: 'success' 
+                    }
+                });
+            }
+            
+            thunkAPI.dispatch(getRentRequests(response.data.rentRequest._id));
             return response.data.rentRequest; 
         } catch (error) {
+            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+                thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
+                thunkAPI.dispatch({ 
+                    type: 'responseAndProgress/setMessage', 
+                    payload: { 
+                        message: error.response.data.msg, 
+                        severity: 'error' 
+                    }
+                });
+            }
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
@@ -88,30 +96,24 @@ const rentRequestSlice = createSlice({
         updateSelectedRentRequest: (state, action) => {
             state.selectedRentRequest = action.payload.rentRequest;
         },
+        getOwnRentRequests: (state, action) => {
+            let requests = [];
+            action.payload.rentRequests.forEach(element => {
+                if (element.requestingUserId === action.payload.user) {
+                    requests.push(element);
+                }
+            });
+            state.myRentRequests = requests;
+        }
     },
     extraReducers: {
         [getRentRequests.pending] : (state)=> {
             state.isLoading = true;
         },
         [getRentRequests.fulfilled] : (state,action) => {
-            const rentRequestsForJoin = [];
-            const rentRequestsForRent = [];
             state.isLoading = false;
             state.listOfRentRequests = action.payload;
             state.numberOfRentRequests = action.payload.length;
-
-            action.payload.forEach(rentRequest => {
-                if (rentRequest.status === 'For Join') {
-                    rentRequestsForJoin.push(rentRequest);
-                } else if (rentRequest.status === 'For Rent') {
-                    rentRequestsForRent.push(rentRequest);
-                } 
-            });
-
-            state.rentRequestsForJoin = rentRequestsForJoin;
-            state.numberOfRentRequestsForJoin = rentRequestsForJoin.length;
-            state.rentRequestsForRent = rentRequestsForRent;
-            state.numberOfRentRequestsForRent = rentRequestsForRent.length;
         },
         [getRentRequests.rejected] : (state) => {
             state.isLoading = false;
@@ -143,22 +145,12 @@ const rentRequestSlice = createSlice({
         },
         [updateRentRequest.rejected] : (state) => {
             state.isProcessing = false;
-        },
-        [getOwnRentRequests.pending] : (state)=> {
-            state.isProcessing = true;
-        },
-        [getOwnRentRequests.fulfilled] : (state,action) => {
-            state.isProcessing = false;
-            state.ownedRentRequests = action.payload;
-            state.numberOfOwnedRentRequests = action.payload.length;
-        },
-        [getOwnRentRequests.rejected] : (state) => {
-            state.isProcessing = false;
-        },
+        }
     }
 });
 
 export const { 
     updateSelectedRentRequest,
+    getOwnRentRequests
 } = rentRequestSlice.actions;
 export default rentRequestSlice.reducer;
