@@ -41,6 +41,9 @@ export const getOwnedProperties = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.propertyApis.findByOwnerId+userId);
+            response.data.properties.forEach(element => {
+                element.id = element._id;
+            });
             return response.data.properties; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
