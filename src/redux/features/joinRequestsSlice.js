@@ -4,19 +4,22 @@ import { APIS } from '../../utils/APIS';
 
 const initialState = {
     listOfProperties: [],
-    numberOfProperties: 0,
     recentProperties: [],
     selectedProperty: {},
     rentedProperties: [],
     ownedProperties: [],
-    propertiesForJoin: [],
-    propertiesForRent: [],
+    rentRequests: [],
+    joinRequests: [],
+    contracts: [],
+    tenants: [],
     numberOfRentedProperties: 0,
     numberOfOwnedProperties: 0,
-    numberOfPropertiesForJoin: 0,
-    numberOfPropertiesForRent: 0,
+    numberOfJoinRequests: 0, 
+    numberOfRentRequests: 0,
+    numberOfContracts: 0,
     numberOfTenants: 0,
-    listOfTenants: [],
+    numberOfProperties: 0,
+    numberOfPropertiesForJoin: 0,
     isLoading: false,
     isProcessing: false,
     signedInUser: {}
@@ -24,11 +27,10 @@ const initialState = {
 
 export const getProperties = createAsyncThunk(
     'property/getProperties',
-    async (userId, thunkAPI) => {
+    async (name, thunkAPI) => {
         try {
             const response = await axios.get(APIS.propertyApis.list);
             thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
-            thunkAPI.dispatch({ type: 'property/getRentedProperties', payload: { user: userId, properties: response.data.properties} });
             return response.data.properties; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -36,11 +38,38 @@ export const getProperties = createAsyncThunk(
     }
 );
 
-export const getOwnedProperties = createAsyncThunk(
-    'property/getOwnedProperties',
-    async (userId, thunkAPI) => {
+export const getContracts = createAsyncThunk(
+    'property/getProperties',
+    async (name, thunkAPI) => {
         try {
-            const response = await axios.get(APIS.propertyApis.findByOwnerId+userId);
+            const response = await axios.get(APIS.propertyApis.list);
+            thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
+            return response.data.properties; 
+        } catch (error) {
+            return thunkAPI.rejectWithValue('Something went wrong!');
+        }
+    }
+);
+
+export const getRentRequests = createAsyncThunk(
+    'property/getProperties',
+    async (name, thunkAPI) => {
+        try {
+            const response = await axios.get(APIS.propertyApis.list);
+            thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
+            return response.data.properties; 
+        } catch (error) {
+            return thunkAPI.rejectWithValue('Something went wrong!');
+        }
+    }
+);
+
+export const getJoinRequests = createAsyncThunk(
+    'property/getProperties',
+    async (name, thunkAPI) => {
+        try {
+            const response = await axios.get(APIS.propertyApis.list);
+            thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
             return response.data.properties; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -68,6 +97,7 @@ export const addProperty = createAsyncThunk(
             const response = await axios.post(APIS.propertyApis.add, property, config);
             thunkAPI.dispatch(getProperties());
             thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
+            // console.log(response.data);
             return response.data.property; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -103,16 +133,37 @@ const propertySlice = createSlice({
         updateSelectedProperty: (state, action) => {
             state.selectedProperty = action.payload.property;
         },
-        getRentedProperties : (state, action) => {
-            const rentedProperties = [];
-            const { user, properties } = action.payload;
-            properties.forEach(property => {
-                
-            })
+        addNew: {
 
         },
-        getLisOfTenants: (state, action) => {
-            const tenants = [];
+        edit: {
+            
+        },
+        trash: {
+
+        },
+        trashAll: {
+
+        },
+        generateTotal: (state, action) => {
+            state.numberOfProperties = action.payload;
+        },
+        generateNumberOfPropertiesForJoin: (state, action) => {
+
+        },
+        generateNumberOfPropertiesForRent: (state, action) => {
+
+        },
+        generateNumberOfJoinRequests: (state, action) => {
+
+        },
+        generateNumberOfRentRequests: (state, action) => {
+
+        },
+        generateNumberOfContracts: (state, action) => {
+
+        },
+        generateNumberOfTenants: (state, action) => {
 
         }
     },
@@ -121,24 +172,8 @@ const propertySlice = createSlice({
             state.isLoading = true;
         },
         [getProperties.fulfilled] : (state,action) => {
-            const propertiesForJoin = [];
-            const propertiesForRent = [];
             state.isLoading = false;
             state.listOfProperties = action.payload;
-            state.numberOfProperties = action.payload.length;
-
-            action.payload.forEach(property => {
-                if (property.status === 'For Join') {
-                    propertiesForJoin.push(property);
-                } else if (property.status === 'For Rent') {
-                    propertiesForRent.push(property);
-                } 
-            });
-
-            state.propertiesForJoin = propertiesForJoin;
-            state.numberOfPropertiesForJoin = propertiesForJoin.length;
-            state.propertiesForRent = propertiesForRent;
-            state.numberOfPropertiesForRent = propertiesForRent.length;
         },
         [getProperties.rejected] : (state) => {
             state.isLoading = false;
@@ -171,23 +206,21 @@ const propertySlice = createSlice({
         [updateProperty.rejected] : (state) => {
             state.isProcessing = false;
         },
-        [getOwnedProperties.pending] : (state)=> {
-            state.isProcessing = true;
-        },
-        [getOwnedProperties.fulfilled] : (state,action) => {
-            state.isProcessing = false;
-            state.ownedProperties = action.payload;
-            state.numberOfOwnedProperties = action.payload.length;
-        },
-        [getOwnedProperties.rejected] : (state) => {
-            state.isProcessing = false;
-        },
     }
 });
 
 export const { 
+    listAll, 
+    addNew, 
+    edit, 
+    trash, 
+    trashAll, 
     generateTotal, 
-    getRentedProperties,
-    getLisOfTenants,
+    generateNumberOfPropertiesForJoin,
+    generateNumberOfContracts,
+    generateNumberOfJoinRequests,
+    generateNumberOfRentRequests,
+    generateNumberOfTenants,
+    generateNumberOfPropertiesForRent
 } = propertySlice.actions;
 export default propertySlice.reducer;
