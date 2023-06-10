@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { FullWidthContainer, HeaderThree, PageSizedContainer, PageWithSideMenuContainer, SideMenu } from '../components/styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOwnedProperties, getProperties } from '../redux/features/propertySlice';
+import { getRentRequests } from '../redux/features/rentRequestsSlice';
 
 export default function UserAccount() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function UserAccount() {
     let userInfo = JSON.parse(localStorage.getItem('usrInfo'));
     dispatch(getProperties(userInfo.id));
     dispatch(getOwnedProperties(userInfo.id));
+    dispatch(getRentRequests(userInfo.id));
   }, [dispatch]);
 
   const {
@@ -19,6 +21,8 @@ export default function UserAccount() {
     numberOfOwnedProperties, 
     numberOfTenants, 
   } = useSelector(state => state.property);
+
+  const { numberOfRentRequests } = useSelector(state => state.rentRequest);
 
   return (
     <FullWidthContainer>
@@ -49,7 +53,7 @@ export default function UserAccount() {
                 </NavLink>
                 <NavLink to={'rent-requests'}>
                   <span>Rent Requests</span> 
-                  <span className='quantity'>10</span>
+                  <span className='quantity'>{numberOfRentRequests}</span>
                 </NavLink>
                 <NavLink to={'join-requests'}>
                   <span>Join Requests</span> 

@@ -39,24 +39,24 @@ export const getRentRequestDetails = createAsyncThunk(
 
 export const addRentRequest = createAsyncThunk(
     'rentRequest/addRentRequest',
-    async ( rentRequest, thunkAPI) => {
+    async (formData, thunkAPI) => {
         try {
             thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
             
-            const response = await axios.post(APIS.rentRequestApis.add, rentRequest);
+            const response = await axios.post(APIS.rentRequestApis.add, formData);
             
             if (response.status === 201) {
                 thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
                 thunkAPI.dispatch({ 
                     type: 'responseAndProgress/setMessage', 
                     payload: { 
-                        message: response.data.message, 
+                        message: 'Rent request sent', 
                         severity: 'success' 
                     }
                 });
             }
             
-            thunkAPI.dispatch(getRentRequests(response.data.rentRequest._id));
+            thunkAPI.dispatch(getRentRequests(response.data.rentRequest.requestingUserId));
             return response.data.rentRequest; 
         } catch (error) {
             if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -99,7 +99,7 @@ const rentRequestSlice = createSlice({
         getOwnRentRequests: (state, action) => {
             let requests = [];
             action.payload.rentRequests.forEach(element => {
-                if (element.requestingUserId === action.payload.user) {
+                if (element.propertyOwnerId === action.payload.user) {
                     requests.push(element);
                 }
             });

@@ -28,12 +28,15 @@ import Auth from './pages/authentication/Auth';
 import SearchPage from './pages/SearchPage';
 import { useDispatch } from 'react-redux';
 import { getProperties } from './redux/features/propertySlice';
+import { getRentRequests } from './redux/features/rentRequestsSlice';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('usrInfo'));
     dispatch(getProperties());
+    dispatch(getRentRequests(user.id));
   }, [dispatch]);
 
   return (
