@@ -39,8 +39,9 @@ export const getRentRequestDetails = createAsyncThunk(
 
 export const addRentRequest = createAsyncThunk(
     'rentRequest/addRentRequest',
-    async ( rentRequest, thunkAPI) => {
+    async (formData, thunkAPI) => {
         try {
+            console.log(formData);
             thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
             
             const response = await axios.post(APIS.rentRequestApis.add, rentRequest);
@@ -50,7 +51,7 @@ export const addRentRequest = createAsyncThunk(
                 thunkAPI.dispatch({ 
                     type: 'responseAndProgress/setMessage', 
                     payload: { 
-                        message: response.data.message, 
+                        message: 'Rent request sent', 
                         severity: 'success' 
                     }
                 });
