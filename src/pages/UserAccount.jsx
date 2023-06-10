@@ -11,6 +11,7 @@ export default function UserAccount() {
     let userInfo = JSON.parse(localStorage.getItem('usrInfo'));
     dispatch(getProperties(userInfo.id));
     dispatch(getOwnedProperties(userInfo.id));
+    // Add Call to updating numbers and the array of rent requests
   }, [dispatch]);
 
   const {

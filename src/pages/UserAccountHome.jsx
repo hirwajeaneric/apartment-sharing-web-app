@@ -24,14 +24,20 @@ export default function UserAccountHome() {
               <StatsCard>
                 <div>
                   <h4>Owned Properties/Apartments</h4>
-                  <Link to={'/post'}><span>Post now</span> <ArrowForward /></Link>
+                  { numberOfOwnedProperties !==0 ?
+                    <Link to={'../owned-properties'}><span>View List</span> <ArrowForward /></Link> :
+                    <Link to={'/post'}><span>Post now</span> <ArrowForward /></Link>
+                  }
                 </div>
                 <p>{numberOfOwnedProperties}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Rented Apartments</h4>
-                  <Link to={'/'}><span>View Apartments</span> <ArrowForward /></Link>
+                  { numberOfRentedProperties !== 0 ?
+                    <Link to={'rented-properties'}><span>View List</span> <ArrowForward /></Link> :
+                    <Link to={'/'}><span>View Apartments</span> <ArrowForward /></Link>
+                  }
                 </div>
                 <p>{numberOfRentedProperties}</p>
               </StatsCard>
