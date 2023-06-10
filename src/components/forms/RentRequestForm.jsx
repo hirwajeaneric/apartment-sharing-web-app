@@ -6,6 +6,7 @@ import { CustomFormControlOne } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { addRentRequest } from '../../redux/features/rentRequestsSlice';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -25,7 +26,8 @@ export default function RentRequestForm() {
     age: '',
     comment: '',
     nationalId: '',
-    passportNumber: ''
+    passportNumber: '',
+    mightNeedToShare: '',
   });
 
   const [open, setOpen] = useState(false);
@@ -67,7 +69,7 @@ export default function RentRequestForm() {
 
     formData.requestingUserId = user.id;
 
-    dispatch({ type: 'rentRequest/addRentRequest', payload: formData })
+    dispatch(addRentRequest(formData));
   }
 
   const { isProcessing, message, severity } = useSelector(state => state.responseAndProgress);
@@ -160,6 +162,24 @@ export default function RentRequestForm() {
         name='age' 
         onChange={handleFormInputs}
       />
+      <CustomFormControlOne sx={{ width: '100%' }} size='small'>
+        <InputLabel id="gender">Will you need to share the property?</InputLabel>
+        <Select 
+          labelId="mightNeedToShare" 
+          id="mightNeedToShare" 
+          name='mightNeedToShare' 
+          value={formData.mightNeedToShare || ''} 
+          onChange={handleFormInputs} 
+          label="Will you need to share the property?"
+        >
+          <MenuItem value="">
+              <em>None</em>
+          </MenuItem>
+          <MenuItem value={'Yes' || ''}>Yes</MenuItem>
+          <MenuItem value={'No' || ''}>No</MenuItem>
+          <MenuItem value={"I don't know yet" || ''}>I don't know yet</MenuItem>
+        </Select>
+      </CustomFormControlOne>
       <TextField 
         id="outlined-multiline-static" 
         style={{ width: '100%' }} 

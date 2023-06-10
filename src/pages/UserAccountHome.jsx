@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 export default function UserAccountHome() {
   const { isLoading, numberOfRentedProperties, numberOfOwnedProperties, numberOfTenants } = useSelector(state => state.property);
-
+  const { numberOfRentRequests } = useSelector(state => state.rentRequest);
   return (
     <div>
       <Helmet>
@@ -53,7 +53,7 @@ export default function UserAccountHome() {
                   <h4>Rent Requests</h4>
                   <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfRentRequests}</p>
               </StatsCard>
               <StatsCard>
                 <div>
