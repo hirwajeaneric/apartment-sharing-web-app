@@ -4,25 +4,28 @@ import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useParams } from 'react-router-dom';
 import { CustomFormControlOne } from '../styled-components/generalComponents';
 import { useDispatch } from 'react-redux';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import { getRentRequests } from '../../redux/features/rentRequestsSlice';
 import axios from 'axios';
 import { APIS } from '../../utils/APIS';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import ResponseComponent from '../sections/ResponseComponent';
 
 export default function RentRequestForm() {
+  // FORM PROCESSING AND RESPONSE PROVISION
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
+  const [open, setOpen] = useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const params =  useParams();
   const dispatch = useDispatch();
-  const [user, setUser] = useState({});
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({
-    message: '',
-    severity: ''
-  })
+
+  // OTHER STATES
+  const [user, setUser] = useState({});  
   const [formData, setFormData] = useState({
     propertyId: '',
     requestingUserId: '',
@@ -36,15 +39,6 @@ export default function RentRequestForm() {
     passportNumber: '',
     mightNeedToShare: '',
   });
-
-  const [open, setOpen] = useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
 
   const resetFields = () => {
     setFormData({
@@ -64,6 +58,8 @@ export default function RentRequestForm() {
       fullName: user.fullName,
       email: user.email,
       phone: user.phone,
+      nationalId: user.nationalId,
+      passportNumber: user.passportNumber,
       propertyId: params.id,
     })
   },[formData, user, params])
@@ -134,29 +130,6 @@ export default function RentRequestForm() {
         name='phone' 
         onChange={handleFormInputs}
       />
-      <TextField 
-        type='number' 
-        variant='outlined' 
-        style={{ width: '100%' }} 
-        label='National Id' 
-        id='nationalId' 
-        size='small' 
-        value={formData.nationalId || ''} 
-        name='nationalId' 
-        onChange={handleFormInputs} 
-        helperText="For Rwandan Citizens"
-      />
-      <TextField 
-        variant='outlined' 
-        style={{ width: '100%' }} 
-        label='Passport Number' 
-        id='passportNumber' 
-        size='small' 
-        value={formData.passportNumber || ''} 
-        name='passportNumber' 
-        onChange={handleFormInputs} 
-        helperText="For non-Rwandan Citizens (Internationals)"
-      />
       <CustomFormControlOne sx={{ width: '100%' }} size='small'>
         <InputLabel id="gender">Gender</InputLabel>
         <Select 
@@ -225,10 +198,12 @@ export default function RentRequestForm() {
           <Button type='cancel' variant='contained' color='secondary' size='small' onClick={resetFields}>CANCEL</Button>
         </div>
 
-      {/* Response message  */}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
-      </Snackbar>
+        <ResponseComponent 
+          message={responseMessage.message} 
+          severity={responseMessage.severity}
+          open={open} 
+          handleClose={handleClose} 
+        />
     </FormContainer>
   )
 }

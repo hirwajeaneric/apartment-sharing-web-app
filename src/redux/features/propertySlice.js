@@ -15,8 +15,8 @@ const initialState = {
     numberOfOwnedProperties: 0,
     numberOfPropertiesForJoin: 0,
     numberOfPropertiesForRent: 0,
-    numberOfTenants: 0,
-    listOfTenants: [],
+    // numberOfTenants: 0,
+    // listOfTenants: [],
     isLoading: false,
     isProcessing: false
 }
@@ -26,6 +26,9 @@ export const getProperties = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.propertyApis.list);
+            response.data.properties.forEach(element => {
+                element.id = element._id;
+            });
             thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
             thunkAPI.dispatch({ type: 'property/getRentedProperties', payload: { user: userId, properties: response.data.properties} });
             return response.data.properties; 
@@ -105,18 +108,6 @@ const propertySlice = createSlice({
         updateSelectedProperty: (state, action) => {
             state.selectedProperty = action.payload.property;
         },
-        getRentedProperties : (state, action) => {
-            const rentedProperties = [];
-            const { user, properties } = action.payload;
-            properties.forEach(property => {
-                
-            })
-
-        },
-        getLisOfTenants: (state, action) => {
-            const tenants = [];
-
-        }
     },
     extraReducers: {
         [getProperties.pending] : (state)=> {
@@ -188,8 +179,6 @@ const propertySlice = createSlice({
 });
 
 export const { 
-    getRentedProperties,
-    getLisOfTenants,
     updateSelectedProperty
 } = propertySlice.actions;
 export default propertySlice.reducer;

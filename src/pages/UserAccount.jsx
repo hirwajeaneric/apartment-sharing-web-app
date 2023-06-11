@@ -19,10 +19,11 @@ export default function UserAccount() {
     isLoading, 
     numberOfRentedProperties,
     numberOfOwnedProperties, 
-    numberOfTenants, 
   } = useSelector(state => state.property);
 
-  const { numberOfRentRequests } = useSelector(state => state.rentRequest);
+  const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
+  const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
+  const { numberOfContracts } = useSelector(state => state.contract);
 
   return (
     <FullWidthContainer>
@@ -46,24 +47,19 @@ export default function UserAccount() {
                   <span className='quantity'>{numberOfRentedProperties}</span>
                 </NavLink>
                 
-                <HeaderThree className='menu-header'>Tenants</HeaderThree>
-                <NavLink to={'tenants'}>
-                  <span>My Tenants</span> 
-                  <span className='quantity'>{numberOfTenants}</span>
-                </NavLink>
+                <HeaderThree className='menu-header'>Requests</HeaderThree>
                 <NavLink to={'rent-requests'}>
                   <span>Rent Requests</span> 
-                  <span className='quantity'>{numberOfRentRequests}</span>
+                  <span className='quantity'>{numberOfRentRequestsSentByMe+numberOfRentRequestsSentToMe}</span>
                 </NavLink>
                 <NavLink to={'join-requests'}>
                   <span>Join Requests</span> 
-                  <span className='quantity'>8</span>
+                  <span className='quantity'>{numberOfJoinRequestsSentByMe+numberOfJoinRequestsSentToMe}</span>
                 </NavLink>
-
                 <HeaderThree className='menu-header'>Reports</HeaderThree>
                 <NavLink to={'contracts'}>
                   <span>Contracts</span> 
-                  <span className='quantity'>1</span>
+                  <span className='quantity'>{numberOfContracts}</span>
                 </NavLink>
 
                 <HeaderThree className='menu-header'>Settings</HeaderThree>

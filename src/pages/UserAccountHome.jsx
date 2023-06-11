@@ -8,7 +8,10 @@ import { useSelector } from 'react-redux'
 
 export default function UserAccountHome() {
   const { isLoading, numberOfRentedProperties, numberOfOwnedProperties, numberOfTenants } = useSelector(state => state.property);
-  const { numberOfRentRequests } = useSelector(state => state.rentRequest);
+  const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
+  const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
+  const { numberOfContracts } = useSelector(state => state.contract);
+  
   return (
     <div>
       <Helmet>
@@ -23,7 +26,7 @@ export default function UserAccountHome() {
             <>
               <StatsCard>
                 <div>
-                  <h4>Owned Properties/Apartments</h4>
+                  <h4>Owned Properties</h4>
                   { numberOfOwnedProperties !==0 ?
                     <Link to={'../owned-properties'}><span>View List</span> <ArrowForward /></Link> :
                     <Link to={'/post'}><span>Post now</span> <ArrowForward /></Link>
@@ -50,24 +53,38 @@ export default function UserAccountHome() {
               </StatsCard>
               <StatsCard>
                 <div>
-                  <h4>Rent Requests</h4>
+                  <h4>Rent Requests Sent</h4>
                   <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
-                <p>{numberOfRentRequests}</p>
+                <p>{numberOfRentRequestsSentByMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
-                  <h4>Join Requests</h4>
+                  <h4>Rent Requests Recieved</h4>
+                  <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                </div>
+                <p>{numberOfRentRequestsSentToMe}</p>
+              </StatsCard>
+              <StatsCard>
+                <div>
+                  <h4>Join Requests Sent</h4>
                   <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfJoinRequestsSentByMe}</p>
+              </StatsCard>
+              <StatsCard>
+                <div>
+                  <h4>Join Requests Recieved</h4>
+                  <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                </div>
+                <p>{numberOfJoinRequestsSentToMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Contracts</h4>
                   <Link to={'../contracts'}><span>My Contracts</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfContracts}</p>
               </StatsCard>
             </>
           }

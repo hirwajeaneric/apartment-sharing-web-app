@@ -1,8 +1,11 @@
 import React from 'react'
 import { FullWidthContainer, HeaderOne, HeaderTwo, PageSizedContainer } from '../styled-components/generalComponents'
 import SearchForm from '../forms/SearchForm';
+import { useSelector } from 'react-redux';
 
 export default function Banner() {
+  const { isLoading, numberOfProperties, numberOfPropertiesForJoin } = useSelector(state => state.property); 
+
   return (
     <FullWidthContainer 
       style={{ 
@@ -15,7 +18,10 @@ export default function Banner() {
           <div style={{ width: '80%'}}>
             <HeaderOne style={{color: 'white' }}>Find your best stay with few searches.</HeaderOne>
             <SearchForm />
-            <HeaderTwo style={{color: 'white',}}>45 free apartments, 10 to join, 10 for sale. </HeaderTwo>
+            {isLoading ? 
+              <p style={{color: 'white',}}>Loading...</p> :
+              <HeaderTwo style={{color: 'white',}}>{numberOfProperties} free apartments and {numberOfPropertiesForJoin} to join.</HeaderTwo>
+            }
           </div>
       </PageSizedContainer>
     </FullWidthContainer>

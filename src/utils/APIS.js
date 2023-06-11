@@ -75,4 +75,4 @@ let APIS = {
     }
 }
 
-module.exports = {APIS, HOST, PORT, LINK };
+module.exports = {APIS, HOST, PORT, LINK, PROTOCOL };

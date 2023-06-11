@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { Preview } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const columns = [
   {   
@@ -11,51 +11,41 @@ const columns = [
     hide:true
   },
   {
-    field: 'startHour',
-    headerName: 'Start hour',
-    width: 90,
+    field: 'ownerName',
+    headerName: 'Owner',
+    width: 80,
   },
   {
-    field: 'serviceDay',
-    headerName: 'Servicing Day',
+    field: 'ownerSignature',
+    headerName: 'Signature of owner',
     width: 130,
   },
   {
-    field: 'vehicleType',
-    headerName: 'Vehicle Type',
-    width: 140,
-  },
-  {
-    field: 'vehicleModel',
-    headerName: 'Vehicle Model',
-    width: 140,
-  },
-  {
-    field: 'typeOfService',
-    headerName: 'Type of Service',
-    width: 140,
-  },
-  {
-    field: 'clientConfirmation',
-    headerName: 'Client Confirmation',
-    width: 120,
+    field: 'totalPayment',
+    headerName: 'Total Payment',
+    width: 90,
   },
   {
     field: 'status',
     headerName: 'Status',
-    width: 100,
+    width: 90,
   },
   {
-    field: 'workStatus',
-    headerName: 'Progress',
-    width: 100,
+    field: 'createOn',
+    headerName: 'Created On',
+    width: 80,
+  },
+  {
+    field: 'startDate',
+    headerName: 'Start Date',
+    width: 80,
   },
   {
     field: 'actions',
     headerName: 'Actions',
     type: 'actions',
-    width: 120,
-    renderCell: (params) => <TableActions params= {params} />
+    width: 70,
+    renderCell: (params) => <TableActions parameters= {params} />
   },
 ]
 
@@ -70,19 +60,16 @@ function CustomToolbar() {
 export const TableStyles = {
   padding: '0px',
   width: '100%',
-  height: '270px',
+  height: '300px',
   background: 'white',
   marginTop: '20px' 
 }
 
 var rows = [];
 
-export default function ContractsTable({data = []}) {
-  // data.forEach(element => {
-  //   element.serviceDay = new Date(element.serviceDay).toDateString();
-  // })
+export default function ContractsTable({data}) {
   rows = data;
-  
+
   return (
     <Box sx={TableStyles}>
       <DataGrid
@@ -96,19 +83,19 @@ export default function ContractsTable({data = []}) {
         components={{Toolbar: CustomToolbar}}
       />
     </Box>
-      
   );
 };
 
 // Table actions
-const TableActions = ({params}) => {
+const TableActions = ({parameters}) => {
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <Box>
       <Tooltip title='View / Edit'>
         <IconButton onClick={() => {  
-          navigate(`/admin/request/${params.row._id}`);
+          navigate(`/user/${params.fullName}/contract/${parameters.row._id}`);
           }}>
           <Preview />
         </IconButton>
