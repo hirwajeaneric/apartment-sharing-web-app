@@ -15,8 +15,8 @@ const initialState = {
     numberOfOwnedProperties: 0,
     numberOfPropertiesForJoin: 0,
     numberOfPropertiesForRent: 0,
-    numberOfTenants: 0,
-    listOfTenants: [],
+    // numberOfTenants: 0,
+    // listOfTenants: [],
     isLoading: false,
     isProcessing: false
 }
@@ -108,18 +108,6 @@ const propertySlice = createSlice({
         updateSelectedProperty: (state, action) => {
             state.selectedProperty = action.payload.property;
         },
-        getRentedProperties : (state, action) => {
-            const rentedProperties = [];
-            const { user, properties } = action.payload;
-            properties.forEach(property => {
-                
-            })
-
-        },
-        getLisOfTenants: (state, action) => {
-            const tenants = [];
-
-        }
     },
     extraReducers: {
         [getProperties.pending] : (state)=> {
@@ -191,8 +179,6 @@ const propertySlice = createSlice({
 });
 
 export const { 
-    getRentedProperties,
-    getLisOfTenants,
     updateSelectedProperty
 } = propertySlice.actions;
 export default propertySlice.reducer;

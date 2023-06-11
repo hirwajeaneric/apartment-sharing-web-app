@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { Preview } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const columns = [
   {   
@@ -11,51 +11,31 @@ const columns = [
     hide:true
   },
   {
-    field: 'startHour',
-    headerName: 'Start hour',
+    field: 'fullName',
+    headerName: 'Name',
     width: 90,
   },
   {
-    field: 'serviceDay',
-    headerName: 'Servicing Day',
+    field: 'phone',
+    headerName: 'Phone Number',
     width: 130,
   },
   {
-    field: 'vehicleType',
-    headerName: 'Vehicle Type',
+    field: 'email',
+    headerName: 'Email',
     width: 140,
   },
   {
-    field: 'vehicleModel',
-    headerName: 'Vehicle Model',
+    field: 'nationality',
+    headerName: 'Nationality',
     width: 140,
-  },
-  {
-    field: 'typeOfService',
-    headerName: 'Type of Service',
-    width: 140,
-  },
-  {
-    field: 'clientConfirmation',
-    headerName: 'Client Confirmation',
-    width: 120,
-  },
-  {
-    field: 'status',
-    headerName: 'Status',
-    width: 100,
-  },
-  {
-    field: 'workStatus',
-    headerName: 'Progress',
-    width: 100,
   },
   {
     field: 'actions',
     headerName: 'Actions',
     type: 'actions',
-    width: 120,
-    renderCell: (params) => <TableActions params= {params} />
+    width: 70,
+    renderCell: (params) => <TableActions parameters= {params} />
   },
 ]
 
@@ -70,17 +50,14 @@ function CustomToolbar() {
 export const TableStyles = {
   padding: '0px',
   width: '100%',
-  height: '270px',
+  height: '300px',
   background: 'white',
   marginTop: '20px' 
 }
 
 var rows = [];
 
-export default function TenantsTable({data = []}) {
-  // data.forEach(element => {
-  //   element.serviceDay = new Date(element.serviceDay).toDateString();
-  // })
+export default function TenantsTable({data}) {
   rows = data;
   
   return (
@@ -96,19 +73,19 @@ export default function TenantsTable({data = []}) {
         components={{Toolbar: CustomToolbar}}
       />
     </Box>
-      
   );
 };
 
 // Table actions
-const TableActions = ({params}) => {
+const TableActions = ({parameters}) => {
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <Box>
       <Tooltip title='View / Edit'>
         <IconButton onClick={() => {  
-          navigate(`/admin/request/${params.row._id}`);
+          navigate(`/user/${params.fullName}/tenant/${parameters.row._id}`);
           }}>
           <Preview />
         </IconButton>

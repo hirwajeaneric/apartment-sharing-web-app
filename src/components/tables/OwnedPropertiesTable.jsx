@@ -93,7 +93,6 @@ export default function OwnedPropertiesTable({data}) {
         components={{Toolbar: CustomToolbar}}
       />
     </Box>
-      
   );
 };
 

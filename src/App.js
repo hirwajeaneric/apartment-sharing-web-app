@@ -74,8 +74,8 @@ function App() {
               <Route path='report-preview' element={<ReportPreview />} />
               <Route path='property/:propertyId' element={<PropertyDetailsUserAccount />} />
               <Route path='contract/:contractId' element={<ContractDetails />} />
-              <Route path='rent-request/:rentRequestId/:number' element={<RentRequestDetails />} />
-              <Route path='join-request/:joinRequestId/:number' element={<JoinRequestDetails />} />
+              <Route path='rent-request/:rentRequestId' element={<RentRequestDetails />} />
+              <Route path='join-request/:joinRequestId' element={<JoinRequestDetails />} />
               <Route path='tenant/:tenantId' element={<TenantInfo />} />
             </Route>
           </Route>

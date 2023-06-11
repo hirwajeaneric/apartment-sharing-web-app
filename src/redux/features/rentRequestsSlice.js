@@ -86,9 +86,6 @@ const rentRequestSlice = createSlice({
         },
         [getRentRequests.fulfilled] : (state,action) => {
             state.isLoading = false;
-            action.payload.forEach(element => {
-                element.id = element._id;
-            })
             state.listOfRentRequests = action.payload;
         },
         [getRentRequests.rejected] : (state) => {

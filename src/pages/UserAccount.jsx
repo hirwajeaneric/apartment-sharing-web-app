@@ -19,11 +19,11 @@ export default function UserAccount() {
     isLoading, 
     numberOfRentedProperties,
     numberOfOwnedProperties, 
-    numberOfTenants, 
   } = useSelector(state => state.property);
 
   const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
   const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
+  const { numberOfContracts } = useSelector(state => state.contract);
 
   return (
     <FullWidthContainer>
@@ -47,31 +47,19 @@ export default function UserAccount() {
                   <span className='quantity'>{numberOfRentedProperties}</span>
                 </NavLink>
                 
-                <HeaderThree className='menu-header'>Tenants/Requests</HeaderThree>
-                <NavLink to={'tenants'}>
-                  <span>My Tenants</span> 
-                  <span className='quantity'>{numberOfTenants}</span>
-                </NavLink>
+                <HeaderThree className='menu-header'>Requests</HeaderThree>
                 <NavLink to={'rent-requests'}>
-                  <span>Sent Rent Requests</span> 
-                  <span className='quantity'>{numberOfRentRequestsSentByMe}</span>
-                </NavLink>
-                <NavLink to={'rent-requests'}>
-                  <span>Recieved Rent Requests</span> 
-                  <span className='quantity'>{numberOfRentRequestsSentToMe}</span>
+                  <span>Rent Requests</span> 
+                  <span className='quantity'>{numberOfRentRequestsSentByMe+numberOfRentRequestsSentToMe}</span>
                 </NavLink>
                 <NavLink to={'join-requests'}>
-                  <span>Sent Join Requests</span> 
-                  <span className='quantity'>{numberOfJoinRequestsSentByMe}</span>
-                </NavLink>
-                <NavLink to={'join-requests'}>
-                  <span>Recieved Join Requests</span> 
-                  <span className='quantity'>{numberOfJoinRequestsSentToMe}</span>
+                  <span>Join Requests</span> 
+                  <span className='quantity'>{numberOfJoinRequestsSentByMe+numberOfJoinRequestsSentToMe}</span>
                 </NavLink>
                 <HeaderThree className='menu-header'>Reports</HeaderThree>
                 <NavLink to={'contracts'}>
                   <span>Contracts</span> 
-                  <span className='quantity'>1</span>
+                  <span className='quantity'>{numberOfContracts}</span>
                 </NavLink>
 
                 <HeaderThree className='menu-header'>Settings</HeaderThree>

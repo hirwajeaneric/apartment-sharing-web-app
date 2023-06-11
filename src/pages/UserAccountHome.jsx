@@ -10,6 +10,7 @@ export default function UserAccountHome() {
   const { isLoading, numberOfRentedProperties, numberOfOwnedProperties, numberOfTenants } = useSelector(state => state.property);
   const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
   const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
+  const { numberOfContracts } = useSelector(state => state.contract);
   
   return (
     <div>
@@ -83,7 +84,7 @@ export default function UserAccountHome() {
                   <h4>Contracts</h4>
                   <Link to={'../contracts'}><span>My Contracts</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfContracts}</p>
               </StatsCard>
             </>
           }
