@@ -3,115 +3,111 @@ import axios from 'axios';
 import { APIS } from '../../utils/APIS';
 
 const initialState = {
-    listOfJoinRequestsSentToMe: [],
-    numberOfJoinRequestsSentToMe: 0,
-    listOfJoinRequestsSentByMe: [],
-    numberOfJoinRequestsSentByMe: 0,
-    selectedJoinRequest: {},
-    recentJoinRequests: [],
+    listOfContracts: [],
+    numberOfContracts: 0,
+    selectedContract: {},
     isLoading: false,
     isProcessing: false,
 }
 
-export const getJoinRequests = createAsyncThunk(
-    'joinRequest/getJoinRequests',
+export const getContracts = createAsyncThunk(
+    'contract/getContracts',
     async (userId, thunkAPI) => {
         try {
-            const response = await axios.get(APIS.joinRequestApis.list);
-            thunkAPI.dispatch({ type: 'joinRequest/getJoinRequestsStatistics', payload: { user: userId, joinRequests: response.data.joinRequests} });
-            return response.data.joinRequests; 
+            const response = await axios.get(APIS.contractApis.list);
+            thunkAPI.dispatch({ type: 'contract/getContractsStatistics', payload: { user: userId, contracts: response.data.contracts} });
+            return response.data.contracts; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-export const getJoinRequestDetails = createAsyncThunk(
-    'joinRequest/getJoinRequestDetails',
-    async (joinRequestId, thunkAPI) => {
+export const getContractDetails = createAsyncThunk(
+    'contract/getContractDetails',
+    async (contractId, thunkAPI) => {
         try {
-            const response = await axios.get(APIS.joinRequestApis.findById+joinRequestId);    
-            return response.data.joinRequest; 
+            const response = await axios.get(APIS.contractApis.findById+contractId);    
+            return response.data.contract; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-export const updateJoinRequest = createAsyncThunk(
-    'joinRequest/updateJoinRequest',
+export const updateContract = createAsyncThunk(
+    'contract/updateContract',
     async ( update, thunkAPI) => {
         try {
-            const { id, joinRequest } = update;
-            var response = await axios.put(APIS.joinRequestApis.update+id, joinRequest);
-            thunkAPI.dispatch({ type: 'joinRequest/updateSelectedJoinRequest', payload: response.data.joinRequest });
-            thunkAPI.dispatch(getJoinRequests());
-            return response.data.joinRequest; 
+            const { id, contract } = update;
+            var response = await axios.put(APIS.contractApis.update+id, contract);
+            thunkAPI.dispatch({ type: 'contract/updateSelectedContract', payload: response.data.contract });
+            thunkAPI.dispatch(getContracts());
+            return response.data.contract; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
         }
     }
 );
 
-const joinRequestSlice = createSlice({
-    name: 'joinRequest',
+const contractSlice = createSlice({
+    name: 'contract',
     initialState,
     reducers: {
-        updateSelectedJoinRequest: (state, action) => {
-            state.selectedJoinRequest = action.payload.joinRequest;
+        updateSelectedContract: (state, action) => {
+            state.selectedContract = action.payload.contract;
         },
-        getJoinRequestsStatistics: (state, action) => {
-            let requestsToMyProperties = [];
-            let requestsSentByMe = [];
-            action.payload.joinRequests.forEach(element => {
-                if (element.propertyOwnerId === action.payload.user) {
-                    requestsToMyProperties.push(element);
+        getContractsStatistics: (state, action) => {
+            let contractsForMyOwnProperties = [];
+            let contractsForPropertiesIRent = [];
+            action.payload.contracts.forEach(element => {
+                if (element.ownerId === action.payload.user) {
+                    contractsForMyOwnProperties.push(element);
                 }
-                if (element.requestingUserId === action.payload.user) {
-                    requestsSentByMe.push(element);
-                }
+                element.tenants.forEach(tenant => {
+                    if (tenant.tenantId === action.payload.user) {
+                        contractsForPropertiesIRent.push(element);
+                    }
+                })
             });
-            state.listOfJoinRequestsSentToMe = requestsToMyProperties;
-            state.numberOfJoinRequestsSentToMe = requestsToMyProperties.length;
-            state.listOfJoinRequestsSentByMe = requestsSentByMe;
-            state.numberOfJoinRequestsSentByMe = requestsSentByMe.length;
+            state.listOfContracts = contractsForMyOwnProperties.concat(contractsForPropertiesIRent);
+            state.numberOfContracts = contractsForMyOwnProperties.length + contractsForPropertiesIRent.length;
         }
     },
     extraReducers: {
-        [getJoinRequests.pending] : (state)=> {
+        [getContracts.pending] : (state)=> {
             state.isLoading = true;
         },
-        [getJoinRequests.fulfilled] : (state,action) => {
-            state.isLoading = false;
-            state.listOfJoinRequests = action.payload;
-        },
-        [getJoinRequests.rejected] : (state) => {
+        [getContracts.fulfilled] : (state,action) => {
             state.isLoading = false;
         },
-        [getJoinRequestDetails.pending] : (state)=> {
+        [getContracts.rejected] : (state) => {
+            state.isLoading = false;
+        },
+        [getContractDetails.pending] : (state)=> {
             state.isLoading = true;
         },
-        [getJoinRequestDetails.fulfilled] : (state,action) => {
+        [getContractDetails.fulfilled] : (state,action) => {
             state.isLoading = false;
-            state.selectedJoinRequest = action.payload;
+            state.selectedContract = action.payload;
         },
-        [getJoinRequestDetails.rejected] : (state) => {
+        [getContractDetails.rejected] : (state) => {
             state.isLoading = false;
         },
-        [updateJoinRequest.pending] : (state)=> {
+        [updateContract.pending] : (state)=> {
             state.isProcessing = true;
         },
-        [updateJoinRequest.fulfilled] : (state,action) => {
+        [updateContract.fulfilled] : (state,action) => {
             state.isProcessing = false;
         },
-        [updateJoinRequest.rejected] : (state) => {
+        [updateContract.rejected] : (state) => {
             state.isProcessing = false;
         }
     }
 });
 
 export const { 
-    updateSelectedJoinRequest,
-    getJoinRequestsStatistics
-} = joinRequestSlice.actions;
-export default joinRequestSlice.reducer;
+    updateSelectedContract,
+    getContractsStatistics
+} = contractSlice.actions;
+export default contractSlice.reducer;
