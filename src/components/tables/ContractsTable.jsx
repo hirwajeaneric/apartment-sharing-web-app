@@ -11,44 +11,34 @@ const columns = [
     hide:true
   },
   {
-    field: 'rentPrice',
-    headerName: 'Price',
+    field: 'ownerName',
+    headerName: 'Owner',
     width: 80,
   },
   {
-    field: 'propertyType',
-    headerName: 'Type',
+    field: 'ownerSignature',
+    headerName: 'Signature of owner',
     width: 130,
   },
   {
-    field: 'bedRooms',
-    headerName: 'Bed rooms',
+    field: 'totalPayment',
+    headerName: 'Total Payment',
     width: 90,
-  },
-  {
-    field: 'bathRooms',
-    headerName: 'Bath rooms',
-    width: 90,
-  },
-  {
-    field: 'furnished',
-    headerName: 'Furnished',
-    width: 80,
   },
   {
     field: 'status',
     headerName: 'Status',
+    width: 90,
+  },
+  {
+    field: 'createOn',
+    headerName: 'Created On',
     width: 80,
   },
   {
-    field: 'dimensions',
-    headerName: 'Dimensions',
-    width: 95,
-  },
-  {
-    field: 'location',
-    headerName: 'Location',
-    width: 110,
+    field: 'startDate',
+    headerName: 'Start Date',
+    width: 80,
   },
   {
     field: 'actions',
@@ -77,7 +67,7 @@ export const TableStyles = {
 
 var rows = [];
 
-export default function OwnedPropertiesTable({data}) {
+export default function ContractsTable({data}) {
   rows = data;
 
   return (
