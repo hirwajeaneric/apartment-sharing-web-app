@@ -23,6 +23,7 @@ export default function UserAccount() {
   } = useSelector(state => state.property);
 
   const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
+  const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
 
   return (
     <FullWidthContainer>
@@ -61,11 +62,11 @@ export default function UserAccount() {
                 </NavLink>
                 <NavLink to={'join-requests'}>
                   <span>Sent Join Requests</span> 
-                  <span className='quantity'>8</span>
+                  <span className='quantity'>{numberOfJoinRequestsSentByMe}</span>
                 </NavLink>
                 <NavLink to={'join-requests'}>
                   <span>Recieved Join Requests</span> 
-                  <span className='quantity'>8</span>
+                  <span className='quantity'>{numberOfJoinRequestsSentToMe}</span>
                 </NavLink>
                 <HeaderThree className='menu-header'>Reports</HeaderThree>
                 <NavLink to={'contracts'}>

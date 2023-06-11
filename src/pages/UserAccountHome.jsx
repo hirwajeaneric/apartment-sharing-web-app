@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 export default function UserAccountHome() {
   const { isLoading, numberOfRentedProperties, numberOfOwnedProperties, numberOfTenants } = useSelector(state => state.property);
   const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
+  const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
+  
   return (
     <div>
       <Helmet>
@@ -67,14 +69,14 @@ export default function UserAccountHome() {
                   <h4>Join Requests Sent</h4>
                   <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfJoinRequestsSentByMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Join Requests Recieved</h4>
                   <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
-                <p>0</p>
+                <p>{numberOfJoinRequestsSentToMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>

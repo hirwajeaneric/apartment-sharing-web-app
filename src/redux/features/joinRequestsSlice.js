@@ -3,11 +3,12 @@ import axios from 'axios';
 import { APIS } from '../../utils/APIS';
 
 const initialState = {
-    listOfJoinRequests: [],
-    numberOfJoinRequests: 0,
-    recentJoinRequests: [],
+    listOfJoinRequestsSentToMe: [],
+    numberOfJoinRequestsSentToMe: 0,
+    listOfJoinRequestsSentByMe: [],
+    numberOfJoinRequestsSentByMe: 0,
     selectedJoinRequest: {},
-    myJoinRequests: [],
+    recentJoinRequests: [],
     isLoading: false,
     isProcessing: false,
 }
@@ -17,7 +18,7 @@ export const getJoinRequests = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.joinRequestApis.list);
-            thunkAPI.dispatch({ type: 'joinRequest/getOwnJoinRequests', payload: { user: userId, joinRequests: response.data.joinRequests} });
+            thunkAPI.dispatch({ type: 'joinRequest/getJoinRequestsStatistics', payload: { user: userId, joinRequests: response.data.joinRequests} });
             return response.data.joinRequests; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -59,14 +60,21 @@ const joinRequestSlice = createSlice({
         updateSelectedJoinRequest: (state, action) => {
             state.selectedJoinRequest = action.payload.joinRequest;
         },
-        getOwnJoinRequests: (state, action) => {
-            let requests = [];
+        getJoinRequestsStatistics: (state, action) => {
+            let requestsToMyProperties = [];
+            let requestsSentByMe = [];
             action.payload.joinRequests.forEach(element => {
                 if (element.propertyOwnerId === action.payload.user) {
-                    requests.push(element);
+                    requestsToMyProperties.push(element);
+                }
+                if (element.requestingUserId === action.payload.user) {
+                    requestsSentByMe.push(element);
                 }
             });
-            state.myJoinRequests = requests;
+            state.listOfJoinRequestsSentToMe = requestsToMyProperties;
+            state.numberOfJoinRequestsSentToMe = requestsToMyProperties.length;
+            state.listOfJoinRequestsSentByMe = requestsSentByMe;
+            state.numberOfJoinRequestsSentByMe = requestsSentByMe.length;
         }
     },
     extraReducers: {
@@ -76,7 +84,6 @@ const joinRequestSlice = createSlice({
         [getJoinRequests.fulfilled] : (state,action) => {
             state.isLoading = false;
             state.listOfJoinRequests = action.payload;
-            state.numberOfJoinRequests = action.payload.length;
         },
         [getJoinRequests.rejected] : (state) => {
             state.isLoading = false;
@@ -105,6 +112,6 @@ const joinRequestSlice = createSlice({
 
 export const { 
     updateSelectedJoinRequest,
-    getOwnJoinRequests
+    getJoinRequestsStatistics
 } = joinRequestSlice.actions;
 export default joinRequestSlice.reducer;
