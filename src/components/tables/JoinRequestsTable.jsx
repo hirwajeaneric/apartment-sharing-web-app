@@ -11,44 +11,24 @@ const columns = [
     hide:true
   },
   {
-    field: 'rentPrice',
-    headerName: 'Price',
-    width: 80,
+    field: 'fullName',
+    headerName: 'Name',
+    width: 200,
   },
   {
-    field: 'propertyType',
-    headerName: 'Type',
-    width: 130,
+    field: 'email',
+    headerName: 'Email',
+    width: 200,
   },
   {
-    field: 'bedRooms',
-    headerName: 'Bed rooms',
-    width: 90,
+    field: 'phone',
+    headerName: 'Phone',
+    width: 150,
   },
   {
-    field: 'bathRooms',
-    headerName: 'Bath rooms',
-    width: 90,
-  },
-  {
-    field: 'furnished',
-    headerName: 'Furnished',
-    width: 80,
-  },
-  {
-    field: 'status',
-    headerName: 'Status',
-    width: 80,
-  },
-  {
-    field: 'dimensions',
-    headerName: 'Dimensions',
-    width: 95,
-  },
-  {
-    field: 'location',
-    headerName: 'Location',
-    width: 110,
+    field: 'comment',
+    headerName: 'Comment',
+    width: 200,
   },
   {
     field: 'actions',
