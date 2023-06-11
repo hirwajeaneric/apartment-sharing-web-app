@@ -23,12 +23,17 @@ const columns = [
   {
     field: 'phone',
     headerName: 'Phone',
-    width: 150,
+    width: 120,
+  },
+  {
+    field: 'status',
+    headerName: 'Status',
+    width: 80,
   },
   {
     field: 'comment',
     headerName: 'Comment',
-    width: 200,
+    width: 150,
   },
   {
     field: 'actions',
