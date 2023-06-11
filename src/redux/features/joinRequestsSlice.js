@@ -18,6 +18,9 @@ export const getJoinRequests = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.joinRequestApis.list);
+            response.data.joinRequests.forEach(element => {
+                element.id = element._id;
+            });
             thunkAPI.dispatch({ type: 'joinRequest/getJoinRequestsStatistics', payload: { user: userId, joinRequests: response.data.joinRequests} });
             return response.data.joinRequests; 
         } catch (error) {

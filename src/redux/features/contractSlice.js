@@ -15,6 +15,9 @@ export const getContracts = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.contractApis.list);
+            response.data.contracts.forEach(element => {
+                element.id = element._id;
+            });
             thunkAPI.dispatch({ type: 'contract/getContractsStatistics', payload: { user: userId, contracts: response.data.contracts} });
             return response.data.contracts; 
         } catch (error) {

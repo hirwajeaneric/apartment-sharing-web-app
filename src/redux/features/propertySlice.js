@@ -26,6 +26,9 @@ export const getProperties = createAsyncThunk(
     async (userId, thunkAPI) => {
         try {
             const response = await axios.get(APIS.propertyApis.list);
+            response.data.properties.forEach(element => {
+                element.id = element._id;
+            });
             thunkAPI.dispatch({ type: 'property/generateTotal', payload: response.data.properties.length });
             thunkAPI.dispatch({ type: 'property/getRentedProperties', payload: { user: userId, properties: response.data.properties} });
             return response.data.properties; 
