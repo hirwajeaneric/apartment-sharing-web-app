@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedContainer } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRentRequestDetails, getRentRequests } from '../../redux/features/rentRequestsSlice';
 import axios from 'axios';
-import { APIS } from '../../utils/APIS';
+import { APIS, HOST, PORT, PROTOCOL } from '../../utils/APIS';
 import ResponseComponent from '../sections/ResponseComponent';
 
 export default function RentRequestDetailsForm() {
@@ -97,6 +97,7 @@ export default function RentRequestDetailsForm() {
         <p><strong>Gender:</strong> {selectedRentRequest.gender}</p>
         <p><strong>Age:</strong> {selectedRentRequest.age}</p>
         <p style={{ marginBottom:'20px' }}><strong>Message:</strong> {selectedRentRequest.comment}</p>
+        <p><Link to={`${PROTOCOL}://localhost:5555/property/${selectedRentRequest.propertyId}`}>View House</Link></p>
       </LeftContainer>
       <RightContainer style={{ flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start' }}>
       {selectedRentRequest.requestingUserId === JSON.parse(localStorage.getItem('usrInfo')).id ?
