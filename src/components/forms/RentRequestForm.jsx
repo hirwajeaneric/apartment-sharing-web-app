@@ -3,10 +3,12 @@ import { FormContainer } from '../styled-components/formsStyledComponent'
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useParams } from 'react-router-dom';
 import { CustomFormControlOne } from '../styled-components/generalComponents';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { addRentRequest } from '../../redux/features/rentRequestsSlice';
+import { getRentRequests } from '../../redux/features/rentRequestsSlice';
+import axios from 'axios';
+import { APIS } from '../../utils/APIS';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -16,6 +18,11 @@ export default function RentRequestForm() {
   const params =  useParams();
   const dispatch = useDispatch();
   const [user, setUser] = useState({});
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    message: '',
+    severity: ''
+  })
   const [formData, setFormData] = useState({
     propertyId: '',
     requestingUserId: '',
@@ -23,7 +30,7 @@ export default function RentRequestForm() {
     email: '',
     phone: '',
     gender: '',
-    age: '',
+    age: 0,
     comment: '',
     nationalId: '',
     passportNumber: '',
@@ -42,10 +49,11 @@ export default function RentRequestForm() {
   const resetFields = () => {
     setFormData({
       gender: '',
-      age: '',
+      age: 0,
       comment: '',
       nationalId: '',
-      passportNumber: ''
+      passportNumber: '',
+      mightNeedToShare: '',
     });
   }
 
@@ -69,11 +77,27 @@ export default function RentRequestForm() {
 
     formData.requestingUserId = user.id;
 
-    dispatch(addRentRequest(formData));
+    setIsProcessing(true);
+    axios.post(APIS.rentRequestApis.add, formData)
+    .then(response => {
+      setTimeout(() => {
+        if (response.status === 201) {
+          setIsProcessing(false);
+          setResponseMessage({ message: 'Rent request sent', severity:'success'});
+          setOpen(true);
+          resetFields();
+        }
+        dispatch(getRentRequests(response.data.rentRequest.requestingUserId));
+      },3000);
+    })
+    .catch(error => {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        setIsProcessing(false);
+        setResponseMessage({ message: error.response.data.msg, severity:'error'})
+        setOpen(true);
+      }
+    })
   }
-
-  const { isProcessing, message, severity } = useSelector(state => state.responseAndProgress);
-  // const {  } = useSelector(state => state.property);
 
   return (
     <FormContainer onSubmit={submitRequest} style={{ flexDirection:'column', marginTop: '20px' }}>
@@ -148,7 +172,7 @@ export default function RentRequestForm() {
           </MenuItem>
           <MenuItem value={'male' || ''}>Male</MenuItem>
           <MenuItem value={'female' || ''}>Female</MenuItem>
-          <MenuItem value={'Prefer not to say' || ''}>Prefer not to say</MenuItem>
+          <MenuItem value={'prefer not to say' || ''}>Prefer not to say</MenuItem>
         </Select>
       </CustomFormControlOne>
       <TextField 
@@ -177,7 +201,7 @@ export default function RentRequestForm() {
           </MenuItem>
           <MenuItem value={'Yes' || ''}>Yes</MenuItem>
           <MenuItem value={'No' || ''}>No</MenuItem>
-          <MenuItem value={"I don't know yet" || ''}>I don't know yet</MenuItem>
+          <MenuItem value={"Don't know yet" || ''}>I don't know yet</MenuItem>
         </Select>
       </CustomFormControlOne>
       <TextField 
@@ -203,7 +227,7 @@ export default function RentRequestForm() {
 
       {/* Response message  */}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>{message}</Alert>
+        <Alert onClose={handleClose} severity={responseMessage.severity} sx={{ width: '100%' }}>{responseMessage.message}</Alert>
       </Snackbar>
     </FormContainer>
   )

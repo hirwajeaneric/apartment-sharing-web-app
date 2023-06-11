@@ -37,43 +37,6 @@ export const getRentRequestDetails = createAsyncThunk(
     }
 );
 
-export const addRentRequest = createAsyncThunk(
-    'rentRequest/addRentRequest',
-    async (formData, thunkAPI) => {
-        try {
-            thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
-            
-            const response = await axios.post(APIS.rentRequestApis.add, formData);
-            
-            if (response.status === 201) {
-                thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
-                thunkAPI.dispatch({ 
-                    type: 'responseAndProgress/setMessage', 
-                    payload: { 
-                        message: 'Rent request sent', 
-                        severity: 'success' 
-                    }
-                });
-            }
-            
-            thunkAPI.dispatch(getRentRequests(response.data.rentRequest.requestingUserId));
-            return response.data.rentRequest; 
-        } catch (error) {
-            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-                thunkAPI.dispatch({ type: 'responseAndProgress/toggleProcessing'});
-                thunkAPI.dispatch({ 
-                    type: 'responseAndProgress/setMessage', 
-                    payload: { 
-                        message: error.response.data.msg, 
-                        severity: 'error' 
-                    }
-                });
-            }
-            return thunkAPI.rejectWithValue('Something went wrong!');
-        }
-    }
-);
-
 export const updateRentRequest = createAsyncThunk(
     'rentRequest/updateRentRequest',
     async ( update, thunkAPI) => {
@@ -127,15 +90,6 @@ const rentRequestSlice = createSlice({
         },
         [getRentRequestDetails.rejected] : (state) => {
             state.isLoading = false;
-        },
-        [addRentRequest.pending] : (state)=> {
-            state.isProcessing = true;
-        },
-        [addRentRequest.fulfilled] : (state,action) => {
-            state.isProcessing = false;
-        },
-        [addRentRequest.rejected] : (state) => {
-            state.isProcessing = false;
         },
         [updateRentRequest.pending] : (state)=> {
             state.isProcessing = true;
