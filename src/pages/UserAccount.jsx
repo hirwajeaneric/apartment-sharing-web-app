@@ -22,7 +22,7 @@ export default function UserAccount() {
     numberOfTenants, 
   } = useSelector(state => state.property);
 
-  const { numberOfRentRequests } = useSelector(state => state.rentRequest);
+  const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
 
   return (
     <FullWidthContainer>
@@ -46,20 +46,27 @@ export default function UserAccount() {
                   <span className='quantity'>{numberOfRentedProperties}</span>
                 </NavLink>
                 
-                <HeaderThree className='menu-header'>Tenants</HeaderThree>
+                <HeaderThree className='menu-header'>Tenants/Requests</HeaderThree>
                 <NavLink to={'tenants'}>
                   <span>My Tenants</span> 
                   <span className='quantity'>{numberOfTenants}</span>
                 </NavLink>
                 <NavLink to={'rent-requests'}>
-                  <span>Rent Requests</span> 
-                  <span className='quantity'>{numberOfRentRequests}</span>
+                  <span>Sent Rent Requests</span> 
+                  <span className='quantity'>{numberOfRentRequestsSentByMe}</span>
+                </NavLink>
+                <NavLink to={'rent-requests'}>
+                  <span>Recieved Rent Requests</span> 
+                  <span className='quantity'>{numberOfRentRequestsSentToMe}</span>
                 </NavLink>
                 <NavLink to={'join-requests'}>
-                  <span>Join Requests</span> 
+                  <span>Sent Join Requests</span> 
                   <span className='quantity'>8</span>
                 </NavLink>
-
+                <NavLink to={'join-requests'}>
+                  <span>Recieved Join Requests</span> 
+                  <span className='quantity'>8</span>
+                </NavLink>
                 <HeaderThree className='menu-header'>Reports</HeaderThree>
                 <NavLink to={'contracts'}>
                   <span>Contracts</span> 
