@@ -21,7 +21,7 @@ export default function RecentlyPosted() {
       <PageSizedContainer style={{ flexDirection: 'column', margin: '80px 0'}}>
         <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px', padding:'0 20px 20px', borderBottom: '1px solid gray'}}>Recently Posted</HeaderOne>
         <TopLeftFlexAlignedContainer style={{ justifyContent: 'center' }}>
-          {listOfProperties &&
+          {(listOfProperties.length !==0 && isLoading === false) ?
             <Grid container spacing={4} sx={{ width: '100%' }}>
               {listOfProperties.map((property, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
@@ -39,7 +39,8 @@ export default function RecentlyPosted() {
                   </CustomPropertyCard>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> :
+            <p>No properties yet</p>
           }
         </TopLeftFlexAlignedContainer>
       </PageSizedContainer>
