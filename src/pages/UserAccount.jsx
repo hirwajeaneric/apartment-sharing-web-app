@@ -4,6 +4,7 @@ import { FullWidthContainer, HeaderThree, PageSizedContainer, PageWithSideMenuCo
 import { useDispatch, useSelector } from 'react-redux';
 import { getOwnedProperties, getProperties } from '../redux/features/propertySlice';
 import { getRentRequests } from '../redux/features/rentRequestsSlice';
+import { getContracts } from '../redux/features/contractSlice';
 
 export default function UserAccount() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export default function UserAccount() {
     dispatch(getProperties(userInfo.id));
     dispatch(getOwnedProperties(userInfo.id));
     dispatch(getRentRequests(userInfo.id));
+    dispatch(getContracts(userInfo.id));
   }, [dispatch]);
 
   const {
