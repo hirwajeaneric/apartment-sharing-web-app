@@ -5,7 +5,7 @@ import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedContainer 
 import { useDispatch, useSelector } from 'react-redux';
 import { getRentRequestDetails, getRentRequests } from '../../redux/features/rentRequestsSlice';
 import axios from 'axios';
-import { APIS, HOST, PORT, PROTOCOL } from '../../utils/APIS';
+import { APIS, PROTOCOL } from '../../utils/APIS';
 import ResponseComponent from '../sections/ResponseComponent';
 
 export default function RentRequestDetailsForm() {

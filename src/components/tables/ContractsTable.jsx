@@ -13,17 +13,17 @@ const columns = [
   {
     field: 'ownerName',
     headerName: 'Owner',
-    width: 80,
+    width: 150,
   },
   {
     field: 'ownerSignature',
     headerName: 'Signature of owner',
-    width: 130,
+    width: 140,
   },
   {
     field: 'totalPayment',
     headerName: 'Total Payment',
-    width: 90,
+    width: 120,
   },
   {
     field: 'status',
@@ -31,14 +31,14 @@ const columns = [
     width: 90,
   },
   {
-    field: 'createOn',
+    field: 'createdOn',
     headerName: 'Created On',
-    width: 80,
+    width: 120,
   },
   {
     field: 'startDate',
     headerName: 'Start Date',
-    width: 80,
+    width: 120,
   },
   {
     field: 'actions',
