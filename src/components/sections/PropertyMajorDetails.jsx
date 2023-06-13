@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Bed, Chair, StarOutlineSharp } from '@mui/icons-material';
+import { Bed, Chair, LocationCity, StarOutlineSharp } from '@mui/icons-material';
 import { FaRulerCombined, FaShower } from 'react-icons/fa';
 import { PropertyDetailsStyles } from '../styled-components/generalComponents';
 
@@ -29,7 +29,7 @@ export default function PropertyMajorDetails({descriptions}) {
     },[descriptions])
 
     return (
-        <PropertyDetailsStyles>
+        <PropertyDetailsStyles style={{ fontSize: '90%' }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Bed style={{ color: '#1f3d7a' }}/>
                 <p style={{ fontSize: '110%', margin: '10px 0', color: '#0a1429' }}>{details.bedRooms}</p>
@@ -54,6 +54,11 @@ export default function PropertyMajorDetails({descriptions}) {
                 <StarOutlineSharp style={{ color: '#1f3d7a' }}/>
                 <p style={{ fontSize: '110%', margin: '10px 0', color: '#0a1429' }}>{details.status}</p>
                 <p style={{ color: '#1f3d7a' }}>Status</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <LocationCity style={{ color: '#1f3d7a' }}/>
+                <p style={{ fontSize: '110%', margin: '10px 0', color: '#0a1429' }}>{details.location}</p>
+                <p style={{ color: '#1f3d7a' }}>Location</p>
             </div>
         </PropertyDetailsStyles>
     )

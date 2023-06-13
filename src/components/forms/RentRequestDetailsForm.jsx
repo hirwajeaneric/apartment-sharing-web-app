@@ -89,15 +89,15 @@ export default function RentRequestDetailsForm() {
   }
 
   return (
-    <TwoSidedContainer style={{ flexDirection:'row', marginTop: '20px', width: '100%' }}>
+    <TwoSidedContainer style={{ flexDirection:'row', marginTop: '20px', width: '100%', background: 'white', padding: '20px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start' }}>
         <p><strong>Name:</strong> {selectedRentRequest.fullName}</p> 
         <p><strong>Email address:</strong> {selectedRentRequest.email}</p>
         <p><strong>Phone number:</strong> {selectedRentRequest.phone}</p> 
         <p><strong>Gender:</strong> {selectedRentRequest.gender}</p>
         <p><strong>Age:</strong> {selectedRentRequest.age}</p>
-        <p style={{ marginBottom:'20px' }}><strong>Message:</strong> {selectedRentRequest.comment}</p>
-        <p><Link to={`${PROTOCOL}://localhost:5555/property/${selectedRentRequest.propertyId}`}>View House</Link></p>
+        <p><strong>Message:</strong> {selectedRentRequest.comment}</p>
+        <p><Link to={`${PROTOCOL}://localhost:5555/property/${selectedRentRequest.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View House</Link></p>
       </LeftContainer>
       <RightContainer style={{ flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start' }}>
       {selectedRentRequest.requestingUserId === JSON.parse(localStorage.getItem('usrInfo')).id ?

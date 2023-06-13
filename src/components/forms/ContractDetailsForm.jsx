@@ -97,7 +97,7 @@ export default function ContractDetailsForm() {
   }
 
   return (
-    <TwoSidedContainer style={{ flexDirection:'column', marginTop: '20px', gap:'20px', width: '100%', background: 'white', padding: '30px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)' }}>
+    <TwoSidedContainer style={{ flexDirection:'column', marginTop: '20px', gap:'20px', width: '100%', background: 'white', padding: '30px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
       {/* GENERAL DETAILS  */}
       <div style={{ display: 'flex', flexDirection:'column', gap: '20px', alignItems:'flex-start', width:'100%'}}>
         <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>General Details</HeaderThree>
@@ -111,7 +111,7 @@ export default function ContractDetailsForm() {
           <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Start date:</strong> {contractDetails.startDate}</p>
             <p><strong>Stop date:</strong> {contractDetails.stopDate}</p>
-            <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`}>View Apartment</Link></p>
+            <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View Apartment</Link></p>
           </RightContainer>
         </TwoSidedContainer>
       </div>
@@ -127,7 +127,7 @@ export default function ContractDetailsForm() {
           </LeftContainer>
           <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn}</p>
-            <p><strong>Comment:</strong> {contractDetails.comment}</p>
+            <Button size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}>Sign</Button>
           </RightContainer>
         </TwoSidedContainer>
       </div>
@@ -150,7 +150,7 @@ export default function ContractDetailsForm() {
                 <p><strong>Reason for withdrawal:</strong> {tenant.withDrawalReason}</p>
               </div>
             }
-            <Button >Sign</Button>
+            <Button size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}>Sign</Button>
           </TenantCard>
         ))}
       </TwoSidedContainer>
