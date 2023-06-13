@@ -46,13 +46,6 @@ export default function UserAccountHome() {
               </StatsCard>
               <StatsCard>
                 <div>
-                  <h4>Tenants</h4>
-                  <Link to={'/tenants'}><span>View List</span> <ArrowForward /></Link>
-                </div>
-                <p>{numberOfTenants}</p>
-              </StatsCard>
-              <StatsCard>
-                <div>
                   <h4>Rent Requests Sent</h4>
                   <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>

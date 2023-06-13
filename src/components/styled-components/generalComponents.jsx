@@ -461,8 +461,12 @@ export const PropertyDetailsStyles = styled.div`
     flex-wrap: wrap; 
     justify-content: space-between; 
     gap: 20px;
-    align-items: flex-start;
+    align-items: center;
     box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+
+    div {
+        align-items: center; 
+    }
 
     @media (max-width: 1080px) {
             
