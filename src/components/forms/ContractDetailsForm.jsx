@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import { Link, useParams } from 'react-router-dom';
-import { CustomFormControlOne, HeaderThree, LeftContainer, RightContainer, TenantCard, TwoSidedContainer } from '../styled-components/generalComponents';
+import { HeaderThree, LeftContainer, RightContainer, TenantCard, TwoSidedContainer } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { APIS, PROTOCOL } from '../../utils/APIS';
 import ResponseComponent from '../sections/ResponseComponent';
-import { getContractDetails } from '../../redux/features/contractSlice';
 
 export default function ContractDetailsForm() {
   // FORM PROCESSING AND RESPONSE PROVISION
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isProcessing2, setIsProcessing2] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
   const [contractDetails, setContractDetails] = useState({})
   const [tenants, setTenants] = useState([])
@@ -26,17 +24,7 @@ export default function ContractDetailsForm() {
   const params =  useParams();
   const dispatch = useDispatch();
 
-  // OTHER STATES
-  const [formData, setFormData] = useState({
-    allowedToShare: '',
-    response:'',
-    status: '',
-  });
-
-  useEffect(()=> {
-    
-  },[]);
-
+  // FETCHING CONTRACT INFORMATION.
   useEffect(() => {
     axios.get(APIS.contractApis.findById+params.contractId)
     .then(response => {
@@ -47,28 +35,26 @@ export default function ContractDetailsForm() {
     .catch(error => console.log(error));
   },[params])
 
-  const handleFormInputs = event => {
-    setFormData({ ...formData, [event.target.name] : event.target.value });
-  }
+  // SIGNING A CONTRACT
+  const sign = ({signator, signature}) => {
+    const formData = new FormData();
 
-  const submitRequest = (status) => {
-    formData.status = status;
+    if (signator === 'owner') {
+      formData.append({ownerSignature : signature, ownerSignedOn: new Date()});
+    } else if (signator === 'tenant1') {
 
-    if (status === 'Accepted') {
-      setIsProcessing(true);
-    } else if (status === 'Rejected') {
-      setIsProcessing2(true);
+    } else if (signator === 'tenant2') {
+      
+    } else if (signator === 'tenant2') {
+      
     }
-
-    console.log(formData);
-    console.log(APIS.rentRequestApis.update+params.rentRequestId);
-
+    
+    setIsProcessing(true);
     axios.put(APIS.rentRequestApis.update+params.rentRequestId, formData)
     .then(response => {
       setTimeout(() => {
         if (response.status === 200) {
           setIsProcessing(false);
-          setIsProcessing2(false);
 
           // dispatch(getRentRequests(JSON.parse(localStorage.getItem('usrInfo')).id));
 
@@ -81,7 +67,6 @@ export default function ContractDetailsForm() {
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setIsProcessing(false);
-        setIsProcessing2(false);
         setResponseMessage({ message: error.response.data.msg, severity:'error'})
         setOpen(true);
       }
@@ -127,7 +112,55 @@ export default function ContractDetailsForm() {
           </LeftContainer>
           <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn}</p>
-            <Button size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}>Sign</Button>
+            {contractDetails.ownerSignature === 'Pending' ? 
+              <>
+                {isProcessing ? 
+                  <Button 
+                    disabled
+                    size='small' 
+                    variant='contained' 
+                    color='primary' 
+                    style={{ marginBottom:'30px' }}
+                    >Processing...
+                  </Button>
+                :
+                  <Button 
+                    size='small' 
+                    variant='contained' 
+                    color='primary' 
+                    style={{ marginBottom:'30px' }}
+                    onClick={() => {
+                      sign({signator: 'owner', signature : 'Signed'})
+                    }}
+                    >Sign
+                  </Button>
+                }
+              </> 
+              :
+              <> 
+                {isProcessing ?
+                  <Button 
+                    disabled
+                    size='small' 
+                    variant='contained' 
+                    color='primary' 
+                    style={{ marginBottom:'30px' }}
+                    >Processing...
+                  </Button> 
+                  :
+                  <Button 
+                    size='small' 
+                    variant='contained' 
+                    color='primary' 
+                    style={{ marginBottom:'30px' }}
+                    onClick={() => {
+                      sign({signator: 'owner', signature : 'Withdrew'})
+                    }}
+                    >Withdraw
+                  </Button>
+                }
+              </>
+            }
           </RightContainer>
         </TwoSidedContainer>
       </div>
