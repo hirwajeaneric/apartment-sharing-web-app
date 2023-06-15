@@ -22,7 +22,7 @@ export default function ContractDetailsForm() {
   };
 
   const params =  useParams();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // FETCHING CONTRACT INFORMATION.
   useEffect(() => {
@@ -112,22 +112,15 @@ export default function ContractDetailsForm() {
           </LeftContainer>
           <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn}</p>
-            {contractDetails.ownerSignature === 'Pending' ? 
+            {contractDetails.ownerSignature !== 'Signed' ? 
               <>
                 {isProcessing ? 
-                  <Button 
-                    disabled
-                    size='small' 
-                    variant='contained' 
-                    color='primary' 
+                  <Button disabled size='small' variant='contained' color='primary' 
                     style={{ marginBottom:'30px' }}
                     >Processing...
                   </Button>
                 :
-                  <Button 
-                    size='small' 
-                    variant='contained' 
-                    color='primary' 
+                  <Button size='small' variant='contained' color='primary' 
                     style={{ marginBottom:'30px' }}
                     onClick={() => {
                       sign({signator: 'owner', signature : 'Signed'})
@@ -139,19 +132,11 @@ export default function ContractDetailsForm() {
               :
               <> 
                 {isProcessing ?
-                  <Button 
-                    disabled
-                    size='small' 
-                    variant='contained' 
-                    color='primary' 
-                    style={{ marginBottom:'30px' }}
+                  <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
                     >Processing...
                   </Button> 
                   :
-                  <Button 
-                    size='small' 
-                    variant='contained' 
-                    color='primary' 
+                  <Button size='small' variant='contained' color='primary' 
                     style={{ marginBottom:'30px' }}
                     onClick={() => {
                       sign({signator: 'owner', signature : 'Withdrew'})
@@ -177,13 +162,48 @@ export default function ContractDetailsForm() {
             <p><strong>Allowed To Share:</strong> {tenant.allowedToRepost}</p>
             <p><strong>Signature:</strong> {tenant.signature}</p> 
             <p><strong>Sign date:</strong> {tenant.SignedOn}</p>
-            {tenant.withDrewOn && 
-              <div>
-                <p><strong>Withdrew On :</strong> {tenant.WithDrewOn}</p>
-                <p><strong>Reason for withdrawal:</strong> {tenant.withDrawalReason}</p>
-              </div>
+            {
+              tenant.withDrewOn && 
+                <div>
+                  <p><strong>Withdrew On :</strong> {tenant.WithDrewOn}</p>
+                  <p><strong>Reason for withdrawal:</strong> {tenant.withDrawalReason}</p>
+                </div>
             }
-            <Button size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}>Sign</Button>
+            
+            {
+              tenant.signature !== 'Signed' ? 
+                <>
+                  {isProcessing ?
+                    <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
+                      >Processing...
+                    </Button> 
+                  :
+                    <Button size='small' variant='contained' color='primary' 
+                      style={{ marginBottom:'30px' }}
+                      onClick={() => {
+                        sign({signator: `tenant ${index}`, signature : 'Signed'})
+                      }}
+                    >Sign
+                    </Button>
+                  }
+                </> 
+                : 
+                <>
+                  {isProcessing ?
+                    <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
+                      >Processing...
+                    </Button> 
+                  :
+                    <Button size='small' variant='contained' color='primary' 
+                      style={{ marginBottom:'30px' }}
+                      onClick={() => {
+                        sign({signator: `tenant ${index}`, signature : 'Withdrew'})
+                      }}
+                    >Withdraw
+                    </Button>
+                  }
+                </> 
+            }
           </TenantCard>
         ))}
       </TwoSidedContainer>
