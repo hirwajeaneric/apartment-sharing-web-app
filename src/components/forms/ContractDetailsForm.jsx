@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { APIS, PROTOCOL } from '../../utils/APIS';
 import ResponseComponent from '../sections/ResponseComponent';
+import { getContracts } from '../../redux/features/contractSlice';
 
 export default function ContractDetailsForm() {
   // FORM PROCESSING AND RESPONSE PROVISION
@@ -22,7 +23,7 @@ export default function ContractDetailsForm() {
   };
 
   const params =  useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // FETCHING CONTRACT INFORMATION.
   useEffect(() => {
@@ -60,18 +61,19 @@ export default function ContractDetailsForm() {
     }
     
     setIsProcessing(true);
-    axios.put(APIS.rentRequestApis.update+params.rentRequestId, formData)
+    axios.put(APIS.contractApis.update+params.contractId, formData)
     .then(response => {
       setTimeout(() => {
         if (response.status === 200) {
           setIsProcessing(false);
 
-          // dispatch(getRentRequests(JSON.parse(localStorage.getItem('usrInfo')).id));
+          dispatch(getContracts(JSON.parse(localStorage.getItem('usrInfo')).id));
 
-          setResponseMessage({ message: 'Rent Request Updated', severity:'success'});
+          setResponseMessage({ message: 'Contract Signed', severity:'success'});
           setOpen(true);
+
+          window.location.reload();
         }
-        // dispatch(getRentRequests(response.data.rentRequest.requestingUserId));
       },3000);
     })
     .catch(error => {
@@ -93,7 +95,10 @@ export default function ContractDetailsForm() {
 
   return (
     <TwoSidedContainer style={{ flexDirection:'column', marginTop: '20px', gap:'20px', width: '100%', background: 'white', padding: '30px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
-      {/* GENERAL DETAILS  */}
+      
+
+      {/* GENERAL DETAILS ****************************************************************************************************************************** */}
+
       <div style={{ display: 'flex', flexDirection:'column', gap: '20px', alignItems:'flex-start', width:'100%'}}>
         <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>General Details</HeaderThree>
         <p style={{ lineHeight: '25px' }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto animi eligendi reprehenderit numquam ad quibusdam repellendus minima nostrum? Amet doloremque, sit praesentium officia aut nulla saepe nesciunt minus corporis adipisci.</p>
@@ -111,7 +116,9 @@ export default function ContractDetailsForm() {
         </TwoSidedContainer>
       </div>
 
-      {/* OWNER  */}
+
+      {/* OWNER ****************************************************************************************************************************** */}
+      
       <div style={{ display: 'flex', flexDirection:'column', marginTop:'20px', gap: '20px', alignItems:'flex-start', width:'100%'}}>
         <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>Owner</HeaderThree>
         <TwoSidedContainer style={{ flexDirection:'row', width: '100%' }}>
@@ -168,7 +175,9 @@ export default function ContractDetailsForm() {
         </TwoSidedContainer>
       </div>
 
-      {/* TENANTS  */}
+
+      {/* TENANTS ****************************************************************************************************************************** */}
+
       <HeaderThree style={{ margin: '0', fontWeight: '600', marginTop:'20px', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>Tenants</HeaderThree>
       <TwoSidedContainer style={{ flexDirection:'row', width: '100%' }}>
         {tenants.length !== 0 && tenants.map((tenant, index) => (
@@ -233,7 +242,8 @@ export default function ContractDetailsForm() {
           </TenantCard>
         ))}
       </TwoSidedContainer>
-     
+      
+      {/* RESPONSE MESSAGE DISPLAYER ****************************************************************************************************************************** */}
       <ResponseComponent 
         message={responseMessage.message} 
         severity={responseMessage.severity}
