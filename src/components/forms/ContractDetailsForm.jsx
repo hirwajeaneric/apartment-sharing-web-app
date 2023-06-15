@@ -13,7 +13,8 @@ export default function ContractDetailsForm() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
   const [contractDetails, setContractDetails] = useState({})
-  const [tenants, setTenants] = useState([])
+  const [tenants, setTenants] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState({});
   const [open, setOpen] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -25,28 +26,33 @@ export default function ContractDetailsForm() {
   const params =  useParams();
   const dispatch = useDispatch();
 
+  // SETTING LOGGED IN USER INFORMATION
+  useEffect(() => {
+    setLoggedInUser(JSON.parse(localStorage.getItem("usrInfo")));
+  }, [])
+  
+
   // FETCHING CONTRACT INFORMATION.
   useEffect(() => {
     axios.get(APIS.contractApis.findById+params.contractId)
     .then(response => {
       setContractDetails(response.data.contract);
       setTenants(response.data.contract.tenants)
-      console.log(response.data.contract.tenants);
     })
     .catch(error => console.log(error));
   },[params])
 
   // SIGNING A CONTRACT
   const sign = ({signator, userInfo, signature}) => {
-    const formData = new FormData();
+    var formData = {};
 
     if (signator === 'owner') {
-      formData.append({
+      formData = {
         ownerSignature : signature, 
         ownerSignedOn: new Date()
-      });
+      };
     } else if (signator === 'tenant 1' || signator === 'tenant 2' || signator === 'tenant 3') {
-      formData.append({
+      formData = {
         tenants : [
           {
             tenantId : userInfo.tenantId,
@@ -57,8 +63,10 @@ export default function ContractDetailsForm() {
             signedOn: new Date(),
           }
         ]
-      })
+      }
     }
+
+    console.log(formData);
     
     setIsProcessing(true);
     axios.put(APIS.contractApis.update+params.contractId, formData)
@@ -129,48 +137,53 @@ export default function ContractDetailsForm() {
           </LeftContainer>
           <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn}</p>
-            {contractDetails.ownerSignature !== 'Signed' ? 
+            {contractDetails.ownerId === loggedInUser.id && 
               <>
-                {isProcessing ? 
-                  <Button disabled size='small' variant='contained' color='primary' 
-                    style={{ marginBottom:'30px' }}
-                    >Processing...
-                  </Button>
-                :
-                  <Button size='small' variant='contained' color='primary' 
-                    style={{ marginBottom:'30px' }}
-                    onClick={() => {
-                      sign({
-                        signator: 'owner', 
-                        userInfo: {}, 
-                        signature : 'Signed'
-                      });
-                    }}
-                    >Sign
-                  </Button>
-                }
-              </> 
-              :
-              <> 
-                {isProcessing ?
-                  <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
-                    >Processing...
-                  </Button> 
+                {
+                  contractDetails.ownerSignature !== 'Signed' ? 
+                  <>
+                    {isProcessing ? 
+                      <Button disabled size='small' variant='contained' color='primary' 
+                        style={{ marginBottom:'30px' }}
+                        >Processing...
+                      </Button>
+                    :
+                      <Button size='small' variant='contained' color='primary' 
+                        style={{ marginBottom:'30px' }}
+                        onClick={() => {
+                          sign({
+                            signator: 'owner', 
+                            userInfo: {}, 
+                            signature : 'Signed'
+                          });
+                        }}
+                        >Sign
+                      </Button>
+                    }
+                  </> 
                   :
-                  <Button size='small' variant='contained' color='primary' 
-                    style={{ marginBottom:'30px' }}
-                    onClick={() => {
-                      sign({
-                        signator: 'owner', 
-                        userInfo: {},
-                        signature : 'Withdrew'
-                      });
-                    }}
-                    >Withdraw
-                  </Button>
+                  <> 
+                    {isProcessing ?
+                      <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
+                        >Processing...
+                      </Button> 
+                      :
+                      <Button size='small' variant='contained' color='primary' 
+                        style={{ marginBottom:'30px' }}
+                        onClick={() => {
+                          sign({
+                            signator: 'owner', 
+                            userInfo: {},
+                            signature : 'Withdrew'
+                          });
+                        }}
+                        >Withdraw
+                      </Button>
+                    }
+                  </>
                 }
               </>
-            }
+            } 
           </RightContainer>
         </TwoSidedContainer>
       </div>
@@ -198,7 +211,9 @@ export default function ContractDetailsForm() {
             }
             
             {
-              tenant.signature !== 'Signed' ? 
+              tenant.tenantId === loggedInUser.id &&
+              <>
+              {tenant.signature !== 'Signed' ? 
                 <>
                   {isProcessing ?
                     <Button disabled size='small' variant='contained' color='primary' style={{ marginBottom:'30px' }}
@@ -238,6 +253,8 @@ export default function ContractDetailsForm() {
                     </Button>
                   }
                 </> 
+              }
+              </>
             }
           </TenantCard>
         ))}
