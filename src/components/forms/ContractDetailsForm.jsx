@@ -36,17 +36,27 @@ export default function ContractDetailsForm() {
   },[params])
 
   // SIGNING A CONTRACT
-  const sign = ({signator, signature}) => {
+  const sign = ({signator, userInfo, signature}) => {
     const formData = new FormData();
 
     if (signator === 'owner') {
-      formData.append({ownerSignature : signature, ownerSignedOn: new Date()});
-    } else if (signator === 'tenant1') {
-
-    } else if (signator === 'tenant2') {
-      
-    } else if (signator === 'tenant2') {
-      
+      formData.append({
+        ownerSignature : signature, 
+        ownerSignedOn: new Date()
+      });
+    } else if (signator === 'tenant 1' || signator === 'tenant 2' || signator === 'tenant 3') {
+      formData.append({
+        tenants : [
+          {
+            tenantId : userInfo.tenantId,
+            tenantName: userInfo.tenantName,
+            tenantEmail: userInfo.tenantEmail,
+            allowedToRepost: userInfo.allowedToRepost,
+            signature: signature,
+            signedOn: new Date(),
+          }
+        ]
+      })
     }
     
     setIsProcessing(true);
@@ -123,7 +133,11 @@ export default function ContractDetailsForm() {
                   <Button size='small' variant='contained' color='primary' 
                     style={{ marginBottom:'30px' }}
                     onClick={() => {
-                      sign({signator: 'owner', signature : 'Signed'})
+                      sign({
+                        signator: 'owner', 
+                        userInfo: {}, 
+                        signature : 'Signed'
+                      });
                     }}
                     >Sign
                   </Button>
@@ -139,7 +153,11 @@ export default function ContractDetailsForm() {
                   <Button size='small' variant='contained' color='primary' 
                     style={{ marginBottom:'30px' }}
                     onClick={() => {
-                      sign({signator: 'owner', signature : 'Withdrew'})
+                      sign({
+                        signator: 'owner', 
+                        userInfo: {},
+                        signature : 'Withdrew'
+                      });
                     }}
                     >Withdraw
                   </Button>
@@ -181,7 +199,11 @@ export default function ContractDetailsForm() {
                     <Button size='small' variant='contained' color='primary' 
                       style={{ marginBottom:'30px' }}
                       onClick={() => {
-                        sign({signator: `tenant ${index}`, signature : 'Signed'})
+                        sign({
+                          signator: `tenant ${index}`, 
+                          userInfo: tenant,
+                          signature : 'Signed'
+                        });
                       }}
                     >Sign
                     </Button>
@@ -197,7 +219,11 @@ export default function ContractDetailsForm() {
                     <Button size='small' variant='contained' color='primary' 
                       style={{ marginBottom:'30px' }}
                       onClick={() => {
-                        sign({signator: `tenant ${index}`, signature : 'Withdrew'})
+                        sign({
+                          signator: `tenant ${index}`, 
+                          userInfo: tenant, 
+                          signature : 'Withdrew'
+                        });
                       }}
                     >Withdraw
                     </Button>
