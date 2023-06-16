@@ -38,7 +38,7 @@ export default function UserAccountHome() {
                 <div>
                   <h4>Rented Apartments</h4>
                   { numberOfRentedProperties !== 0 ?
-                    <Link to={'rented-properties'}><span>View List</span> <ArrowForward /></Link> :
+                    <Link to={'../rented-properties'}><span>View List</span> <ArrowForward /></Link> :
                     <Link to={'/'}><span>View Apartments</span> <ArrowForward /></Link>
                   }
                 </div>

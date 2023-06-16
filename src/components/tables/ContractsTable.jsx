@@ -13,32 +13,22 @@ const columns = [
   {
     field: 'ownerName',
     headerName: 'Owner',
-    width: 150,
+    width: 180,
   },
   {
     field: 'ownerSignature',
     headerName: 'Signature of owner',
-    width: 140,
+    width: 200,
   },
   {
     field: 'totalPayment',
     headerName: 'Total Payment',
-    width: 120,
-  },
-  {
-    field: 'status',
-    headerName: 'Status',
-    width: 90,
+    width: 170,
   },
   {
     field: 'createdOn',
     headerName: 'Created On',
-    width: 120,
-  },
-  {
-    field: 'startDate',
-    headerName: 'Start Date',
-    width: 120,
+    width: 200,
   },
   {
     field: 'actions',
