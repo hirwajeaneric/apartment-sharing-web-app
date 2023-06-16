@@ -663,6 +663,7 @@ export const TenantCard = styled.div`
     justify-content: flex-start; 
     gap: 20px;
     align-items: flex-start;
+    margin-bottom: 40px;
     
     h4 {
         color: gray;

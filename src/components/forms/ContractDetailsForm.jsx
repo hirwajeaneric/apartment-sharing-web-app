@@ -43,15 +43,18 @@ export default function ContractDetailsForm() {
   },[params])
 
   // SIGNING A CONTRACT
-  const sign = ({signator, userInfo, signature}) => {
+  const sign = (props) => {
+    const {signator, userInfo, signature} = props;
     var formData = {};
+
+    console.log(props);
 
     if (signator === 'owner') {
       formData = {
         ownerSignature : signature, 
         ownerSignedOn: new Date()
       };
-    } else if (signator === 'tenant 1' || signator === 'tenant 2' || signator === 'tenant 3') {
+    } else if (signator === 'tenant 0' || signator === 'tenant 1' || signator === 'tenant 2' || signator === 'tenant 3') {
       formData = {
         tenants : [
           {
@@ -109,14 +112,16 @@ export default function ContractDetailsForm() {
 
       <div style={{ display: 'flex', flexDirection:'column', gap: '20px', alignItems:'flex-start', width:'100%'}}>
         <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>General Details</HeaderThree>
-        <p style={{ lineHeight: '25px' }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto animi eligendi reprehenderit numquam ad quibusdam repellendus minima nostrum? Amet doloremque, sit praesentium officia aut nulla saepe nesciunt minus corporis adipisci.</p>
+        <p style={{ lineHeight: '25px' }}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto animi eligendi reprehenderit numquam ad quibusdam repellendus minima nostrum? Amet doloremque, sit praesentium officia aut nulla saepe nesciunt minus corporis adipisci.
+        </p>
         <TwoSidedContainer style={{ flexDirection:'row', width: '100%' }}>
-          <LeftContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start'}}>
+          <LeftContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems:'flex-start'}}>
             <p><strong>Created on: </strong> {new Date(contractDetails.createdOn).toUTCString()}</p>
             <p><strong>Contract Status: </strong> {contractDetails.status}</p>            
             <p><strong>Total Payment:</strong> {contractDetails.totalPayment}</p>
           </LeftContainer>
-          <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
+          <RightContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Start date:</strong> {contractDetails.startDate}</p>
             <p><strong>Stop date:</strong> {contractDetails.stopDate}</p>
             <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View Apartment</Link></p>
@@ -127,16 +132,16 @@ export default function ContractDetailsForm() {
 
       {/* OWNER ****************************************************************************************************************************** */}
       
-      <div style={{ display: 'flex', flexDirection:'column', marginTop:'20px', gap: '20px', alignItems:'flex-start', width:'100%'}}>
+      <div style={{ display: 'flex', flexDirection:'column', gap: '20px', alignItems:'flex-start', width:'100%'}}>
         <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>Owner</HeaderThree>
         <TwoSidedContainer style={{ flexDirection:'row', width: '100%' }}>
-          <LeftContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start' }}>
+          <LeftContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems:'flex-start' }}>
             <p><strong>Name:</strong> {contractDetails.ownerName}</p> 
             <p><strong>Email:</strong> {contractDetails.ownerEmail}</p>
             <p><strong>Signature:</strong> {contractDetails.ownerSignature}</p> 
           </LeftContainer>
-          <RightContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
-            <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn}</p>
+          <RightContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
+            <p><strong>Sign date:</strong> {contractDetails.ownerSignedOn && new Date(contractDetails.ownerSignedOn).toUTCString()}</p>
             {contractDetails.ownerId === loggedInUser.id && 
               <>
                 {
@@ -191,7 +196,7 @@ export default function ContractDetailsForm() {
 
       {/* TENANTS ****************************************************************************************************************************** */}
 
-      <HeaderThree style={{ margin: '0', fontWeight: '600', marginTop:'20px', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>Tenants</HeaderThree>
+      <HeaderThree style={{ margin: '0', fontWeight: '600', color:'green', width: '100%', paddingBottom: '10px', borderBottom: '1px solid green' }}>Tenants</HeaderThree>
       <TwoSidedContainer style={{ flexDirection:'row', width: '100%' }}>
         {tenants.length !== 0 && tenants.map((tenant, index) => (
           <TenantCard key={index}>
@@ -201,7 +206,7 @@ export default function ContractDetailsForm() {
             <p><strong>Phone:</strong> {tenant.tenantPhone}</p>
             <p><strong>Allowed To Share:</strong> {tenant.allowedToRepost}</p>
             <p><strong>Signature:</strong> {tenant.signature}</p> 
-            <p><strong>Sign date:</strong> {tenant.SignedOn}</p>
+            <p><strong>Sign date:</strong> {tenant.signedOn && new Date(tenant.signedOn).toUTCString()}</p>
             {
               tenant.withDrewOn && 
                 <div>
@@ -244,7 +249,7 @@ export default function ContractDetailsForm() {
                       style={{ marginBottom:'30px' }}
                       onClick={() => {
                         sign({
-                          signator: `tenant ${index}`, 
+                          signator: `tenant ${index+1}`, 
                           userInfo: tenant, 
                           signature : 'Withdrew'
                         });
