@@ -52,6 +52,7 @@ export default function ContractDetailsForm() {
         ownerSignature : signature, 
         ownerSignedOn: new Date()
       };
+
     } else if (signator === 'tenant 0' || signator === 'tenant 1' || signator === 'tenant 2' || signator === 'tenant 3') {
       formData = {
         tenants : [
@@ -86,8 +87,9 @@ export default function ContractDetailsForm() {
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setIsProcessing(false);
-        setResponseMessage({ message: error.response.data.msg, severity:'error'})
-        setOpen(true);
+        // setResponseMessage({ message: error.response.data.msg, severity:'error'})
+        // setOpen(true);
+        window.location.reload();
       }
     })
   }
@@ -133,12 +135,12 @@ export default function ContractDetailsForm() {
             <p><strong>Created on: </strong> {new Date(contractDetails.createdOn).toUTCString()}</p>
             <p><strong>Contract Status: </strong> {contractDetails.status}</p>            
             <p><strong>Total Payment:</strong> {contractDetails.totalPayment}</p>
+            <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View Apartment</Link></p>
           </LeftContainer>
-          <RightContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
+          {/* <RightContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
             <p><strong>Start date:</strong> {contractDetails.startDate}</p>
             <p><strong>Stop date:</strong> {contractDetails.stopDate}</p>
-            <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View Apartment</Link></p>
-          </RightContainer>
+          </RightContainer> */}
         </TwoSidedContainer>
       </div>
 
