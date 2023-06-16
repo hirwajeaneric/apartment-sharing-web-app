@@ -137,10 +137,6 @@ export default function ContractDetailsForm() {
             <p><strong>Total Payment:</strong> {contractDetails.totalPayment}</p>
             <p><Link to={`${PROTOCOL}://localhost:5555/property/${contractDetails.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View Apartment</Link></p>
           </LeftContainer>
-          {/* <RightContainer style={{ flexDirection: 'column', gap: '20px', marginBottom:'20px', justifyContent:'flex-start', alignItems: 'flex-start' }}>
-            <p><strong>Start date:</strong> {contractDetails.startDate}</p>
-            <p><strong>Stop date:</strong> {contractDetails.stopDate}</p>
-          </RightContainer> */}
         </TwoSidedContainer>
       </div>
 
