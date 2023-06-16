@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { InnerContainer } from '../components/styled-components/authenticationPages'
 import { HeaderTwo } from '../components/styled-components/generalComponents'
 import ContractDetailsForm from '../components/forms/ContractDetailsForm'
+import { Button } from '@mui/material'
 
 export default function ContractDetails() {
   return (
@@ -12,7 +13,10 @@ export default function ContractDetails() {
         <meta name="description" content={`Contract details.`} /> 
       </Helmet>
       <InnerContainer style={{ width: '100%', alignItems:'flex-start', margin: '0', background: 'none', borderTop: 'none' }}>
-        <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Contract</HeaderTwo>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', width: '100%', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px' }}>
+          <HeaderTwo style={{ margin: '0' }}>Contract Details</HeaderTwo>
+          <Button variant='contained' size='small' color='secondary' >Print</Button>
+        </div>
         <ContractDetailsForm />
       </InnerContainer>
     </div>
