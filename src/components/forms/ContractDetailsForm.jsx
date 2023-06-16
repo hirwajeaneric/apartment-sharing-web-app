@@ -80,7 +80,9 @@ export default function ContractDetailsForm() {
           setResponseMessage({ message: 'Contract Signed', severity:'success'});
           setOpen(true);
 
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          },2000)
         }
       },3000);
     })
@@ -89,7 +91,9 @@ export default function ContractDetailsForm() {
         setIsProcessing(false);
         // setResponseMessage({ message: error.response.data.msg, severity:'error'})
         // setOpen(true);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        },1000)
       }
     })
   }

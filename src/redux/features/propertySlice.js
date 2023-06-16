@@ -108,6 +108,19 @@ const propertySlice = createSlice({
         updateSelectedProperty: (state, action) => {
             state.selectedProperty = action.payload.property;
         },
+        getRentedProperties: (state, action) => {
+            const { user, properties } = action.payload;
+            var rentedProperties = [];
+            properties.forEach((property,index) => {
+                property.tenants.forEach(tenant => {
+                    if (tenant.id === user) {
+                        rentedProperties.push(property);
+                    }
+                }) 
+            })
+            state.rentedProperties = rentedProperties;
+            state.numberOfRentedProperties = rentedProperties.length;
+        },
     },
     extraReducers: {
         [getProperties.pending] : (state)=> {
@@ -179,6 +192,7 @@ const propertySlice = createSlice({
 });
 
 export const { 
-    updateSelectedProperty
+    updateSelectedProperty,
+    getRentedProperties
 } = propertySlice.actions;
 export default propertySlice.reducer;
