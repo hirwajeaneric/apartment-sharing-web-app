@@ -7,6 +7,7 @@ import axios from 'axios';
 import { APIS } from '../../utils/APIS';
 import { useDispatch } from 'react-redux';
 import { getProperties } from '../../redux/features/propertySlice';
+import { useParams } from 'react-router-dom';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -14,6 +15,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function PropertyDetailsForm() {
   const dispatch = useDispatch();
+  const params = useParams();
   
   const [userData, setUserData] = useState({});
   const [pictures, setPictures] = useState([]);
@@ -57,7 +59,13 @@ export default function PropertyDetailsForm() {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem('usrInfo')));
-  },[]);
+    
+    axios.get(APIS.propertyApis.findById+params.propertyId)
+    .then(response => {
+      setFormData(response.data.property);
+    })
+    .catch(error => console.log(error));
+  },[params.propertyId]);
 
   const handleChange = ({currentTarget: input}) => { 
     setFormData({...formData, [input.name]: input.value}) 
@@ -110,6 +118,7 @@ export default function PropertyDetailsForm() {
 
   return (
     <TwoSidedFormContainer onSubmit={handlePostProperty} style={{ flexDirection: 'column', width: '100%', justifyContent: 'flex-tart', gap: '20px' }}>
+        Image Slider Here
         <TextField 
           id="description" 
           style={{ width: '100%' }} 

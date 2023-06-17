@@ -179,6 +179,44 @@ export const RightContainer = styled.div`
     }
 `;
 
+export const CustomLeftContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 67%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+`;
+
+export const CustomRightContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+`;
+
 export const ThreeSidedContainer = styled.div`
     display: flex;
     justify-content: space-between;
