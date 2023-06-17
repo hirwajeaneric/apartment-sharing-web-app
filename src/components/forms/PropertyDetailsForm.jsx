@@ -102,11 +102,9 @@ export default function PropertyDetailsForm() {
     });
   };
 
-  const { rentedProperties } = useSelector(state => state.property);
-
   return (
     <TwoSidedFormContainer onSubmit={handleUpdateProperty} style={{ flexDirection: 'column', width: '100%', justifyContent: 'flex-tart', gap: '20px' }}>
-        {rentedProperties.includes(formData)
+        {formData.ownerId !== userData.id
           ?
           <>
             <ImageCarousel pictures={formData.pictures}/>
@@ -124,6 +122,7 @@ export default function PropertyDetailsForm() {
               onChange={handleChange} 
             />
             <TextField 
+              disabled
               type='number' 
               id="rentPrice" 
               style={{ width: '100%' }} 
@@ -226,12 +225,6 @@ export default function PropertyDetailsForm() {
                 <MenuItem value={false}>No</MenuItem>
               </Select>
             </CustomFormControlOne>
-            <input 
-              type='file' 
-              id="file" 
-              onChange={handleFileInput} 
-              name='pictures' 
-            />
           </>
           :
           <>
@@ -355,35 +348,40 @@ export default function PropertyDetailsForm() {
         }
 
         {/* COMMAND BUTTONS ************************************************************************************************ */}
-        <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'space-between', alignItems:'center', width: '100%' }}>
-          {!progress.disabled && 
-            <Button 
-              type='submit' 
-              variant='contained' 
-              size='small' 
-              color='primary'>
-                CONFIRM UPDATES
-            </Button>
-          }
-          {progress.disabled && 
-            <Button 
-              type='submit' 
-              variant='contained' 
-              size='medium' 
-              color='primary' 
-              disabled>
-                {progress.value}
-            </Button>
-          }
-          <Button 
-            type='cancel' 
-            variant='contained' 
-            color='secondary' 
-            size='small' 
-            onClick={resetFields}>
-              CANCEL
-          </Button>
-        </div>
+        {formData.ownerId !== userData.id ? 
+          <></> :
+          <>
+            <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'space-between', alignItems:'center', width: '100%' }}>
+              {!progress.disabled && 
+                <Button 
+                  type='submit' 
+                  variant='contained' 
+                  size='small' 
+                  color='primary'>
+                    CONFIRM UPDATES
+                </Button>
+              }
+              {progress.disabled && 
+                <Button 
+                  type='submit' 
+                  variant='contained' 
+                  size='medium' 
+                  color='primary' 
+                  disabled>
+                    {progress.value}
+                </Button>
+              }
+              <Button 
+                type='cancel' 
+                variant='contained' 
+                color='secondary' 
+                size='small' 
+                onClick={resetFields}>
+                  CANCEL
+              </Button>
+            </div>
+          </>
+        }
 
       {/* Response message Snackbar ****************************************************************************************  */}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
