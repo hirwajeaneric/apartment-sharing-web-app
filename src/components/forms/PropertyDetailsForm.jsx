@@ -5,7 +5,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { APIS } from '../../utils/APIS';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getProperties } from '../../redux/features/propertySlice';
 import { useParams } from 'react-router-dom';
 import ImageCarousel from '../sections/ImageCarousel';
@@ -14,13 +14,13 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function PropertyDetailsForm() {
+export default function PropertyDetailsForm(props) {
+  const { formData, setFormData, userData } = props;
+
   const dispatch = useDispatch();
   const params = useParams();
   
-  const [userData, setUserData] = useState({});
   const [pictures, setPictures] = useState([]);
-  const [formData, setFormData] = useState({ propertyType: '', rentPrice: '', location: '', mapCoordinates: '', dimensions: '', description: '', bedRooms: '', bathRooms: '', furnished: false });
   
   const [progress, setProgress] = useState({ value: '', disabled: false});
   const [open, setOpen] = useState(false);
@@ -37,16 +37,6 @@ export default function PropertyDetailsForm() {
     setFormData({ propertyType: '', rentPrice: '', location: '', mapCoordinates: '', dimensions: '', description: '', bedRooms: '', bathRooms: '', furnished: '' });
     setPictures([]);
   }
-
-  useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem('usrInfo')));
-    
-    axios.get(APIS.propertyApis.findById+params.propertyId)
-    .then(response => {
-      setFormData(response.data.property);
-    })
-    .catch(error => console.log(error));
-  },[params.propertyId]);
 
   const handleChange = ({currentTarget: input}) => { 
     setFormData({...formData, [input.name]: input.value}) 

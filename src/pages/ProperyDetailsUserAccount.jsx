@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom';
 import { InnerContainer } from '../components/styled-components/authenticationPages';
 import { CustomLeftContainer, CustomRightContainer, HeaderTwo, LeftContainer, RightContainer, TwoSidedContainer } from '../components/styled-components/generalComponents';
 import PropertyDetailsForm from '../components/forms/PropertyDetailsForm';
 import PostPropertyForm from '../components/forms/PostPropertyForm';
+import axios from 'axios';
+import { APIS } from '../utils/APIS';
 
 export default function ProperyDetailsUserAccount() {
   const params = useParams();
+
+  const [formData, setFormData] = useState({ propertyType: '', rentPrice: '', location: '', mapCoordinates: '', dimensions: '', description: '', bedRooms: '', bathRooms: '', furnished: false });
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem('usrInfo')));
+
+    axios.get(APIS.propertyApis.findById+params.propertyId)
+    .then(response => {
+      setFormData(response.data.property);
+    })
+    .catch(error => console.log(error));
+  },[params.propertyId]);
 
   return (
     <div>
@@ -18,14 +33,32 @@ export default function ProperyDetailsUserAccount() {
       <InnerContainer style={{ width: '100%', alignItems:'flex-start', margin: '0', background: 'none', borderTop: 'none' }}>
         
         <TwoSidedContainer style={{ alignItems: 'flex-start'}}>
-          <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
-            <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
-            <PropertyDetailsForm />
-          </CustomLeftContainer>
-          <CustomRightContainer style={{ justifyContent:'flex-start', flexDirection: 'column' }}>
-            <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Post Apartment</HeaderTwo>
-            <PostPropertyForm />
-          </CustomRightContainer>
+          {formData.ownerId !== userData.id ?
+          <>
+            <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
+              <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
+              <PropertyDetailsForm 
+                formData={formData} 
+                setFormData={setFormData} 
+                userData={userData}
+              />
+            </CustomLeftContainer>
+            <CustomRightContainer style={{ justifyContent:'flex-start', flexDirection: 'column' }}>
+              <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Post Apartment</HeaderTwo>
+              <PostPropertyForm />
+            </CustomRightContainer>
+          </>
+          :
+          <>
+            <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px', width: '100%' }}>
+              <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
+              <PropertyDetailsForm 
+                formData={formData} 
+                setFormData={setFormData} 
+                userData={userData}
+              />
+            </CustomLeftContainer>
+          </>}
         </TwoSidedContainer>
 
         {/* <TwoSidedContainer style={{ alignItems: 'flex-start', flexDirection:'column'}}>
