@@ -1,4 +1,4 @@
-import { Card, FormControl } from '@mui/material';
+import { Card, FormControl, Paper } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import styled from 'styled-components';
 
@@ -145,7 +145,7 @@ export const LeftContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 46%;
+    width: 48%;
 
     @media (max-width: 1080px) {
             
@@ -164,7 +164,7 @@ export const RightContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 46%;
+    width: 48%;
 
     @media (max-width: 1080px) {
             
@@ -476,7 +476,28 @@ export const CustomPropertyCard = styled(Card)`
 
 export const CustomCarousel = styled(Carousel)`
     width: 100%; 
-    margin-bottom: 70px;
+    height: 400px;
+    margin-bottom: 30px;
+
+    @media (max-width: 1080px) {
+            
+    }
+
+    @media (max-width: 768px) {
+        margin-bottom: 30px;
+        height: 250px;
+    }
+
+    @media (max-width: 480px) {
+    }
+`;
+
+export const CustomPaper = styled(Paper)`
+    width: 100%;
+
+    img {
+        width: 100%;
+    }
 
     @media (max-width: 1080px) {
             

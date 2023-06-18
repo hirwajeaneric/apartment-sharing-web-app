@@ -58,18 +58,9 @@ export default function ProperyDetailsUserAccount() {
                 userData={userData}
               />
             </CustomLeftContainer>
-          </>}
+          </>
+          }
         </TwoSidedContainer>
-
-        {/* <TwoSidedContainer style={{ alignItems: 'flex-start', flexDirection:'column'}}>
-          <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
-          <PropertyDetailsForm />
-        </TwoSidedContainer> */}
-
-        {/* <LeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
-          </LeftContainer>
-          <RightContainer style={{ justifyContent:'flex-start', flexDirection: 'column' }}>
-          </RightContainer> */}
       </InnerContainer>
     </div>
   )
