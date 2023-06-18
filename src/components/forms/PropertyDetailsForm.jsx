@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CustomFormControlOne, TwoSidedFormContainer } from '../styled-components/generalComponents'
+import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
 import { TextField, InputLabel, MenuItem, Select, Button } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -111,30 +111,36 @@ export default function PropertyDetailsForm(props) {
               value={formData.description || ''} 
               onChange={handleChange} 
             />
-            <TextField 
-              disabled
-              type='number' 
-              id="rentPrice" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Rent Price" 
-              variant="outlined" 
-              name='rentPrice' 
-              value={formData.rentPrice || ''} 
-              onChange={handleChange}
-            />
-            <TextField 
-              disabled
-              id="location" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Location" 
-              variant="outlined" 
-              name='location' 
-              value={formData.location || ''} 
-              onChange={handleChange} 
-              helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"
-            />
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer >
+                <TextField 
+                  disabled
+                  type='number' 
+                  id="rentPrice" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Rent Price" 
+                  variant="outlined" 
+                  name='rentPrice' 
+                  value={formData.rentPrice || ''} 
+                  onChange={handleChange}
+                />
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  disabled
+                  id="location" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Location" 
+                  variant="outlined" 
+                  name='location' 
+                  value={formData.location || ''} 
+                  onChange={handleChange} 
+                  helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"
+                />
+              </RightContainer>
+            </TwoSidedContainer>
             <TextField 
               disabled
               id="mapCoordinates" 
@@ -147,74 +153,90 @@ export default function PropertyDetailsForm(props) {
               onChange={handleChange} 
               helperText="Paste or add google map coordinates of the apartment. Example: '-1.951059, 30.094097'"
             />
-            <CustomFormControlOne style={{ width: '100%' }} size='small'>
-              <InputLabel id="propertyType">Apartment Type</InputLabel>
-              <Select 
-                disabled
-                labelId="propertyType" 
-                id="propertyType" 
-                name='propertyType' 
-                value={formData.propertyType} 
-                onChange={handleChangePropertyType} 
-                label="Apartment Type"
-              >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
-                <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
-                <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
-                <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
-                <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
-              </Select>
-            </CustomFormControlOne>
-            <TextField 
-              disabled
-              type='number' 
-              id="dimensions" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Dimensions" 
-              variant="outlined" 
-              name='dimensions' 
-              value={formData.dimensions || ''} 
-              onChange={handleChange} 
-              helperText="The dimensions should be in Square Meters." 
-            />
-            <TextField 
-              disabled
-              type='number' 
-              id="bedRooms" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Bed Rooms" 
-              variant="outlined" 
-              name='bedRooms' 
-              value={formData.bedRooms || ''} 
-              onChange={handleChange}
-            />
-            <TextField 
-              disabled
-              type='number' 
-              id="bathRooms" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Bath Rooms" 
-              variant="outlined" 
-              name='bathRooms' 
-              value={formData.bathRooms || ''} 
-              onChange={handleChange}
-            />
-            <CustomFormControlOne style={{ width: '100%' }} size='small'>
-              <InputLabel id="propertyType">Furnished</InputLabel>
-                <Select disabled labelId="furnished" id="furnished" name='furnished' value={formData.furnished} onChange={handleChangeFurnished} label="Furnished">
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={true}>Yes</MenuItem>
-                <MenuItem value={false}>No</MenuItem>
-              </Select>
-            </CustomFormControlOne>
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <CustomFormControlOne style={{ width: '100%' }} size='small'>
+                  <InputLabel id="propertyType">Apartment Type</InputLabel>
+                  <Select 
+                    disabled
+                    labelId="propertyType" 
+                    id="propertyType" 
+                    name='propertyType' 
+                    value={formData.propertyType} 
+                    onChange={handleChangePropertyType} 
+                    label="Apartment Type"
+                  >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
+                    <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
+                    <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
+                    <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
+                    <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
+                  </Select>
+                </CustomFormControlOne>
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  disabled
+                  type='number' 
+                  id="dimensions" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Dimensions" 
+                  variant="outlined" 
+                  name='dimensions' 
+                  value={formData.dimensions || ''} 
+                  onChange={handleChange} 
+                  helperText="The dimensions should be in Square Meters." 
+                />
+              </RightContainer>
+            </TwoSidedContainer>
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <TextField 
+                  disabled
+                  type='number' 
+                  id="bedRooms" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Bed Rooms" 
+                  variant="outlined" 
+                  name='bedRooms' 
+                  value={formData.bedRooms || ''} 
+                  onChange={handleChange}
+                />
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  disabled
+                  type='number' 
+                  id="bathRooms" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Bath Rooms" 
+                  variant="outlined" 
+                  name='bathRooms' 
+                  value={formData.bathRooms || ''} 
+                  onChange={handleChange}
+                />
+              </RightContainer>
+            </TwoSidedContainer>
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <CustomFormControlOne style={{ width: '100%' }} size='small'>
+                  <InputLabel id="propertyType">Furnished</InputLabel>
+                    <Select disabled labelId="furnished" id="furnished" name='furnished' value={formData.furnished} onChange={handleChangeFurnished} label="Furnished">
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={true}>Yes</MenuItem>
+                    <MenuItem value={false}>No</MenuItem>
+                  </Select>
+                </CustomFormControlOne>      
+              </LeftContainer>
+            </TwoSidedContainer>
           </>
           :
           <>
@@ -231,28 +253,34 @@ export default function PropertyDetailsForm(props) {
               value={formData.description || ''} 
               onChange={handleChange} 
             />
-            <TextField 
-              type='number' 
-              id="rentPrice" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Rent Price" 
-              variant="outlined" 
-              name='rentPrice' 
-              value={formData.rentPrice || ''} 
-              onChange={handleChange}
-            />
-            <TextField 
-              id="location" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Location" 
-              variant="outlined" 
-              name='location' 
-              value={formData.location || ''} 
-              onChange={handleChange} 
-              helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"
-            />
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer >
+                <TextField 
+                  type='number' 
+                  id="rentPrice" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Rent Price" 
+                  variant="outlined" 
+                  name='rentPrice' 
+                  value={formData.rentPrice || ''} 
+                  onChange={handleChange}
+                />
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  id="location" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Location" 
+                  variant="outlined" 
+                  name='location' 
+                  value={formData.location || ''} 
+                  onChange={handleChange} 
+                  helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"
+                />
+              </RightContainer>
+            </TwoSidedContainer>
             <TextField 
               id="mapCoordinates" 
               style={{ width: '100%' }} 
@@ -264,76 +292,95 @@ export default function PropertyDetailsForm(props) {
               onChange={handleChange} 
               helperText="Paste or add google map coordinates of the apartment. Example: '-1.951059, 30.094097'"
             />
-            <CustomFormControlOne style={{ width: '100%' }} size='small'>
-              <InputLabel id="propertyType">Apartment Type</InputLabel>
-              <Select 
-                labelId="propertyType" 
-                id="propertyType" 
-                name='propertyType' 
-                value={formData.propertyType} 
-                onChange={handleChangePropertyType} 
-                label="Apartment Type"
-              >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
-                <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
-                <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
-                <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
-                <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
-              </Select>
-            </CustomFormControlOne>
-            <TextField 
-              type='number' 
-              id="dimensions" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Dimensions" 
-              variant="outlined" 
-              name='dimensions' 
-              value={formData.dimensions || ''} 
-              onChange={handleChange} 
-              helperText="The dimensions should be in Square Meters." 
-            />
-            <TextField 
-              type='number' 
-              id="bedRooms" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Bed Rooms" 
-              variant="outlined" 
-              name='bedRooms' 
-              value={formData.bedRooms || ''} 
-              onChange={handleChange}
-            />
-            <TextField 
-              type='number' 
-              id="bathRooms" 
-              style={{ width: '100%' }} 
-              size='small' 
-              label="Bath Rooms" 
-              variant="outlined" 
-              name='bathRooms' 
-              value={formData.bathRooms || ''} 
-              onChange={handleChange}
-            />
-            <CustomFormControlOne style={{ width: '100%' }} size='small'>
-              <InputLabel id="propertyType">Furnished</InputLabel>
-                <Select labelId="furnished" id="furnished" name='furnished' value={formData.furnished} onChange={handleChangeFurnished} label="Furnished">
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={true}>Yes</MenuItem>
-                <MenuItem value={false}>No</MenuItem>
-              </Select>
-            </CustomFormControlOne>
-            <input 
-              type='file' 
-              id="file" 
-              onChange={handleFileInput} 
-              name='pictures' 
-            />
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <CustomFormControlOne style={{ width: '100%' }} size='small'>
+                  <InputLabel id="propertyType">Apartment Type</InputLabel>
+                  <Select 
+                    labelId="propertyType" 
+                    id="propertyType" 
+                    name='propertyType' 
+                    value={formData.propertyType} 
+                    onChange={handleChangePropertyType} 
+                    label="Apartment Type"
+                  >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
+                    <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
+                    <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
+                    <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
+                    <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
+                  </Select>
+                </CustomFormControlOne>
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  type='number' 
+                  id="dimensions" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Dimensions" 
+                  variant="outlined" 
+                  name='dimensions' 
+                  value={formData.dimensions || ''} 
+                  onChange={handleChange} 
+                  helperText="The dimensions should be in Square Meters." 
+                />
+              </RightContainer>
+            </TwoSidedContainer>
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <TextField 
+                  type='number' 
+                  id="bedRooms" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Bed Rooms" 
+                  variant="outlined" 
+                  name='bedRooms' 
+                  value={formData.bedRooms || ''} 
+                  onChange={handleChange}
+                />
+              </LeftContainer>
+              <RightContainer>
+                <TextField 
+                  type='number' 
+                  id="bathRooms" 
+                  style={{ width: '100%' }} 
+                  size='small' 
+                  label="Bath Rooms" 
+                  variant="outlined" 
+                  name='bathRooms' 
+                  value={formData.bathRooms || ''} 
+                  onChange={handleChange}
+                />
+              </RightContainer>
+            </TwoSidedContainer>
+            <TwoSidedContainer style={{ alignItems:'flex-start', gap: '20px'}}>
+              <LeftContainer>
+                <CustomFormControlOne style={{ width: '100%' }} size='small'>
+                  <InputLabel id="propertyType">Furnished</InputLabel>
+                    <Select labelId="furnished" id="furnished" name='furnished' value={formData.furnished} onChange={handleChangeFurnished} label="Furnished">
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={true}>Yes</MenuItem>
+                    <MenuItem value={false}>No</MenuItem>
+                  </Select>
+                </CustomFormControlOne>      
+              </LeftContainer>
+              <RightContainer>
+                <input 
+                  style={{ width: '100%'}}
+                  type='file' 
+                  id="file" 
+                  onChange={handleFileInput} 
+                  name='pictures' 
+                />
+              </RightContainer>
+            </TwoSidedContainer>
           </>
         }
 

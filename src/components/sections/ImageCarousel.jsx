@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Paper } from '@mui/material';
-import { CustomCarousel } from '../styled-components/generalComponents';
+import { CustomCarousel, CustomPaper } from '../styled-components/generalComponents';
 import { APIS } from '../../utils/APIS';
 
-export default function ImageCarousel({pictures}) {
+export default function ImageCarousel(props) {
+  const { pictures, height } = props;
   const [images, setImages] = useState([]);
   useEffect(()=> {
     setImages(pictures);
@@ -12,9 +13,9 @@ export default function ImageCarousel({pictures}) {
   return (
     <CustomCarousel>
       { images && images.map((image, index) => 
-        <Paper key={index} sx={{ width: '100%', height: '320px' }}>
-          <img style={{ width: '100%', height: '320px' }} src={`${APIS.files.property}${image}`} alt={image} />
-        </Paper>
+        <CustomPaper key={index}>
+          <img src={`${APIS.files.property}${image}`} alt={image} />
+        </CustomPaper>
       )}
     </CustomCarousel>
   )
