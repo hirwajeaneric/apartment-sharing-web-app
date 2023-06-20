@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { APIS } from '../../utils/APIS';
 
 export default function RecentlyPosted() {
-  const { listOfProperties, isLoading } = useSelector((state) => state.property);
+  const { propertiesForRent, isLoading } = useSelector((state) => state.property);
   const navigate = useNavigate();
   
   if (isLoading) {
@@ -21,9 +21,9 @@ export default function RecentlyPosted() {
       <PageSizedContainer style={{ flexDirection: 'column', margin: '80px 0'}}>
         <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px', padding:'0 20px 20px', borderBottom: '1px solid gray'}}>Recently Posted</HeaderOne>
         <TopLeftFlexAlignedContainer style={{ justifyContent: 'center' }}>
-          {(listOfProperties.length !==0 && isLoading === false) ?
+          {(propertiesForRent.length !==0 && isLoading === false) ?
             <Grid container spacing={4} sx={{ width: '100%' }}>
-              {listOfProperties.map((property, index) => (
+              {propertiesForRent.map((property, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
                   <CustomPropertyCard>
                     {property.pictures[0] && <CardMedia component="div" sx={{ pt: '56.25%',}} image={`${APIS.files.property}${property.pictures[0]}`} />}
