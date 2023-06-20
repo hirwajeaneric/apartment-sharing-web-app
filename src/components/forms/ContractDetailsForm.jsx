@@ -107,7 +107,7 @@ export default function ContractDetailsForm() {
   }
 
   return (
-    <TwoSidedContainer style={{ flexDirection:'column', background: '#ffffcc', marginTop: '20px', gap:'20px', width: '100%', padding: '30px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
+    <TwoSidedContainer style={{ flexDirection:'column', background: '#b3e6cc', marginTop: '20px', gap:'20px', width: '100%', padding: '30px', border: '1px solid #d1e0e0', borderRadius: '5px', }}>
       
       {/* GENERAL DETAILS ****************************************************************************************************************************** */}
 

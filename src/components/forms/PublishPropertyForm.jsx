@@ -117,7 +117,7 @@ export default function PublishPropertyForm(props) {
   }
 
   return (
-    <FormContainer onSubmit={submitRequest} style={{ flexDirection:'column', marginTop: '20px', width: '100%' }}>
+    <FormContainer onSubmit={submitRequest} style={{ flexDirection:'column', marginTop: '20px', width: '100%', border: '1px solid #d1e0e0', padding: '20px', borderRadius: '5px', background: 'white' }}>
       <TextField 
         disabled 
         variant='outlined' 

@@ -47,28 +47,28 @@ export default function UserAccountHome() {
               <StatsCard>
                 <div>
                   <h4>Rent Requests Sent</h4>
-                  <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                  <Link to={'../rent-requests/all/sent'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
                 <p>{numberOfRentRequestsSentByMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Rent Requests Recieved</h4>
-                  <Link to={'../rent-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                  <Link to={'../rent-requests/all/recieved'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
                 <p>{numberOfRentRequestsSentToMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Join Requests Sent</h4>
-                  <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                  <Link to={'../join-requests/all/sent'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
                 <p>{numberOfJoinRequestsSentByMe}</p>
               </StatsCard>
               <StatsCard>
                 <div>
                   <h4>Join Requests Recieved</h4>
-                  <Link to={'../join-requests'}><span>View Requests</span> <ArrowForward /></Link>
+                  <Link to={'../join-requests/all/recieved'}><span>View Requests</span> <ArrowForward /></Link>
                 </div>
                 <p>{numberOfJoinRequestsSentToMe}</p>
               </StatsCard>

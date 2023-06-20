@@ -50,11 +50,12 @@ export default function UserAccount() {
                 </NavLink>
                 
                 <HeaderThree className='menu-header'>Requests</HeaderThree>
-                <NavLink to={'rent-requests'}>
+                
+                <NavLink to={'rent-requests/all/sent'}>
                   <span>Rent Requests</span> 
                   <span className='quantity'>{numberOfRentRequestsSentByMe+numberOfRentRequestsSentToMe}</span>
                 </NavLink>
-                <NavLink to={'join-requests'}>
+                <NavLink to={'join-requests/all/sent'}>
                   <span>Join Requests</span> 
                   <span className='quantity'>{numberOfJoinRequestsSentByMe+numberOfJoinRequestsSentToMe}</span>
                 </NavLink>
@@ -65,6 +66,7 @@ export default function UserAccount() {
                 </NavLink>
 
                 <HeaderThree className='menu-header'>Settings</HeaderThree>
+                
                 <NavLink to={'settings'}>
                   <span>My Account</span> 
                 </NavLink>

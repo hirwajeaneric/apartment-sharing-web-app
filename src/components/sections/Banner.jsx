@@ -4,7 +4,7 @@ import SearchForm from '../forms/SearchForm';
 import { useSelector } from 'react-redux';
 
 export default function Banner() {
-  const { isLoading, numberOfProperties, numberOfPropertiesForJoin } = useSelector(state => state.property); 
+  const { isLoading, numberOfPropertiesForRent, numberOfPropertiesForJoin } = useSelector(state => state.property); 
 
   return (
     <FullWidthContainer 
@@ -20,7 +20,7 @@ export default function Banner() {
             <SearchForm />
             {isLoading ? 
               <p style={{color: 'white',}}>Loading...</p> :
-              <HeaderTwo style={{color: 'white',}}>{numberOfProperties} free apartments and {numberOfPropertiesForJoin} to join.</HeaderTwo>
+              <HeaderTwo style={{color: 'white',}}>{numberOfPropertiesForRent} free apartment{numberOfPropertiesForRent.length > 1 && 's'} and {numberOfPropertiesForJoin} to join.</HeaderTwo>
             }
           </div>
       </PageSizedContainer>

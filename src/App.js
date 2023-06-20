@@ -29,16 +29,24 @@ import SearchPage from './pages/SearchPage';
 import { useDispatch } from 'react-redux';
 import { getProperties } from './redux/features/propertySlice';
 import { getRentRequests } from './redux/features/rentRequestsSlice';
+import SentRentRequests from './components/sections/SentRentRequests';
+import RecievedRentRequests from './components/sections/RecievedRentRequests';
+import SentJoinRequests from './components/sections/SentJoinRequests';
+import RecievedJoinRequests from './components/sections/RecievedJoinRequests';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('usrInfo'));
-    dispatch(getProperties(user.id));
     
     if (user) {
+      dispatch(getProperties(user.id));
       dispatch(getRentRequests(user.id));
+    } else {
+      dispatch(getProperties());
     }
   }, [dispatch]);
 
@@ -50,6 +58,8 @@ function App() {
           <Route path='/' element={<Main />}>
             <Route path='*' element={<ErrorPage />} />
             <Route path='' element={<Home />} />
+            <Route path='aboutus' element={<AboutUs />} />
+            <Route path='contactus' element={<ContactUs />} />
             <Route path='search' element={<SearchPage />} />
             <Route path='property/:id' element={<PropertyDetailsHome />} />
             
@@ -68,8 +78,16 @@ function App() {
               <Route path='settings' element={<UserAccountSettings />} />
               <Route path='rented-properties' element={<RentedProperties />} />
               <Route path='owned-properties' element={<OwnedProperties />} />
-              <Route path='rent-requests' element={<RentRequestList />} />
-              <Route path='join-requests' element={<JoinRequestList />} />
+              <Route path='rent-requests' element={<RentRequestList />} >
+                <Route path='' element={<SentRentRequests />} />
+                <Route path='all/sent' element={<SentRentRequests />} />
+                <Route path='all/recieved' element={<RecievedRentRequests />} />
+              </Route>
+              <Route path='join-requests' element={<JoinRequestList />} >
+              <Route path='' element={<SentJoinRequests />} />
+                <Route path='all/sent' element={<SentJoinRequests />} />
+                <Route path='all/recieved' element={<RecievedJoinRequests />} />
+              </Route>
               <Route path='tenants' element={<ListOfTenants />} />
               <Route path='report-preview' element={<ReportPreview />} />
               <Route path='property/:propertyId' element={<PropertyDetailsUserAccount />} />

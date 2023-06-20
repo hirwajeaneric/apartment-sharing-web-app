@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
@@ -214,8 +215,20 @@ export const CommandButtons = styled.div`
     }
 `;
 
-export const InnerContainerz= styled.div`
-        
+export const CustomRequestsNavLink= styled(NavLink)`
+    color: black;
+    margin-top: 20px;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        color: orange;
+    }
+
+    &.active {
+        color: green;
+        font-weight: 600;
+    }
 
     @media (max-width: 1080px) {
             

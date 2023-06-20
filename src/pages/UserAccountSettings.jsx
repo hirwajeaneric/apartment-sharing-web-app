@@ -38,7 +38,7 @@ export default function UserAccountSettings() {
       </Helmet>
       <InnerContainer style={{ width: '100%', alignItems:'flex-start', margin: '0', background: 'none', borderTop: 'none' }}>
         <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Settings</HeaderTwo>
-        <PageWithSideMenuContainer style={{ backgroundColor: 'white', padding: '20px 10px', marginTop: '20px', borderRadius: '10px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)'}}>
+        <PageWithSideMenuContainer style={{ backgroundColor: 'white', padding: '20px', marginTop: '20px', borderRadius: '10px', border: '1px solid #d1e0e0' }}>
           <div className='profile-picture'>
             {userInfo.profilePicture ?
             <img src='' alt='' />:

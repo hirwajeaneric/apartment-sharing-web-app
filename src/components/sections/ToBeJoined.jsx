@@ -18,7 +18,7 @@ export default function ToBeJoined() {
 
   return (
     <FullWidthContainer>
-      <PageSizedContainer style={{ flexDirection: 'column', margin: '80px 0'}}>
+      <PageSizedContainer style={{ flexDirection: 'column', margin: '0 0 80px'}}>
         {window.location.pathname === '/' && <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px', padding:'0 20px 20px', borderBottom: '1px solid gray'}}>To be Joined</HeaderOne>}
         <TopLeftFlexAlignedContainer style={{ justifyContent: 'center' }}>
         {(propertiesForJoin.length !==0 && isLoading === false)  ?

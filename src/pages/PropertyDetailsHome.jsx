@@ -57,19 +57,24 @@ export default function PropertyDetailsHome() {
               <LocationMap coordinates={selectedProperty.mapCoordinates} />
             </div>
 
-            {/* SIDE BAR WITH RENT AND JOIN FORM AND CALL TO ACTION MESSAGES ********************************************************** */}
-            <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
-              {/* This message appears when the selected house is owned by the user who has logen in */}
-              {selectedProperty.ownerId === user.id && <p>Your House</p>}
 
-              {/* Call to action messages  */}
-              {selectedProperty.status === 'For Rent' && selectedProperty.ownerId !== user.id ?
+
+            {/* SIDE BAR WITH RENT AND JOIN FORM AND CALL TO ACTION MESSAGES ********************************************************** */}
+            
+            <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
+              
+              {/* This message appears when the selected house is owned by the user who has logen in */}
+              {(user !== null && selectedProperty.ownerId === user.id) && <p>Your House</p>}
+
+
+              {/* CALL TO ACTION MESSAGES  */}
+              {user !== null && selectedProperty.status === 'For Rent' && selectedProperty.ownerId !== user.id ?
                 <>
                   <HeaderTwo>Do you want to Rent this Apartment?</HeaderTwo>
                   <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
                 </>
                 :
-                selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id ?
+                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id ?
                 <>
                   <HeaderTwo>Do you want to Join this Apartment?</HeaderTwo>
                   <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to send a join request.</p>
@@ -78,11 +83,9 @@ export default function PropertyDetailsHome() {
                 <></>  
               }
 
-              {/* Rent and Join forms and their conditions  */}
+              {/* CONDITIONS TO DISPLAY RENT FORM */}
               {
-                !localStorage.getItem('usrTkn') && 
-                selectedProperty.status === 'For Rent' && 
-                selectedProperty.ownerId !== user.id ? 
+                !localStorage.getItem('usrTkn') && selectedProperty.status === 'For Rent' ? 
                 <Button 
                   type='button' 
                   variant='contained' 
@@ -90,36 +93,33 @@ export default function PropertyDetailsHome() {
                   size='small' 
                   style={{ marginBottom: '20px' }} 
                   onClick={() => navigate('/signin')}>
-                    Rent this apartment
+                    Sign in to Rent Apartment
                 </Button> : 
-                <></>
-              }
-              {
-                localStorage.getItem('usrTkn') && 
-                selectedProperty.status === 'For Rent' && 
-                selectedProperty.ownerId !== user.id ? 
-                <RentRequestForm /> : 
                 <></>
               }
 
               {
-                !localStorage.getItem('usrTkn') && 
-                selectedProperty.status === 'For Join' && 
-                selectedProperty.ownerId !== user.id ? 
+                user !== null && selectedProperty.status === 'For Rent' && selectedProperty.ownerId !== user.id ? 
+                <RentRequestForm /> : 
+                <></>
+              }
+
+              {/* CONDITIONS FOR JOIN FORM  */}
+              {
+                !localStorage.getItem('usrTkn') && selectedProperty.status === 'For Join' ? 
                 <Button 
                   type='button' 
                   variant='contained' 
                   color='secondary' 
                   size='small' 
                   onClick={() => navigate('/signin')}>
-                    Join this apartment
+                    Sign in to Join Apartment
                 </Button> : 
                 <></>
               }
+              
               {
-                localStorage.getItem('usrTkn') && 
-                selectedProperty.status === 'For Join' && 
-                selectedProperty.ownerId !== user.id ? 
+                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id ? 
                 <JoinRequestForm /> : 
                 <></>
               }
