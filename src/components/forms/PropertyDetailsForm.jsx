@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
 import { TextField, InputLabel, MenuItem, Select, Button } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
@@ -57,10 +57,12 @@ export default function PropertyDetailsForm(props) {
   const handleUpdateProperty = (e) => {
     e.preventDefault();
 
-    var config = {}
+    var config = {};
     var data = formData; 
+    delete data['_id'];
+    delete data['__v'];
 
-    if (pictures.length === 0) {
+    if (!pictures) {
       config = {}
     } else {
       config = {
@@ -71,17 +73,15 @@ export default function PropertyDetailsForm(props) {
 
     setProgress({ value: 'Processing ...', disabled: true});
 
-    axios.put(APIS.propertyApis.update , data, config)
+    axios.put(APIS.propertyApis.update+params.propertyId , data, config)
     .then(response => {
-      setTimeout(()=>{
-        if (response.status === 201) {
-          setResponseMessage({ message: response.data.message, severity: 'success' });
-          setOpen(true);
-          dispatch(getProperties());
-          setProgress({ value: '', disabled: false });
-          window.location.replace(`/`);
-        }
-      }, 2000); 
+      if (response.status === 200) {
+        setResponseMessage({ message: response.data.message, severity: 'success' });
+        setOpen(true);
+        dispatch(getProperties());
+        setProgress({ value: '', disabled: false });
+        window.location.reload();
+      }
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -97,7 +97,7 @@ export default function PropertyDetailsForm(props) {
         {formData.ownerId !== userData.id
           ?
           <>
-            <ImageCarousel pictures={formData.pictures}/>
+            <ImageCarousel pictures={formData.pictures} />
             <TextField 
               disabled
               id="description" 
