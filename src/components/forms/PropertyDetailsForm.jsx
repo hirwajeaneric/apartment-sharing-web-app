@@ -57,7 +57,7 @@ export default function PropertyDetailsForm(props) {
   const handleUpdateProperty = (e) => {
     e.preventDefault();
 
-    var config = {}
+    var config = {};
     var data = formData; 
     delete data['_id'];
     delete data['__v'];
