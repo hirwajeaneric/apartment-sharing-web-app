@@ -59,8 +59,12 @@ export default function PropertyDetailsForm(props) {
 
     var config = {}
     var data = formData; 
+    data.remove('_id');
+    data.remove('__v');
 
-    if (pictures.length === 0) {
+    console.log(data);
+
+    if (!pictures) {
       config = {}
     } else {
       config = {
@@ -68,6 +72,8 @@ export default function PropertyDetailsForm(props) {
       }
       data.pictures = pictures;
     }
+
+    console.log(data);
 
     setProgress({ value: 'Processing ...', disabled: true});
 
