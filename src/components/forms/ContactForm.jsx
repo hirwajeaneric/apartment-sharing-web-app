@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
-import { TextField, InputLabel, MenuItem, Select, Button } from '@mui/material';
+import React, { useState } from 'react'
+import { LeftContainer, RightContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
+import { Button, TextField } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { APIS } from '../../utils/APIS';
-import { useParams } from 'react-router-dom';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function ContactForm() {
-  const params = useParams();
-  const [userData, setUserData] = useState({});
-  const [pictures, setPictures] = useState([]);
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
@@ -38,12 +34,7 @@ export default function ContactForm() {
       fullName: '',
       message: '',
     });
-    setPictures([]);
   }
-
-  useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem('usrInfo')));
-  },[]);
 
   const handleChange = ({currentTarget: input}) => { 
     setFormData({...formData, [input.name]: input.value}) 
@@ -53,12 +44,6 @@ export default function ContactForm() {
   // FORM FOR SENDING A MESSAGE 
   const handleCreateRecord = (e) => {
     e.preventDefault();
-
-    var config = {
-      headers: { "Content-Type":"multipart/form-data" }
-    };
-
-    var data = formData;
 
     // VALIDATION
     if (formData.email === '') {
@@ -75,6 +60,8 @@ export default function ContactForm() {
       return;
     } else {
       
+      var data = formData;
+
       setProgress({ value: 'Processing ...', disabled: true});
 
       axios.post(APIS.contractApis.add , data)
@@ -105,7 +92,7 @@ export default function ContactForm() {
             <strong>Street :</strong><span> KG 541 ST, House No 10</span><br/>
             <strong>Postal Box :</strong><span> P.O.Box 3009 Kigali</span><br/>
             <strong>Telephone :</strong><span> Tel: +250 780 460 848</span><br/>
-            <strong>Email :</strong><span> info@isma.com</span>
+            <strong>Email :</strong><span> info@isma.com</span> 
           </p>
         </div>
       </LeftContainer>
