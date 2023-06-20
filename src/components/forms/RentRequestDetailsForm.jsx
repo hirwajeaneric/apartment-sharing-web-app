@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { Link, useParams } from 'react-router-dom';
-import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedContainer } from '../styled-components/generalComponents';
+import { CustomFormControlOne, HeaderThree, LeftContainer, RightContainer, TwoSidedContainer } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRentRequestDetails, getRentRequests } from '../../redux/features/rentRequestsSlice';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import { APIS, PROTOCOL } from '../../utils/APIS';
 import ResponseComponent from '../sections/ResponseComponent';
 
 export default function RentRequestDetailsForm() {
+  
   // FORM PROCESSING AND RESPONSE PROVISION
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessing2, setIsProcessing2] = useState(false);
@@ -89,67 +90,59 @@ export default function RentRequestDetailsForm() {
   }
 
   return (
-    <TwoSidedContainer style={{ flexDirection:'row', marginTop: '20px', width: '100%', background: 'white', padding: '20px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
-      <LeftContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start' }}>
+    <TwoSidedContainer style={{ flexDirection:'row', marginTop: '20px', alignItems:'flex-start', width: '100%', background: 'white', padding: '20px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius:'5px' }}>
+      
+      <LeftContainer style={{ flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start', marginBottom:'20px' }}>
         <p><strong>Name:</strong> {selectedRentRequest.fullName}</p> 
         <p><strong>Email address:</strong> {selectedRentRequest.email}</p>
         <p><strong>Phone number:</strong> {selectedRentRequest.phone}</p> 
         <p><strong>Gender:</strong> {selectedRentRequest.gender}</p>
         <p><strong>Age:</strong> {selectedRentRequest.age}</p>
-        <p><strong>Message:</strong> {selectedRentRequest.comment}</p>
+        <p><strong>Message:</strong> <span style={{ lineHeight:'25px' }}>{selectedRentRequest.comment}</span></p>
         <p><Link to={`${PROTOCOL}://localhost:5555/property/${selectedRentRequest.propertyId}`} style={{ color: 'blue', textDecoration: 'none' }}>View House</Link></p>
       </LeftContainer>
+
       <RightContainer style={{ flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start' }}>
-      {selectedRentRequest.requestingUserId === JSON.parse(localStorage.getItem('usrInfo')).id ?
+      {
+        selectedRentRequest.requestingUserId === JSON.parse(localStorage.getItem('usrInfo')).id 
+        ?
         <div style={{ display:'flex', flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start', width: '100%' }}>
-          <p><strong>Allowed to repost:</strong> {selectedRentRequest.allowedToRepost}</p> 
-          <p><strong>Status:</strong> {selectedRentRequest.status}</p>
-          <p><strong>Response:</strong> {selectedRentRequest.response}</p>
-        </div> :
+          <p><strong>Allowed to repost:</strong> <span>{selectedRentRequest.allowedToShare}</span></p> 
+          <p><strong>Status:</strong> <span>{selectedRentRequest.status}</span></p>
+          <p><strong>Response:</strong> <span style={{ lineHeight:'25px' }}>{selectedRentRequest.response}</span></p>
+        </div> 
+        :
         <form style={{ display: 'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'flex-start', width: '100%' }}>
+          {selectedRentRequest.response && 
+            <>
+              <HeaderThree style={{ borderBottom: '1px solid gray', width: '100%', marginBottom: '10px', paddingBottom: '10px'}}>Your response</HeaderThree>
+              <div style={{ display:'flex', flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start', width: '100%' }}>
+                <p><strong>Allowed to repost:</strong> <span style={{ color: 'gray' }}>{selectedRentRequest.allowedToShare}</span></p> 
+                <p><strong>Status:</strong> <span style={{ color: 'gray' }}>{selectedRentRequest.status}</span></p>
+                <p><strong>Response:</strong> <span style={{ color: 'gray', lineHeight:'25px' }}>{selectedRentRequest.response}</span></p>
+              </div>
+              <HeaderThree style={{ borderBottom: '1px solid gray', width: '100%', margin: '10px 0 10px', paddingBottom: '10px'}}>Update response</HeaderThree>
+            </>
+          }
+
           <CustomFormControlOne sx={{ width: '100%' }} size='small'>
             <InputLabel id="allowedToShare">Allow user to re-post the property</InputLabel>
-            <Select 
-              labelId="allowedToShare" 
-              id="allowedToShare" 
-              name='allowedToShare' 
-              value={formData.allowedToShare || ''} 
-              onChange={handleFormInputs} 
-              label="Allow user to re-post the property"
-            >
+            <Select labelId="allowedToShare" id="allowedToShare" name='allowedToShare' value={formData.allowedToShare || ''} onChange={handleFormInputs} label="Allow user to re-post the property">
               <MenuItem value="">
-                  <em>None</em>
+                <em>None</em>
               </MenuItem>
               <MenuItem value={'Yes' || ''}>Yes</MenuItem>
               <MenuItem value={'No' || ''}>No</MenuItem>
             </Select>
           </CustomFormControlOne>
-          <TextField 
-            id="outlined-multiline-static" 
-            style={{ width: '100%' }} 
-            label="Response" 
-            multiline 
-            rows={4} 
-            name='response' 
-            value={formData.response || ''} 
-            onChange={handleFormInputs} 
-          />
 
-          {/* CHOICE BUTTONS */}
+          <TextField id="outlined-multiline-static" style={{ width: '100%' }} label="Response" multiline rows={4} name='response' value={formData.response || ''} onChange={handleFormInputs} />
+
+          {/* DECISION BUTTONS *************************************************************************************/}
           <div style={{ display: 'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center', width:'100%'}}>
             <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'flex-start', alignItems:'center', width: '50%' }}>
               {!isProcessing && 
-                <Button 
-                  type='submit' 
-                  variant='contained' 
-                  size='small' 
-                  color='success' 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    submitRequest('Accepted');
-                  }}>
-                    APPROVE
-                </Button>
+                <Button type='submit' variant='contained' size='small' color='success' onClick={(e) => { e.preventDefault(); submitRequest('Accepted');}}>APPROVE</Button>
               }
               {isProcessing && 
                 <Button type='submit' variant='contained' size='medium' color='primary' disabled>PROCESSING...</Button>
@@ -157,16 +150,7 @@ export default function RentRequestDetailsForm() {
             </div>
             <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'flex-end', alignItems:'center', width: '50%' }}>
               {!isProcessing2 && 
-                <Button 
-                type='submit' 
-                variant='contained' 
-                size='small' 
-                color='secondary' 
-                onClick={(e) => {
-                  e.preventDefault();
-                  submitRequest('Rejected');
-                }}>
-                  REJECT
+                <Button type='submit' variant='contained' size='small' color='secondary' onClick={(e) => { e.preventDefault(); submitRequest('Rejected');}}>REJECT
               </Button>
               }
               {isProcessing2 && 
@@ -176,7 +160,6 @@ export default function RentRequestDetailsForm() {
           </div>
         </form>}
       </RightContainer>
-
 
       <ResponseComponent 
         message={responseMessage.message} 
