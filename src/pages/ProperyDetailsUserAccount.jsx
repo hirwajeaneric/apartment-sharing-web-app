@@ -13,6 +13,7 @@ export default function ProperyDetailsUserAccount() {
 
   const [formData, setFormData] = useState({ propertyType: '', rentPrice: '', location: '', mapCoordinates: '', dimensions: '', description: '', bedRooms: '', bathRooms: '', furnished: false });
   const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem('usrInfo')));
@@ -24,6 +25,13 @@ export default function ProperyDetailsUserAccount() {
     .catch(error => console.log(error));
   },[params.propertyId]);
 
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    },1500);
+  },[])
+
   return (
     <div>
       <Helmet>
@@ -31,9 +39,21 @@ export default function ProperyDetailsUserAccount() {
         <meta name="description" content={`Details for property number: ${params.propertyId}.`} /> 
       </Helmet>
       <InnerContainer style={{ width: '100%', alignItems:'flex-start', margin: '0', background: 'none', borderTop: 'none' }}>
-        
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && 
         <TwoSidedContainer style={{ alignItems: 'flex-start'}}>
-          {formData.ownerId !== userData.id ?
+          {formData.ownerId === userData.id ?
+          <>
+            <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px', width: '100%' }}>
+              <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
+              <PropertyDetailsForm 
+                formData={formData} 
+                setFormData={setFormData} 
+                userData={userData}
+              />
+            </CustomLeftContainer>
+          </>
+          :
           <>
             <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
               <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
@@ -48,19 +68,9 @@ export default function ProperyDetailsUserAccount() {
               <PostPropertyForm />
             </CustomRightContainer>
           </>
-          :
-          <>
-            <CustomLeftContainer style={{ justifyContent:'flex-start', flexDirection: 'column', gap: '20px', marginBottom: '40px', width: '100%' }}>
-              <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Property Details</HeaderTwo>
-              <PropertyDetailsForm 
-                formData={formData} 
-                setFormData={setFormData} 
-                userData={userData}
-              />
-            </CustomLeftContainer>
-          </>
           }
         </TwoSidedContainer>
+        }
       </InnerContainer>
     </div>
   )
