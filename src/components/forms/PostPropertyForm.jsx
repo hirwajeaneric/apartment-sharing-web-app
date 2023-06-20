@@ -73,6 +73,7 @@ export default function PostPropertyForm() {
     setPictures(e.target.files[0]);
   }
 
+  // FORM FOR RECORDING A HOUSE 
   const handleCreateRecord = (e) => {
     e.preventDefault();
 
@@ -83,33 +84,34 @@ export default function PostPropertyForm() {
     var data = formData;
     data.ownerId = userData.id; 
     data.status = 'For Rent';
-    
+
     if (pictures) {
       data.pictures = pictures; 
     }
 
-    if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    // VALIDATION
+    if (formData.propertyType === '') {
+      setResponseMessage({ message: 'Apartment type is required', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    } else if (formData.bedRooms === 0 || formData.bedRooms === '') {
+      setResponseMessage({ message: 'The number of bedrooms is required', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    } else if (formData.bathRooms === 0 || formData.bathRooms === '') {
+      setResponseMessage({ message: 'The number of bathrooms is required', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    } else if (formData.furnished === '') {
+      setResponseMessage({ message: 'You must specify is the apartment is furnished or not.', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    } else if (formData.dimensions === 0) {
+      setResponseMessage({ message: 'Apartment or house dimensions must be provided', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.description) {
-      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+    } else if (formData.location) {
+      setResponseMessage({ message: 'Apartment location is required', severity: 'error' });
       setOpen(true);
       return;
     } else {
@@ -139,12 +141,7 @@ export default function PostPropertyForm() {
   };
 
   return (
-    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', 
-        padding: '20px 10px', 
-        // boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', 
-        border: '1px solid #d1e0e0',
-        borderRadius: '5px' 
-      }}>
+    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <TextField id="description" style={{ width: '100%' }} size='small' label="description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />
         <TextField type='number' id="rentPrice" style={{ width: '100%' }} size='small' label="Rent Price" variant="outlined" name='rentPrice' value={formData.rentPrice || ''} onChange={handleChange} helperText="Rent price value should be is in Rwandan Francs. Ex: 100000 "/>
@@ -178,6 +175,7 @@ export default function PostPropertyForm() {
             <MenuItem value={'false'}>No</MenuItem>
           </Select>
         </CustomFormControlOne>
+
         {/* <TextField type='file' width={'100%'} id="file" style={{ width: '100%' }} size='small' variant="outlined" onChange={handleFileInput} name='pictures' /> */}
         <input type='file' id="file" style={{ width: '100%' }} onChange={handleFileInput} name='pictures' />
         <div style={{ display: 'flex', flexWrap: 'nowrap', justifyContent:'space-between', alignItems:'center', width: '100%' }}>

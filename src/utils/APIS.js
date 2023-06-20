@@ -69,6 +69,9 @@ let APIS = {
         findById: `${LINK}rentRequest/findById?id=`,
         findByPropertyId: `${LINK}rentRequest/findByPropertyId?propertyId=`,
     },
+    contact: {
+        add: `${LINK}contact/add`,
+    },
     files: {
         profiles: `${LINK}profiles/`,
         property: `${LINK}property/`,
