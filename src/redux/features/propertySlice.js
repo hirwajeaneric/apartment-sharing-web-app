@@ -15,8 +15,6 @@ const initialState = {
     numberOfOwnedProperties: 0,
     numberOfPropertiesForJoin: 0,
     numberOfPropertiesForRent: 0,
-    // numberOfTenants: 0,
-    // listOfTenants: [],
     isLoading: false,
     isProcessing: false
 }
