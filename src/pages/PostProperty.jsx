@@ -1,17 +1,18 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { FullWidthContainer, HeaderTwo, PageSizedContainer } from '../components/styled-components/generalComponents'
+import { FullWidthContainer, PageSizedContainer } from '../components/styled-components/generalComponents'
 import PostPropertyForm from '../components/forms/PostPropertyForm';
+import CustomizedBanner from '../components/sections/CustomizedBanner';
 
 export default function PostProperty() {
   return (
-    <FullWidthContainer>
+    <FullWidthContainer style={{ flexDirection: 'column',}}>
       <Helmet>
         <title>Post new property</title>
         <meta name="description" content={`Post a new property.`} /> 
       </Helmet>
-      <PageSizedContainer style={{ flexDirection: 'column', margin: '40px 0', padding: '10px'}}>
-        <HeaderTwo style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 20px', fontWeight: '600' }}>Post new property</HeaderTwo>
+      <CustomizedBanner title={'Post new property.'} height={'20vh'} />
+      <PageSizedContainer style={{ flexDirection: 'column', margin: '40px 0 40px', padding: '10px'}}>
         <PostPropertyForm />
       </PageSizedContainer>
     </FullWidthContainer>

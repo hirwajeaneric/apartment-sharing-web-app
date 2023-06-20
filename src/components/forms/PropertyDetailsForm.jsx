@@ -93,7 +93,7 @@ export default function PropertyDetailsForm(props) {
   };
 
   return (
-    <TwoSidedFormContainer onSubmit={handleUpdateProperty} style={{ flexDirection: 'column', width: '100%', justifyContent: 'flex-tart', gap: '20px' }}>
+    <TwoSidedFormContainer onSubmit={handleUpdateProperty} style={{ flexDirection: 'column', width: '100%', justifyContent: 'flex-tart', gap: '20px', border: '1px solid #d1e0e0', padding: '20px', borderRadius: '5px', background: 'white' }}>
         {formData.ownerId !== userData.id
           ?
           <>

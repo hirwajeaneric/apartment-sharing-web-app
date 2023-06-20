@@ -83,35 +83,68 @@ export default function PostPropertyForm() {
     var data = formData;
     data.ownerId = userData.id; 
     data.status = 'For Rent';
+    
     if (pictures) {
       data.pictures = pictures; 
     }
 
-    setProgress({ value: 'Processing ...', disabled: true});
+    if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else if (formData.description) {
+      setResponseMessage({ message: 'Property description is required', severity: 'error' });
+      setOpen(true);
+      return;
+    } else {
+      
+      setProgress({ value: 'Processing ...', disabled: true});
 
-    axios.post(APIS.propertyApis.add , data, config)
-    .then(response => {
-      setTimeout(()=>{
-        if (response.status === 201) {
-          setResponseMessage({ message: response.data.message, severity: 'success' });
+      axios.post(APIS.propertyApis.add , data, config)
+      .then(response => {
+        setTimeout(()=>{
+          if (response.status === 201) {
+            setResponseMessage({ message: response.data.message, severity: 'success' });
+            setOpen(true);
+  
+            setProgress({ value: '', disabled: false });
+            window.location.replace(`/user/${params.fullName}/overview`);
+          }
+        }, 2000); 
+      })
+      .catch(error => {
+        if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+          setResponseMessage({ message: error.response.data.msg, severity: 'error' });
           setOpen(true);
-
           setProgress({ value: '', disabled: false });
-          window.location.replace(`/user/${params.fullName}/overview`);
         }
-      }, 2000); 
-    })
-    .catch(error => {
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        setResponseMessage({ message: error.response.data.msg, severity: 'error' });
-        setOpen(true);
-        setProgress({ value: '', disabled: false });
-      }
-    });
+      });
+    } 
   };
 
   return (
-    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', background: 'white', padding: '20px 10px', boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', borderRadius: '5px' }}>
+    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', 
+        padding: '20px 10px', 
+        // boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', 
+        border: '1px solid #d1e0e0',
+        borderRadius: '5px' 
+      }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <TextField id="description" style={{ width: '100%' }} size='small' label="description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />
         <TextField type='number' id="rentPrice" style={{ width: '100%' }} size='small' label="Rent Price" variant="outlined" name='rentPrice' value={formData.rentPrice || ''} onChange={handleChange} helperText="Rent price value should be is in Rwandan Francs. Ex: 100000 "/>

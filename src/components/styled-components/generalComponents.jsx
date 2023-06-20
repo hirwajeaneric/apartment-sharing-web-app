@@ -611,8 +611,7 @@ export const SideMenu = styled.div`
     background-color: white;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
-
+    border: 1px solid #d1e0e0;
 
     h3 {
         width: 100%;
@@ -671,13 +670,18 @@ export const StatsCard = styled.div`
     width: 31%;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid #d1e0e0;
     margin-bottom: 10px;
     display: flex; 
     flex-direction: row; 
     justify-content: space-between; 
     gap: 5px;
     align-items: center;
+
+    &:hover {
+        box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+        border: none;
+    }
 
     div {
         with: 60%;

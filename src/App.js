@@ -33,6 +33,8 @@ import SentRentRequests from './components/sections/SentRentRequests';
 import RecievedRentRequests from './components/sections/RecievedRentRequests';
 import SentJoinRequests from './components/sections/SentJoinRequests';
 import RecievedJoinRequests from './components/sections/RecievedJoinRequests';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +58,8 @@ function App() {
           <Route path='/' element={<Main />}>
             <Route path='*' element={<ErrorPage />} />
             <Route path='' element={<Home />} />
+            <Route path='aboutus' element={<AboutUs />} />
+            <Route path='contactus' element={<ContactUs />} />
             <Route path='search' element={<SearchPage />} />
             <Route path='property/:id' element={<PropertyDetailsHome />} />
             

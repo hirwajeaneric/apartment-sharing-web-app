@@ -8,7 +8,6 @@ export default function AboutUsSection() {
       <PageSizedContainer>
           <TwoSidedContainer style={{ alignItems: 'flex-start', padding: '60px 0'}}>
             <LeftContainer style={{ flexDirection: 'column', marginBottom: '20px', padding: '10px'}}>
-              <HeaderOne style={{color: 'black', textAlign: 'left', width: '100%', margin: '0 0 40px'}}>About ISMA </HeaderOne>
               <img src='/imgs/logo2.png' alt='' style={{ width: '100%', border: '1px solid green', margin: '20px 0 40px' }}/>
               <p>
                 ISMA is an acronym of the word: "I Share My Apartment".
