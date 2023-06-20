@@ -17,7 +17,9 @@ export default function ContractDetails() {
           <HeaderTwo style={{ margin: '0' }}>Contract Details</HeaderTwo>
           <Button variant='contained' size='small' color='secondary' >Print</Button>
         </div>
+
         <ContractDetailsForm />
+        
       </InnerContainer>
     </div>
   )
