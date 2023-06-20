@@ -35,10 +35,12 @@ function App() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('usrInfo'));
-    dispatch(getProperties(user.id));
     
     if (user) {
+      dispatch(getProperties(user.id));
       dispatch(getRentRequests(user.id));
+    } else {
+      dispatch(getProperties());
     }
   }, [dispatch]);
 
