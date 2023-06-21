@@ -11,21 +11,35 @@ import JoinRequestForm from '../components/forms/JoinRequestForm';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPropertyDetails } from '../redux/features/propertySlice';
+import axios from 'axios';
+import { APIS } from '../utils/APIS';
 
 export default function PropertyDetailsHome() {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   
+  const [joinPost, setJoinPost] = useState({}); 
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('usrInfo')));
+    
     dispatch(getPropertyDetails(params.id));
   },[dispatch, params.id]);
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('usrInfo')));
+    
   },[])
+
+  // Fetch Join post
+  useEffect(() => {
+    axios.get(APIS.joinPostApis.findByPropertyId+params.id)
+    .then(response => {
+      setJoinPost(response.data.joinPost);
+    })
+    .catch(error => console.log(error));
+  },[params.id]);
 
   const { selectedProperty, isLoading } = useSelector((state) => state.property);
 
@@ -55,14 +69,32 @@ export default function PropertyDetailsHome() {
               </PropertyDescriptionSection>
               <PropertyMajorDetails descriptions={selectedProperty} />
               <LocationMap coordinates={selectedProperty.mapCoordinates} />
+              
             </div>
 
 
 
             {/* SIDE BAR WITH RENT AND JOIN FORM AND CALL TO ACTION MESSAGES ********************************************************** */}
             
-            <div className='rightSide' style={{ boxShadow: '0 1.5px 5px 0 rgba(0, 0, 0, 0.19)', padding: '20px', background: 'white' }}>
-              
+            <div className='rightSide' style={{ border: '1px solid #d1e0e0', borderRadius: '5px', padding: '20px', background: 'white' }}>
+              {/* Information about owner and tenant */}
+              {
+                joinPost && 
+                <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #d1e0e0', width: '100%' }}>
+                  <HeaderTwo>Join Post</HeaderTwo>
+                  <p style={{ fontSize: '90%', color: 'black', margin: '10px 0 20px' }}>Posted on: <span style={{ fontSize: '90%', color: 'gray' }}>{new Date(joinPost.postDate).toUTCString()}</span></p>
+                  <div style={{ background: '#f0f5f5', padding: '10px 10px', borderRadius: '5px', border: '1px solid #d1e0e0' }}>
+                    {joinPost.expectedAge && 
+                      <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Expected age: <br/><span style={{ color: 'black', fontSize: '100%' }}>{joinPost.expectedAge}</span></p>}
+                    {joinPost.expectedGender && 
+                      <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Expected gender: <br/><span style={{ color: 'black', fontSize: '100%' }}>{joinPost.expectedGender}</span></p>}
+                    {joinPost.comment && 
+                      <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Comment: <br/><span style={{ color: 'black', fontSize: '100%' }}>{joinPost.comment}</span></p>}
+                    {joinPost.comment && 
+                      <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Expected activities: <br/><span style={{ color: 'black', fontSize: '100%' }}>{joinPost.comment}</span></p>}
+                  </div>
+                </div>
+              }
               {/* This message appears when the selected house is owned by the user who has logen in */}
               {(user !== null && selectedProperty.ownerId === user.id) && <p>Your House</p>}
 

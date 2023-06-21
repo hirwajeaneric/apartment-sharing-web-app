@@ -64,14 +64,15 @@ export default function UserAccountSettings() {
     setIsProcessing(true);
     axios.put(APIS.userApis.updateUserAccount+user.id, userInfo, config)
     .then(response => {
-      setTimeout(() => {
-        if (response.status === 200) {
-          setIsProcessing(false);
-          setResponseMessage({ message: 'Account updated!', severity:'success'});
-          setOpen(true);
+      if (response.status === 200) {
+        setIsProcessing(false);
+        setResponseMessage({ message: 'Account updated!', severity:'success'});
+        setOpen(true);
+        
+        setTimeout(() => {
           window.location.reload();
-        }
-      },3000);
+        },3000);
+      }
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -86,14 +87,15 @@ export default function UserAccountSettings() {
     if (userInfo.email !== '') {
         axios.put(APIS.userApis.requestPasswordReset, {email: userInfo.email})
       .then(response => {
-        setTimeout(() => {
-          if (response.status === 200) {
-            setIsProcessing(false);
-            setResponseMessage({ message: response.data.message, severity:'success'});
-            setOpen(true);
+        if (response.status === 200) {
+          setIsProcessing(false);
+          setResponseMessage({ message: response.data.message, severity:'success'});
+          setOpen(true);
+
+          setTimeout(() => {
             window.location.replace('/signin');
-          }
-        },3000);
+          },3000);
+        }
       })
       .catch(error => {
         if (error.response && error.response.status >= 400 && error.response.status <= 500) {
