@@ -64,10 +64,10 @@ export default function ContactForm() {
 
       setProgress({ value: 'Processing ...', disabled: true});
 
-      axios.post(APIS.contractApis.add , data)
+      axios.post(APIS.contact.add , data)
       .then(response => {
         setTimeout(()=>{
-          if (response.status === 201) {
+          if (response.status === 200) {
             setResponseMessage({ message: 'Message Sent', severity: 'success' });
             setOpen(true);
             setProgress({ value: '', disabled: false });
