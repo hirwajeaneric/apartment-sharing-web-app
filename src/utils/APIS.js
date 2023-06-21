@@ -73,7 +73,7 @@ let APIS = {
         add: `${LINK}contact/add`,
     },
     files: {
-        profiles: `${LINK}profiles/`,
+        profiles: `${LINK}profile/`,
         property: `${LINK}property/`,
     }
 }
