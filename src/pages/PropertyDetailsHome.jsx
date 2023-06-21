@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
-import { FullWidthContainer, HeaderTwo, PageSizedContainer, PropertyDescriptionSection } from '../components/styled-components/generalComponents';
+import { FullWidthContainer, HeaderThree, HeaderTwo, PageSizedContainer, PropertyDescriptionSection } from '../components/styled-components/generalComponents';
 import { PageWithSideBarContainer } from '../components/styled-components/generalComponents';
 import ImageSlider from '../components/sections/ImageCarousel';
 import PropertyMajorDetails from '../components/sections/PropertyMajorDetails';
@@ -70,6 +70,12 @@ export default function PropertyDetailsHome() {
               <PropertyMajorDetails descriptions={selectedProperty} />
               <LocationMap coordinates={selectedProperty.mapCoordinates} />
               
+              {/* Information about owner and tenant */}
+              <div style={{ border: '1px solid #d1e0e0', borderRadius: '5px', padding: '20px', background: 'white' }}>
+                <HeaderThree>Uploaded by:</HeaderThree>
+                
+                <HeaderThree>Tenants:</HeaderThree>
+              </div>
             </div>
 
 
@@ -77,7 +83,7 @@ export default function PropertyDetailsHome() {
             {/* SIDE BAR WITH RENT AND JOIN FORM AND CALL TO ACTION MESSAGES ********************************************************** */}
             
             <div className='rightSide' style={{ border: '1px solid #d1e0e0', borderRadius: '5px', padding: '20px', background: 'white' }}>
-              {/* Information about owner and tenant */}
+              {/* Join post */}
               {
                 joinPost && 
                 <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #d1e0e0', width: '100%' }}>
@@ -95,6 +101,8 @@ export default function PropertyDetailsHome() {
                   </div>
                 </div>
               }
+
+
               {/* This message appears when the selected house is owned by the user who has logen in */}
               {(user !== null && selectedProperty.ownerId === user.id) && <p>Your House</p>}
 
