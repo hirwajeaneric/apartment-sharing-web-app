@@ -5,7 +5,7 @@ import { HeaderTwo } from '../components/styled-components/generalComponents'
 import { PageWithSideMenuContainer } from '../components/styled-components/generalComponents'
 import { Button, TextField } from '@mui/material'
 import axios from 'axios';
-import { APIS, HOST, LINK, PROTOCOL, PORT } from '../utils/APIS';
+import { APIS } from '../utils/APIS';
 import ResponseComponent from '../components/sections/ResponseComponent';
 
 export default function UserAccountSettings() {
@@ -37,7 +37,7 @@ export default function UserAccountSettings() {
       console.log(APIS.files.profiles+userInfo.profilePicture);
     })
     .catch(error => console.log(error));
-  },[])
+  },[userInfo.profilePicture])
 
   const handleProfilePicture = (e) => {
     setUserInfo({...userInfo, profilePicture: e.target.files[0]});
