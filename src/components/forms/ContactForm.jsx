@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { LeftContainer, RightContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
+import { LeftContainer, RightContainer, TwoSidedFormContainer, HeaderThree } from '../styled-components/generalComponents'
 import { Button, TextField } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -85,18 +85,18 @@ export default function ContactForm() {
   };
 
   return (
-    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
+    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'center',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%' }}>
-          <p style={{ lineHeight: '25px'}}>
-            <strong>Street :</strong><span> KG 541 ST, House No 10</span><br/>
-            <strong>Postal Box :</strong><span> P.O.Box 3009 Kigali</span><br/>
-            <strong>Telephone :</strong><span> Tel: +250 780 460 848</span><br/>
-            <strong>Email :</strong><span> info@isma.com</span> 
-          </p>
+          <img
+            style={{ width: '100%'}} 
+            src={'/imgs/vecteezy_businessman-calling-customer-support-service-call-center_.jpg'} 
+            alt='businessman calling customer support - Resource from vecteezy.com' 
+          />  
         </div>
       </LeftContainer>
       <RightContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+        <HeaderThree>Do you have any query or need support from ISMA Team? Please leave a message.</HeaderThree>
         <TextField id="fullName" style={{ width: '100%' }} size='small' label="Full name" variant="outlined" name='fullName' value={formData.fullName || ''} onChange={handleChange} />
         <TextField id="email" style={{ width: '100%' }} size='small' label="Email" variant="outlined" name='email' value={formData.email || ''} onChange={handleChange} />
         <TextField id="description" style={{ width: '100%' }} size='small' label="description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />

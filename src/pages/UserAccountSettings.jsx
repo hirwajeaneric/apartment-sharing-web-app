@@ -1,11 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { Helmet } from 'react-helmet-async'
 import { InnerContainer } from '../components/styled-components/authenticationPages'
 import { HeaderTwo } from '../components/styled-components/generalComponents'
 import { PageWithSideMenuContainer } from '../components/styled-components/generalComponents'
 import { Button, TextField } from '@mui/material'
+import axios from 'axios';
+import { APIS } from '../utils/APIS';
+import { useParams } from 'react-router-dom';
+import ResponseComponent from '../sections/ResponseComponent';
 
 export default function UserAccountSettings() {
+  const params =  useParams();
+  const [open, setOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   const [userInfo, setUserInfo] = useState({
     fullName: '',
     nationality: '',
@@ -15,6 +29,15 @@ export default function UserAccountSettings() {
     phone: '',
     profilePicture:''
   });
+  
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('usrInfo'));
+    axios.get(APIS.userApis.findById+user.id)
+    .then(response => {
+      setUserInfo(response.data.user);
+    })
+    .catch(error => console.log(error));
+  },[])
 
   const handleProfilePicture = (e) => {
     setUserInfo({...userInfo, profilePicture: e.target.files[0]});
@@ -26,8 +49,26 @@ export default function UserAccountSettings() {
 
   const handleUpdate = e => {
     e.preventDefault();
-    
 
+    setIsProcessing(true);
+    axios.post(APIS.userApis.update+userId, userInfo)
+    .then(response => {
+      setTimeout(() => {
+        if (response.status === 201) {
+          setIsProcessing(false);
+          setResponseMessage({ message: 'Rent request sent', severity:'success'});
+          setOpen(true);
+          window.location.reload();
+        }
+      },3000);
+    })
+    .catch(error => {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        setIsProcessing(false);
+        setResponseMessage({ message: error.response.data.msg, severity:'error'})
+        setOpen(true);
+      }
+    })
   }
 
   return (
@@ -56,6 +97,12 @@ export default function UserAccountSettings() {
           </form>
         </PageWithSideMenuContainer>
       </InnerContainer>
+      <ResponseComponent 
+        message={responseMessage.message} 
+        severity={responseMessage.severity}
+        open={open} 
+        handleClose={handleClose} 
+      />
     </>
   )
 }
