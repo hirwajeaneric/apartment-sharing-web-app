@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { CustomFormControlOne, LeftContainer, RightContainer, TwoSidedFormContainer } from '../styled-components/generalComponents'
-import { TextField, InputLabel, MenuItem, Select, Button } from '@mui/material';
+import React, { useState } from 'react'
+import { LeftContainer, RightContainer, TwoSidedFormContainer, HeaderThree } from '../styled-components/generalComponents'
+import { Button, TextField } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 import { APIS } from '../../utils/APIS';
-import { useParams } from 'react-router-dom';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function ContactForm() {
-  const params = useParams();
-  const [userData, setUserData] = useState({});
-  const [pictures, setPictures] = useState([]);
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
@@ -38,12 +34,7 @@ export default function ContactForm() {
       fullName: '',
       message: '',
     });
-    setPictures([]);
   }
-
-  useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem('usrInfo')));
-  },[]);
 
   const handleChange = ({currentTarget: input}) => { 
     setFormData({...formData, [input.name]: input.value}) 
@@ -53,12 +44,6 @@ export default function ContactForm() {
   // FORM FOR SENDING A MESSAGE 
   const handleCreateRecord = (e) => {
     e.preventDefault();
-
-    var config = {
-      headers: { "Content-Type":"multipart/form-data" }
-    };
-
-    var data = formData;
 
     // VALIDATION
     if (formData.email === '') {
@@ -75,12 +60,14 @@ export default function ContactForm() {
       return;
     } else {
       
+      var data = formData;
+
       setProgress({ value: 'Processing ...', disabled: true});
 
-      axios.post(APIS.contractApis.add , data)
+      axios.post(APIS.contact.add , data)
       .then(response => {
         setTimeout(()=>{
-          if (response.status === 201) {
+          if (response.status === 200) {
             setResponseMessage({ message: 'Message Sent', severity: 'success' });
             setOpen(true);
             setProgress({ value: '', disabled: false });
@@ -98,18 +85,18 @@ export default function ContactForm() {
   };
 
   return (
-    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
+    <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'center',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%' }}>
-          <p style={{ lineHeight: '25px'}}>
-            <strong>Street :</strong><span> KG 541 ST, House No 10</span><br/>
-            <strong>Postal Box :</strong><span> P.O.Box 3009 Kigali</span><br/>
-            <strong>Telephone :</strong><span> Tel: +250 780 460 848</span><br/>
-            <strong>Email :</strong><span> info@isma.com</span>
-          </p>
+          <img
+            style={{ width: '100%'}} 
+            src={'/imgs/vecteezy_businessman-calling-customer-support-service-call-center_.jpg'} 
+            alt='businessman calling customer support - Resource from vecteezy.com' 
+          />  
         </div>
       </LeftContainer>
       <RightContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+        <HeaderThree>Do you have any query or need support from ISMA Team? Please leave a message.</HeaderThree>
         <TextField id="fullName" style={{ width: '100%' }} size='small' label="Full name" variant="outlined" name='fullName' value={formData.fullName || ''} onChange={handleChange} />
         <TextField id="email" style={{ width: '100%' }} size='small' label="Email" variant="outlined" name='email' value={formData.email || ''} onChange={handleChange} />
         <TextField id="description" style={{ width: '100%' }} size='small' label="description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />

@@ -20,7 +20,6 @@ export default function NavigationBar() {
 
   useEffect(()=> {
     setUserInfo(JSON.parse(localStorage.getItem('usrInfo')));
-    // setUserInfo(localStorage.getItem('usrInfo'));
   },[])
 
   const handleMenu = (event) => {

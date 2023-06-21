@@ -70,10 +70,10 @@ let APIS = {
         findByPropertyId: `${LINK}rentRequest/findByPropertyId?propertyId=`,
     },
     contact: {
-        add: `${LINK}contact/add`,
+        add: `${LINK}email`,
     },
     files: {
-        profiles: `${LINK}profiles/`,
+        profiles: `${LINK}profile/`,
         property: `${LINK}property/`,
     }
 }
