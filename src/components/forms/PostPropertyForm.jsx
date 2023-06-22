@@ -83,6 +83,8 @@ export default function PostPropertyForm() {
 
     var data = formData;
     data.ownerId = userData.id; 
+    data.ownerName= userData.fullName;
+    data.ownerPhone = userData.phone;
     data.status = 'For Rent';
 
     if (pictures) {
