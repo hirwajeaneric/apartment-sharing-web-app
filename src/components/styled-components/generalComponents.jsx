@@ -521,7 +521,8 @@ export const PropertyDetailsStyles = styled.div`
     justify-content: space-between; 
     gap: 20px;
     align-items: center;
-    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid #d1e0e0; 
+    border-radius: 5px;
 
     div {
         align-items: center; 
@@ -553,7 +554,7 @@ export const PropertyDescriptionSection = styled.div`
     h2 {
         padding-bottom: 20px;
         width: 100%;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid #d1e0e0;
     }
 
     p {
@@ -577,8 +578,9 @@ export const MapContainer = styled.div`
     width: 100%; 
     height: 400px;
     margin: 40px 0;
-    border: 1px solid black;
-    box-shadow: 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid gray; 
+    border-radius: 5px;
+    
 
     iframe {
         width: 100%;

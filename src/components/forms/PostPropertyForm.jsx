@@ -83,6 +83,8 @@ export default function PostPropertyForm() {
 
     var data = formData;
     data.ownerId = userData.id; 
+    data.ownerName= userData.fullName;
+    data.ownerPhone = userData.phone;
     data.status = 'For Rent';
 
     if (pictures) {
@@ -110,7 +112,7 @@ export default function PostPropertyForm() {
       setResponseMessage({ message: 'Apartment or house dimensions must be provided', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.location) {
+    } else if (!formData.location || formData.location === '') {
       setResponseMessage({ message: 'Apartment location is required', severity: 'error' });
       setOpen(true);
       return;

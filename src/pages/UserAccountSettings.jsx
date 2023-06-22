@@ -64,14 +64,15 @@ export default function UserAccountSettings() {
     setIsProcessing(true);
     axios.put(APIS.userApis.updateUserAccount+user.id, userInfo, config)
     .then(response => {
-      setTimeout(() => {
-        if (response.status === 200) {
-          setIsProcessing(false);
-          setResponseMessage({ message: 'Account updated!', severity:'success'});
-          setOpen(true);
+      if (response.status === 200) {
+        setIsProcessing(false);
+        setResponseMessage({ message: 'Account updated!', severity:'success'});
+        setOpen(true);
+        
+        setTimeout(() => {
           window.location.reload();
-        }
-      },3000);
+        },3000);
+      }
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -86,14 +87,15 @@ export default function UserAccountSettings() {
     if (userInfo.email !== '') {
         axios.put(APIS.userApis.requestPasswordReset, {email: userInfo.email})
       .then(response => {
-        setTimeout(() => {
-          if (response.status === 200) {
-            setIsProcessing(false);
-            setResponseMessage({ message: response.data.message, severity:'success'});
-            setOpen(true);
+        if (response.status === 200) {
+          setIsProcessing(false);
+          setResponseMessage({ message: response.data.message, severity:'success'});
+          setOpen(true);
+
+          setTimeout(() => {
             window.location.replace('/signin');
-          }
-        },3000);
+          },3000);
+        }
       })
       .catch(error => {
         if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -120,7 +122,7 @@ export default function UserAccountSettings() {
         <PageWithSideMenuContainer style={{ backgroundColor: 'white', padding: '20px', marginTop: '20px', borderRadius: '10px', border: '1px solid #d1e0e0' }}>
           <div className='profile-picture'>
             {userInfo.profilePicture ?
-            <img src={""+APIS.files.profiles+userInfo.profilePicture+""} alt='' />:
+            <img src={""+APIS.files.profiles+userInfo.profilePicture+""} alt='' /> :
             <img src='/imgs/user_avatar_white.png' alt='' />}
             <TextField type='file' name='profilePicture' onChange={handleProfilePicture} size='small' variant='outlined' id='profilePicture' />
           </div>
