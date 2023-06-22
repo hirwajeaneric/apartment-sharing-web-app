@@ -73,19 +73,23 @@ export default function PropertyDetailsHome() {
               {/* Information about owner and tenant */}
               <div style={{ border: '1px solid #d1e0e0', display:'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', borderRadius: '5px', padding: '20px', background: 'white' }}>
                 {/* Owner info  */}
-                <div style={{ display:'flex', flexDirection: 'column', gap: '10px', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
+                <div style={{ display:'flex', flexDirection: 'column', marginBottom: '20px', gap: '5px', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
                   <HeaderThree>Owner/Agent</HeaderThree>
                   <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerName}</span></p>
                   <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerPhone}</span></p>
                 </div>
 
                 {/* Tenant info  */}
-                <HeaderThree>Tenants</HeaderThree>
+                {(selectedProperty.tenants && selectedProperty.tenants.length !== 0) && <HeaderThree>Tenants</HeaderThree>}
                 <div style={{ display:'flex', flexDirection: 'row', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
-                  <div style={{ display:'flex', flexDirection: 'column', gap: '10px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
-                    <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerName}</span></p>
-                    <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerPhone}</span></p>
-                  </div>
+                  {(selectedProperty.tenants && selectedProperty.tenants.length !== 0) && selectedProperty.tenants.map((tenant, index) => {
+                    return (
+                      <div style={{ display:'flex', flexDirection: 'column', gap: '10px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
+                        <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.fullName}</span></p>
+                        <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.email}</span></p>
+                      </div>
+                    )
+                  })}
                 </div>
                 
               </div>
@@ -99,6 +103,7 @@ export default function PropertyDetailsHome() {
                 joinPost && 
                 <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #d1e0e0', width: '100%' }}>
                   <HeaderTwo>Join Post</HeaderTwo>
+                  <p style={{ lineHeight: '22px', marginTop: '20px' }}>Bellow are requirements that a joining user needs to be fulfilling to apply/send a join request.</p>
                   <p style={{ fontSize: '90%', color: 'black', margin: '10px 0 20px' }}>Posted on: <span style={{ fontSize: '90%', color: 'gray' }}>{new Date(joinPost.postDate).toUTCString()}</span></p>
                   <div style={{ background: '#f0f5f5', padding: '10px 10px', borderRadius: '5px', border: '1px solid #d1e0e0' }}>
                     {joinPost.expectedAge && 

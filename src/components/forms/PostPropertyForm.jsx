@@ -112,7 +112,7 @@ export default function PostPropertyForm() {
       setResponseMessage({ message: 'Apartment or house dimensions must be provided', severity: 'error' });
       setOpen(true);
       return;
-    } else if (formData.location) {
+    } else if (!formData.location || formData.location === '') {
       setResponseMessage({ message: 'Apartment location is required', severity: 'error' });
       setOpen(true);
       return;
