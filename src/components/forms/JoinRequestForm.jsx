@@ -40,7 +40,6 @@ export default function JoinRequestForm(props) {
     comment: '',
     nationalId: '',
     passportNumber: '',
-    mightNeedToShare: '',
   });
 
   const resetFields = () => {
@@ -166,24 +165,6 @@ export default function JoinRequestForm(props) {
         name='age' 
         onChange={handleFormInputs}
       />
-      <CustomFormControlOne sx={{ width: '100%' }} size='small'>
-        <InputLabel id="gender">Will you need to share the property?</InputLabel>
-        <Select 
-          labelId="mightNeedToShare" 
-          id="mightNeedToShare" 
-          name='mightNeedToShare' 
-          value={formData.mightNeedToShare || ''} 
-          onChange={handleFormInputs} 
-          label="Will you need to share the property?"
-        >
-          <MenuItem value="">
-              <em>None</em>
-          </MenuItem>
-          <MenuItem value={'Yes' || ''}>Yes</MenuItem>
-          <MenuItem value={'No' || ''}>No</MenuItem>
-          <MenuItem value={"Don't know yet" || ''}>I don't know yet</MenuItem>
-        </Select>
-      </CustomFormControlOne>
       <TextField 
         id="outlined-multiline-static" 
         style={{ width: '100%' }} 

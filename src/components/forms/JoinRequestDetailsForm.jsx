@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { Link, useParams } from 'react-router-dom';
-import { CustomFormControlOne, HeaderThree, LeftContainer, RightContainer, TwoSidedContainer } from '../styled-components/generalComponents';
+import { HeaderThree, LeftContainer, RightContainer, TwoSidedContainer } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJoinRequestDetails, getJoinRequests } from '../../redux/features/joinRequestsSlice';
 import axios from 'axios';
@@ -103,7 +103,6 @@ export default function JoinRequestDetailsForm() {
         selectedJoinRequest.requestingUserId === JSON.parse(localStorage.getItem('usrInfo')).id 
         ?
         <div style={{ display:'flex', flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start', width: '100%' }}>
-          <p><strong>Allowed to repost:</strong> <span>{selectedJoinRequest.allowedToShare}</span></p> 
           <p><strong>Status:</strong> <span>{selectedJoinRequest.status}</span></p>
           <p><strong>Response:</strong> <span style={{ lineHeight:'25px' }}>{selectedJoinRequest.response}</span></p>
         </div> 
@@ -113,24 +112,12 @@ export default function JoinRequestDetailsForm() {
             <>
               <HeaderThree style={{ borderBottom: '1px solid gray', width: '100%', marginBottom: '10px', paddingBottom: '10px'}}>Your response</HeaderThree>
               <div style={{ display:'flex', flexDirection: 'column', gap: '20px', justifyContent:'flex-start', alignItems:'flex-start', width: '100%' }}>
-                <p><strong>Allowed to repost:</strong> <span style={{ color: 'gray' }}>{selectedJoinRequest.allowedToShare}</span></p> 
                 <p><strong>Status:</strong> <span style={{ color: 'gray' }}>{selectedJoinRequest.status}</span></p>
                 <p><strong>Response:</strong> <span style={{ color: 'gray', lineHeight:'25px' }}>{selectedJoinRequest.response}</span></p>
               </div>
               <HeaderThree style={{ borderBottom: '1px solid gray', width: '100%', margin: '10px 0 10px', paddingBottom: '10px'}}>Update response</HeaderThree>
             </>
           }
-
-          <CustomFormControlOne sx={{ width: '100%' }} size='small'>
-            <InputLabel id="allowedToShare">Allow user to re-post the property</InputLabel>
-            <Select labelId="allowedToShare" id="allowedToShare" name='allowedToShare' value={formData.allowedToShare || ''} onChange={handleFormInputs} label="Allow user to re-post the property">
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={'Yes' || ''}>Yes</MenuItem>
-              <MenuItem value={'No' || ''}>No</MenuItem>
-            </Select>
-          </CustomFormControlOne>
 
           <TextField id="outlined-multiline-static" style={{ width: '100%' }} label="Response" multiline rows={4} name='response' value={formData.response || ''} onChange={handleFormInputs} />
 
