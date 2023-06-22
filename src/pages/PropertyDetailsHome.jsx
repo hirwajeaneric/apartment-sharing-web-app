@@ -21,6 +21,7 @@ export default function PropertyDetailsHome() {
   
   const [joinPost, setJoinPost] = useState({}); 
   const [user, setUser] = useState({});
+  const [postedByMe, setPostedByMe] = useState(false);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('usrInfo')));
@@ -37,9 +38,13 @@ export default function PropertyDetailsHome() {
     axios.get(APIS.joinPostApis.findByPropertyId+params.id)
     .then(response => {
       setJoinPost(response.data.joinPost);
+      if (user !== null && response.data.joinPost.postingTenantId === user.id) {
+        setPostedByMe(true);
+        return;
+      }
     })
     .catch(error => console.log(error));
-  },[params.id]);
+  },[params.id, user]);
 
   const { selectedProperty, isLoading } = useSelector((state) => state.property);
 
@@ -74,17 +79,17 @@ export default function PropertyDetailsHome() {
               <div style={{ border: '1px solid #d1e0e0', display:'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', borderRadius: '5px', padding: '20px', background: 'white' }}>
                 {/* Owner info  */}
                 <div style={{ display:'flex', flexDirection: 'column', marginBottom: '20px', gap: '5px', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
-                  <HeaderThree>Owner/Agent</HeaderThree>
+                  <HeaderThree style={{ marginBottom: '10px' }}>Owner/Agent</HeaderThree>
                   <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerName}</span></p>
                   <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{selectedProperty.ownerPhone}</span></p>
                 </div>
 
                 {/* Tenant info  */}
                 {(selectedProperty.tenants && selectedProperty.tenants.length !== 0) && <HeaderThree>Tenants</HeaderThree>}
-                <div style={{ display:'flex', flexDirection: 'row', gap: '20px', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
+                <div style={{ display:'flex', flexDirection: 'row', gap: '20px', margin:'20px 0', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
                   {(selectedProperty.tenants && selectedProperty.tenants.length !== 0) && selectedProperty.tenants.map((tenant, index) => {
                     return (
-                      <div style={{ display:'flex', flexDirection: 'column', gap: '10px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
+                      <div style={{ display:'flex', flexDirection: 'column', gap: '5px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
                         <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.fullName}</span></p>
                         <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.email}</span></p>
                       </div>
@@ -103,7 +108,7 @@ export default function PropertyDetailsHome() {
                 joinPost && 
                 <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #d1e0e0', width: '100%' }}>
                   <HeaderTwo>Join Post</HeaderTwo>
-                  <p style={{ lineHeight: '22px', marginTop: '20px' }}>Bellow are requirements that a joining user needs to be fulfilling to apply/send a join request.</p>
+                  <p style={{ lineHeight: '22px', marginTop: '20px' }}>Bellow are requirements that a joining user needs to be fulfilling to apply or send a join request.</p>
                   <p style={{ fontSize: '90%', color: 'black', margin: '10px 0 20px' }}>Posted on: <span style={{ fontSize: '90%', color: 'gray' }}>{new Date(joinPost.postDate).toUTCString()}</span></p>
                   <div style={{ background: '#f0f5f5', padding: '10px 10px', borderRadius: '5px', border: '1px solid #d1e0e0' }}>
                     {joinPost.expectedAge && 
@@ -130,7 +135,7 @@ export default function PropertyDetailsHome() {
                   <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to reserve the permission to rent this Apartment.</p>
                 </>
                 :
-                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id ?
+                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id && !postedByMe ?
                 <>
                   <HeaderTwo>Do you want to Join this Apartment?</HeaderTwo>
                   <p style={{ fontWeight: '400', margin: '20px 0', lineHeight: '23px' }}>Fill in the form bellow to send a join request.</p>
@@ -161,6 +166,7 @@ export default function PropertyDetailsHome() {
               }
 
               {/* CONDITIONS FOR JOIN FORM  */}
+              
               {
                 !localStorage.getItem('usrTkn') && selectedProperty.status === 'For Join' ? 
                 <Button 
@@ -175,7 +181,7 @@ export default function PropertyDetailsHome() {
               }
               
               {
-                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id ? 
+                user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id && !postedByMe ? 
                 <JoinRequestForm /> : 
                 <></>
               }
