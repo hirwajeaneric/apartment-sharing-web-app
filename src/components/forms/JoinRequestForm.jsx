@@ -11,7 +11,7 @@ import ResponseComponent from '../sections/ResponseComponent';
 
 export default function JoinRequestForm(props) {
   // PROPS DESTRUCTURING
-  const { joinPostId } = props;
+  const { joinPostId, propertyOwnerId } = props;
 
   // FORM PROCESSING AND RESPONSE PROVISION
   const [isProcessing, setIsProcessing] = useState(false);
@@ -74,8 +74,11 @@ export default function JoinRequestForm(props) {
   const submitRequest = e => {
     e.preventDefault();
 
+    formData.propertyOwnerId = propertyOwnerId;
     formData.requestingUserId = user.id;
     formData.joinPost = joinPostId;
+
+    console.log(formData);
 
     setIsProcessing(true);
     axios.post(APIS.joinRequestApis.add, formData)
