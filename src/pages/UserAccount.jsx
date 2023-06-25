@@ -4,6 +4,7 @@ import { FullWidthContainer, HeaderThree, PageSizedContainer, PageWithSideMenuCo
 import { useDispatch, useSelector } from 'react-redux';
 import { getOwnedProperties, getProperties } from '../redux/features/propertySlice';
 import { getRentRequests } from '../redux/features/rentRequestsSlice';
+import { getJoinRequests } from '../redux/features/joinRequestsSlice';
 import { getContracts } from '../redux/features/contractSlice';
 
 export default function UserAccount() {
@@ -14,15 +15,11 @@ export default function UserAccount() {
     dispatch(getProperties(userInfo.id));
     dispatch(getOwnedProperties(userInfo.id));
     dispatch(getRentRequests(userInfo.id));
+    dispatch(getJoinRequests(userInfo.id));
     dispatch(getContracts(userInfo.id));
   }, [dispatch]);
 
-  const {
-    isLoading, 
-    numberOfRentedProperties,
-    numberOfOwnedProperties, 
-  } = useSelector(state => state.property);
-
+  const { isLoading, numberOfRentedProperties, numberOfOwnedProperties } = useSelector(state => state.property);
   const { numberOfRentRequestsSentByMe, numberOfRentRequestsSentToMe } = useSelector(state => state.rentRequest);
   const { numberOfJoinRequestsSentByMe, numberOfJoinRequestsSentToMe } = useSelector(state => state.joinRequest);
   const { numberOfContracts } = useSelector(state => state.contract);

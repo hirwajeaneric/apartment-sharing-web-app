@@ -157,7 +157,7 @@ export default function PostPropertyForm() {
             <MenuItem value="">
                 <em>None</em>
             </MenuItem>
-            <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
+            <MenuItem value={'1 Bedroom only'}>1 Bedroom Only</MenuItem>
             <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
             <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
             <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>

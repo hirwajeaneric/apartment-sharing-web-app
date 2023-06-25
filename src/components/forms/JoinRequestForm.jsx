@@ -11,7 +11,7 @@ import ResponseComponent from '../sections/ResponseComponent';
 
 export default function JoinRequestForm(props) {
   // PROPS DESTRUCTURING
-  const { joinPostId } = props;
+  const { joinPostId, propertyOwnerId } = props;
 
   // FORM PROCESSING AND RESPONSE PROVISION
   const [isProcessing, setIsProcessing] = useState(false);
@@ -40,7 +40,6 @@ export default function JoinRequestForm(props) {
     comment: '',
     nationalId: '',
     passportNumber: '',
-    mightNeedToShare: '',
   });
 
   const resetFields = () => {
@@ -74,8 +73,11 @@ export default function JoinRequestForm(props) {
   const submitRequest = e => {
     e.preventDefault();
 
+    formData.propertyOwnerId = propertyOwnerId;
     formData.requestingUserId = user.id;
     formData.joinPost = joinPostId;
+
+    console.log(formData);
 
     setIsProcessing(true);
     axios.post(APIS.joinRequestApis.add, formData)
@@ -163,24 +165,6 @@ export default function JoinRequestForm(props) {
         name='age' 
         onChange={handleFormInputs}
       />
-      <CustomFormControlOne sx={{ width: '100%' }} size='small'>
-        <InputLabel id="gender">Will you need to share the property?</InputLabel>
-        <Select 
-          labelId="mightNeedToShare" 
-          id="mightNeedToShare" 
-          name='mightNeedToShare' 
-          value={formData.mightNeedToShare || ''} 
-          onChange={handleFormInputs} 
-          label="Will you need to share the property?"
-        >
-          <MenuItem value="">
-              <em>None</em>
-          </MenuItem>
-          <MenuItem value={'Yes' || ''}>Yes</MenuItem>
-          <MenuItem value={'No' || ''}>No</MenuItem>
-          <MenuItem value={"Don't know yet" || ''}>I don't know yet</MenuItem>
-        </Select>
-      </CustomFormControlOne>
       <TextField 
         id="outlined-multiline-static" 
         style={{ width: '100%' }} 
