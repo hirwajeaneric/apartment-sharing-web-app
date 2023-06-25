@@ -89,7 +89,7 @@ export default function PropertyDetailsHome() {
                 <div style={{ display:'flex', flexDirection: 'row', gap: '20px', margin:'20px 0', justifyContent:'flex-start', alignItems: 'flex-start', width: '100%', }}>
                   {(selectedProperty.tenants && selectedProperty.tenants.length !== 0) && selectedProperty.tenants.map((tenant, index) => {
                     return (
-                      <div style={{ display:'flex', flexDirection: 'column', gap: '5px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
+                      <div key={index} style={{ display:'flex', flexDirection: 'column', gap: '5px', justifyContent:'flex-start', alignItems: 'flex-start', width: '30%', }}>
                         <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Name: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.fullName}</span></p>
                         <p style={{ fontSize: '90%', color: 'gray', marginBottom: '5px' }}>Phone: <br/><span style={{ color: 'black', fontSize: '100%' }}>{tenant.email}</span></p>
                       </div>

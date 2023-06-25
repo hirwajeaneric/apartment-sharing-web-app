@@ -1,7 +1,7 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
-import ToBeJoined from '../components/sections/ToBeJoined'
-import SearchPageBanner from '../components/sections/SearchPageBanner'
+import { Helmet } from 'react-helmet-async';
+import SearchResults from '../components/sections/SearchResults';
+import SearchPageBanner from '../components/sections/SearchPageBanner';
 
 export default function SearchPage() {
   return (
@@ -11,7 +11,7 @@ export default function SearchPage() {
         <meta name="description" content={`Search results for properties.`} /> 
       </Helmet>
       <SearchPageBanner />
-      <ToBeJoined />
+      <SearchResults />
     </>
   )
 }

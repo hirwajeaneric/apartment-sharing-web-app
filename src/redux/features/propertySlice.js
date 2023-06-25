@@ -16,7 +16,9 @@ const initialState = {
     numberOfPropertiesForJoin: 0,
     numberOfPropertiesForRent: 0,
     isLoading: false,
-    isProcessing: false
+    isProcessing: false,
+    searchQuery: {},
+    searchResults: [],
 }
 
 export const getProperties = createAsyncThunk(
@@ -119,6 +121,33 @@ const propertySlice = createSlice({
             state.rentedProperties = rentedProperties;
             state.numberOfRentedProperties = rentedProperties.length;
         },
+        searchProperty: (state, action) => {
+            const { propertyType, status, location } = action.payload;
+            state.searchQuery = action.payload;
+            let searchResults = null;
+
+            var properties = state.listOfProperties.filter((property) => property.status !== 'Occupied');
+
+            if (!propertyType && !status && !location) {
+                searchResults = properties.filter((property) => property.status !== 'Occupied')
+            } else if (propertyType && status && location) {
+                searchResults = properties.filter((property) => property.propertyType !== action.payload.propertyType && property.status !== action.payload.status && !property.location.includes(action.payload.location))
+            } else if (!propertyType && status && !location) {
+                searchResults = properties.filter((property) => property.status === action.payload.status)
+            } else if (!propertyType && !status && location) {
+                searchResults = properties.filter((property) => property.location.includes(action.payload.location))
+            } else if (propertyType && !status && !location) {
+                searchResults = properties.filter((property) => property.propertyType === action.payload.propertyType)
+            } else if (propertyType && !status && location) {
+                searchResults = properties.filter((property) => property.propertyType !== action.payload.propertyType && !property.location.includes(action.payload.location))
+            } else if (!propertyType && status && location) {
+                searchResults = properties.filter((property) => property.status === action.payload.status && property.location.includes(action.payload.location))
+            } else if (propertyType && status && !location) {
+                searchResults = properties.filter((property) => property.propertyType !== action.payload.propertyType && property.status !== action.payload.status)
+            } 
+            
+            state.searchResults = searchResults;
+        }
     },
     extraReducers: {
         [getProperties.pending] : (state)=> {

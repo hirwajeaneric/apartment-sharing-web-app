@@ -4,9 +4,11 @@ import { Button, InputLabel, MenuItem, Select } from '@mui/material';
 import { GridSearchIcon } from '@mui/x-data-grid';
 import { CustomFormControlOne } from '../styled-components/generalComponents';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 export default function SearchForm() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [propertyType, setPropertyType] = useState('');
     const [status, setStatus] = useState('');
@@ -33,10 +35,11 @@ export default function SearchForm() {
             location: location,
         }
 
+        dispatch({ type: 'property/searchProperty', payload: searchData });
+
         console.log(searchData);
         
-        navigate('/search');
-        
+        navigate('/search');   
     }
 
     return (
@@ -54,12 +57,12 @@ export default function SearchForm() {
                 label="Property Type"
             >
                 <MenuItem value="">
-                    <em>None</em>
+                    <em>All</em>
                 </MenuItem>
-                <MenuItem value={'1 Bedroom Only'}>1 Bedroom Only</MenuItem>
+                <MenuItem value={'1 Bedroom only'}>1 Bed room only</MenuItem>
                 <MenuItem value={'1 Bedroom + Living Room'}>1 Bedroom + Living Room</MenuItem>
                 <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
-                <MenuItem value={'3 Bedroom + Living Room'}>3 Bedroom + Living Room</MenuItem>
+                <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
                 <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
             </Select>
         </CustomFormControlOne>
@@ -76,11 +79,10 @@ export default function SearchForm() {
                 label="Property Status"
             >
                 <MenuItem value="">
-                    <em>None</em>
+                    <em>All</em>
                 </MenuItem>
-                <MenuItem value={'For Sale'}>For Sale</MenuItem>
                 <MenuItem value={'For Rent'}>For Rent</MenuItem>
-                <MenuItem value={'For Share'}>For Share</MenuItem>
+                <MenuItem value={'For Join'}>For Join</MenuItem>
             </Select>
         </CustomFormControlOne>
 
@@ -96,13 +98,16 @@ export default function SearchForm() {
                 label="location"
             >
                 <MenuItem value="">
-                    <em>None</em>
+                    <em>All</em>
                 </MenuItem>
                 <MenuItem value={'Kacyiru'}>Kacyiru</MenuItem>
                 <MenuItem value={'Remera'}>Remera</MenuItem>
                 <MenuItem value={'Gikondo'}>Gikondo</MenuItem>
                 <MenuItem value={'Kibagabaga'}>Kibagabaga</MenuItem>
                 <MenuItem value={'Gasabo'}>Gasabo</MenuItem>
+                <MenuItem value={'Gishushu'}>Gishushu</MenuItem>
+                <MenuItem value={'Kimironko'}>Kimironko</MenuItem>
+                <MenuItem value={'Kicukiro'}>Kicukiro</MenuItem>
             </Select>
         </CustomFormControlOne>
         
