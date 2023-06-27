@@ -128,7 +128,8 @@ export default function PostPropertyForm() {
             setOpen(true);
   
             setProgress({ value: '', disabled: false });
-            window.location.replace(`/user/${params.fullName}/overview`);
+            // window.location.replace(`/user/${params.fullName}/overview`);
+            window.location.replace('https://book.stripe.com/test_9AQaH5dbydfG03S4gg');
           }
         }, 2000); 
       })
