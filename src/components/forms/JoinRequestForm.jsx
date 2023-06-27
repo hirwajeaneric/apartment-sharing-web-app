@@ -11,7 +11,7 @@ import ResponseComponent from '../sections/ResponseComponent';
 
 export default function JoinRequestForm(props) {
   // PROPS DESTRUCTURING
-  const { joinPostId, propertyOwnerId } = props;
+  const { joinPostId, propertyOwnerId, postingTenant } = props;
 
   // FORM PROCESSING AND RESPONSE PROVISION
   const [isProcessing, setIsProcessing] = useState(false);
@@ -32,6 +32,7 @@ export default function JoinRequestForm(props) {
   const [formData, setFormData] = useState({
     propertyId: '',
     requestingUserId: '',
+    postingTenantId: '',
     fullName: '',
     email: '',
     phone: '',
@@ -76,6 +77,7 @@ export default function JoinRequestForm(props) {
     formData.propertyOwnerId = propertyOwnerId;
     formData.requestingUserId = user.id;
     formData.joinPost = joinPostId;
+    formData.postingTenantId = postingTenant;
 
     console.log(formData);
 

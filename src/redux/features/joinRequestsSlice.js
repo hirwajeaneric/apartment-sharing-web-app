@@ -21,7 +21,7 @@ export const getJoinRequests = createAsyncThunk(
             response.data.joinRequests.forEach(element => {
                 element.id = element._id;
             });
-            thunkAPI.dispatch({ type: 'joinRequest/getJoinRequestsStatistics', payload: { user: userId, joinRequests: response.data.joinRequests} });
+            thunkAPI.dispatch({ type: 'joinRequest/getJoinRequestsStatistics', payload: { user: userId, joinRequests: response.data.joinRequests } });
             return response.data.joinRequests; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');
@@ -66,14 +66,16 @@ const joinRequestSlice = createSlice({
         getJoinRequestsStatistics: (state, action) => {
             let requestsToMyProperties = [];
             let requestsSentByMe = [];
+
             action.payload.joinRequests.forEach(element => {
-                if (element.propertyOwnerId === action.payload.user) {
+                if (element.postingTenantId === action.payload.user) {
                     requestsToMyProperties.push(element);
                 }
-                if (element.requestingUserId === action.payload.user) {
+                if (element.postingTenantId === action.payload.user) {
                     requestsSentByMe.push(element);
                 }
-            });
+            })
+
             state.listOfJoinRequestsSentToMe = requestsToMyProperties;
             state.numberOfJoinRequestsSentToMe = requestsToMyProperties.length;
             state.listOfJoinRequestsSentByMe = requestsSentByMe;

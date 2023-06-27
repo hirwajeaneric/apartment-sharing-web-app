@@ -35,6 +35,7 @@ import SentJoinRequests from './components/sections/SentJoinRequests';
 import RecievedJoinRequests from './components/sections/RecievedJoinRequests';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import { getJoinRequests } from './redux/features/joinRequestsSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
     if (user) {
       dispatch(getProperties(user.id));
       dispatch(getRentRequests(user.id));
+      dispatch(getJoinRequests(user.id));
     } else {
       dispatch(getProperties());
     }
