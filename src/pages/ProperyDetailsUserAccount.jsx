@@ -63,7 +63,7 @@ export default function ProperyDetailsUserAccount() {
                 userData={userData}
               />
             </CustomLeftContainer>
-            {userData.id === formData.tenants[0].tenantId && 
+            {userData.id === formData.tenants[0].id && 
               <CustomRightContainer style={{ justifyContent:'flex-start', flexDirection: 'column' }}>
                 <HeaderTwo style={{ margin: '0', borderBottom: '1px solid rgb(120,116,116, 0.5)', paddingBottom: '10px', width: '100%' }}>Post Apartment</HeaderTwo>
                 <PublishPropertyForm property={formData} />

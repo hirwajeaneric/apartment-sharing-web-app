@@ -21,7 +21,7 @@ export const getRentRequests = createAsyncThunk(
             response.data.rentRequests.forEach(element => {
                 element.id = element._id;
             });
-            thunkAPI.dispatch({ type: 'rentRequest/getRentRequestsStatistics', payload: { user: userId, rentRequests: response.data.rentRequests} });
+            thunkAPI.dispatch({ type: 'rentRequest/getRentRequestsStatistics', payload: { user: userId, rentRequests: response.data.rentRequests } });
             return response.data.rentRequests; 
         } catch (error) {
             return thunkAPI.rejectWithValue('Something went wrong!');

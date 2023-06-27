@@ -182,7 +182,7 @@ export default function PropertyDetailsHome() {
               
               {
                 user !== null && selectedProperty.status === 'For Join' && selectedProperty.ownerId !== user.id && !postedByMe ? 
-                <JoinRequestForm joinPostId={joinPost._id} propertyOwnerId={selectedProperty.ownerId}  /> : 
+                <JoinRequestForm joinPostId={joinPost._id} propertyOwnerId={selectedProperty.ownerId} postingTenant={selectedProperty.tenants[0].id} /> : 
                 <></>
               }
             </div>
