@@ -51,6 +51,7 @@ export default function PostPropertyForm() {
       furnished: '',
     });
     setPictures([]);
+    setProgress({ value: '', disabled: false});
   }
 
   useEffect(() => {
@@ -124,7 +125,7 @@ export default function PostPropertyForm() {
       .then(response => {
         setTimeout(()=>{
           if (response.status === 201) {
-            setResponseMessage({ message: response.data.message, severity: 'success' });
+            setResponseMessage({ message: 'Redirecting to payment page', severity: 'success' });
             setOpen(true);
   
             setProgress({ value: '', disabled: false });
