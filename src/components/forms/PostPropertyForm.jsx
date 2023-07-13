@@ -123,12 +123,13 @@ export default function PostPropertyForm() {
       .then(response => {
         setTimeout(()=>{
           if (response.status === 201) {
-            setResponseMessage({ message: 'Redirecting to payment page', severity: 'success' });
+            setResponseMessage({ message: 'Redirecting to payment use 4242 4242 4242 4242 as card number for testing', severity: 'success' });
             setOpen(true);
   
             setProgress({ value: '', disabled: false });
             // window.location.replace(`/user/${params.fullName}/overview`);
-            window.location.replace('https://book.stripe.com/test_9AQaH5dbydfG03S4gg');
+            // window.location.replace('https://book.stripe.com/test_9AQaH5dbydfG03S4gg');
+            window.location.replace('https://buy.stripe.com/test_9AQaH5dbyfnOg2Q4gi');
           }
         }, 2000); 
       })
