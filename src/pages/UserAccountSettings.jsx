@@ -1,14 +1,16 @@
-import React, { useState, useEffect} from 'react'
-import { Helmet } from 'react-helmet-async'
-import { InnerContainer } from '../components/styled-components/authenticationPages'
-import { HeaderTwo } from '../components/styled-components/generalComponents'
-import { PageWithSideMenuContainer } from '../components/styled-components/generalComponents'
-import { Button, TextField } from '@mui/material'
+import React, { useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { InnerContainer } from '../components/styled-components/authenticationPages';
+import { HeaderTwo } from '../components/styled-components/generalComponents';
+import { PageWithSideMenuContainer } from '../components/styled-components/generalComponents';
+import { Button, TextField } from '@mui/material';
 import axios from 'axios';
 import { APIS } from '../utils/APIS';
 import ResponseComponent from '../components/sections/ResponseComponent';
 
 export default function UserAccountSettings() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ message: '', severity: ''});
@@ -49,7 +51,7 @@ export default function UserAccountSettings() {
 
   const handleUpdate = e => {
     e.preventDefault();
-
+    
     const user = JSON.parse(localStorage.getItem('usrInfo'));
 
     var config = {};
@@ -70,8 +72,9 @@ export default function UserAccountSettings() {
         setOpen(true);
         
         setTimeout(() => {
-          window.location.reload();
-        },3000);
+          navigate("../overview");
+          // window.location.reload();
+        },2000);
       }
     })
     .catch(error => {
