@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from '@mui/material'
+import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { HeaderThree, LeftContainer, RightContainer, TenantCard, TwoSidedContainer } from '../styled-components/generalComponents';
 import { useDispatch, useSelector } from 'react-redux';
