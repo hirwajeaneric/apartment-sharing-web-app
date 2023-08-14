@@ -49,9 +49,6 @@ export default function JoinRequestDetailsForm() {
       setIsProcessing2(true);
     }
 
-    console.log(formData);
-    console.log(APIS.joinRequestApis.update+params.joinRequestId);
-
     axios.put(APIS.joinRequestApis.update+params.joinRequestId, formData)
     .then(response => {
       setTimeout(() => {
@@ -65,7 +62,12 @@ export default function JoinRequestDetailsForm() {
           setOpen(true);
         }
         dispatch(getJoinRequests(response.data.joinRequest.requestingUserId));
-      },3000);
+        setFormData({
+          allowedToShare: '',
+          response:'',
+          status: '',
+        });
+      },1500);
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {

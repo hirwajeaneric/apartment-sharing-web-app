@@ -36,6 +36,7 @@ import RecievedJoinRequests from './components/sections/RecievedJoinRequests';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import { getJoinRequests } from './redux/features/joinRequestsSlice';
+import FinishPostProperty from './pages/FinishPostProperty';
 
 function App() {
   const dispatch = useDispatch();
@@ -74,6 +75,8 @@ function App() {
 
             {/* Unrestricted Routes  */}
             <Route path='post' element={localStorage.getItem(`usrTkn`) ? <PostProperty /> : <Navigate replace to='/signin' />} />
+            <Route path='success' element={localStorage.getItem(`usrTkn`) ? <FinishPostProperty /> : <Navigate replace to='/signin' />} />
+
             <Route path='user/:fullName' element={localStorage.getItem(`usrTkn`) ? <UserAccount /> : <Navigate replace to='/signin' />} >
               <Route path='overview' element={<UserAccountHome />} />
               <Route path='contracts' element={<Contracts />} />

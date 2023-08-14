@@ -65,7 +65,12 @@ export default function RentRequestDetailsForm() {
           setOpen(true);
         }
         dispatch(getRentRequests(response.data.rentRequest.requestingUserId));
-      },3000);
+        setFormData({
+          allowedToShare: '',
+          response:'',
+          status: '',
+        })
+      },1500);
     })
     .catch(error => {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {

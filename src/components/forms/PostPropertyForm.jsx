@@ -84,7 +84,7 @@ export default function PostPropertyForm() {
     data.ownerId = userData.id; 
     data.ownerName= userData.fullName;
     data.ownerPhone = userData.phone;
-    data.status = 'For Rent';
+    data.status = 'Unpaid';
 
     if (pictures) {
       data.pictures = pictures; 
@@ -121,16 +121,13 @@ export default function PostPropertyForm() {
 
       axios.post(APIS.propertyApis.add , data, config)
       .then(response => {
-        setTimeout(()=>{
-          if (response.status === 201) {
-            setResponseMessage({ message: 'Redirecting to payment page', severity: 'success' });
-            setOpen(true);
-  
-            setProgress({ value: '', disabled: false });
-            // window.location.replace(`/user/${params.fullName}/overview`);
-            window.location.replace('https://book.stripe.com/test_9AQaH5dbydfG03S4gg');
-          }
-        }, 2000); 
+        if (response.status === 201) {
+          setResponseMessage({ message: 'Redirecting to payment page', severity: 'success' });
+          setOpen(true);
+
+          setProgress({ value: '', disabled: false });
+          window.location.replace('https://book.stripe.com/test_9AQaH5dbydfG03S4gg');
+        } 
       })
       .catch(error => {
         if (error.response && error.response.status >= 400 && error.response.status <= 500) {
@@ -145,7 +142,7 @@ export default function PostPropertyForm() {
   return (
     <TwoSidedFormContainer onSubmit={handleCreateRecord} style={{ justifyContent: 'space-around', alignItems:'flex-start',background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>
       <LeftContainer style={{ flexDirection: 'column', gap: '20px', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-        <TextField id="description" style={{ width: '100%' }} size='small' label="description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />
+        <TextField id="description" style={{ width: '100%' }} size='small' label="Description" multiline rows={4} variant="outlined" name='description' value={formData.description || ''} onChange={handleChange} />
         <TextField type='number' id="rentPrice" style={{ width: '100%' }} size='small' label="Rent Price" variant="outlined" name='rentPrice' value={formData.rentPrice || ''} onChange={handleChange} helperText="Rent price value should be is in Rwandan Francs. Ex: 100000 "/>
         <TextField id="location" style={{ width: '100%' }} size='small' label="Location" variant="outlined" name='location' value={formData.location || ''} onChange={handleChange} helperText="Use Districts and Sectors. Example: 'Gasabo, Kacyiru'"/>
         <TextField id="mapCoordinates" style={{ width: '100%' }} size='small' label="Map Coordinates" variant="outlined" name='mapCoordinates' value={formData.mapCoordinates || ''} onChange={handleChange} helperText="Paste or add google map coordinates of the apartment. Example: '-1.951059, 30.094097'"/>
