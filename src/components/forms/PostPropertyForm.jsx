@@ -159,6 +159,10 @@ export default function PostPropertyForm() {
             <MenuItem value={'2 Bedrooms + Living Room'}>2 Bedrooms + Living Room</MenuItem>
             <MenuItem value={'3 Bedrooms + Living Room'}>3 Bedrooms + Living Room</MenuItem>
             <MenuItem value={'4 Bedrooms + Living Room'}>4 Bedrooms + Living Room</MenuItem>
+            <MenuItem value={'5 Bedrooms + Living Room'}>5 Bedrooms + Living Room</MenuItem>
+            <MenuItem value={'6 Bedrooms + Living Room'}>6 Bedrooms + Living Room</MenuItem>
+            <MenuItem value={'7 Bedrooms + Living Room'}>7 Bedrooms + Living Room</MenuItem>
+            <MenuItem value={'Other'}>Other</MenuItem>
           </Select>
         </CustomFormControlOne>
         <TextField type='number' id="dimensions" style={{ width: '100%' }} size='small' label="Dimensions" variant="outlined" name='dimensions' value={formData.dimensions || ''} onChange={handleChange} helperText="The dimensions should be in Square Meters." />
