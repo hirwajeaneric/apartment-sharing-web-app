@@ -34,6 +34,7 @@ let APIS = {
     propertyApis: {
         add: `${LINK}property/add`,
         update: `${LINK}property/update?id=`,
+        updateLatest: `${LINK}property/updateLatest`,
         delete: `${LINK}property/delete?id=`,
         list: `${LINK}property/list`,
         findById: `${LINK}property/findById?id=`,

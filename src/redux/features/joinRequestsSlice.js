@@ -71,11 +71,10 @@ const joinRequestSlice = createSlice({
                 if (element.postingTenantId === action.payload.user) {
                     requestsToMyProperties.push(element);
                 }
-                if (element.postingTenantId === action.payload.user) {
+                if (element.requestingUserId === action.payload.user) {
                     requestsSentByMe.push(element);
                 }
             })
-
             state.listOfJoinRequestsSentToMe = requestsToMyProperties;
             state.numberOfJoinRequestsSentToMe = requestsToMyProperties.length;
             state.listOfJoinRequestsSentByMe = requestsSentByMe;
