@@ -6,17 +6,17 @@ import { BsCheck2Circle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 export default function PostPropertyFormTestOne() { 
+  
   useEffect(() => {
     var user = JSON.parse(localStorage.getItem('usrInfo'));
-    changePropertyStatus(user.id);
+    axios.post(APIS.propertyApis.updateLatest , { ownerId: user.id, status: 'For Rent' })
+    .then(response => {
+      if (response.status === 200) {
+        console.log(response.data.message);
+      }
+    })
+    .catch(error => console.error(error));
   },[]);
-
-  const changePropertyStatus = async (userId) => {
-    const response = await axios.put(APIS.propertyApis.updateLatest , { ownerId: userId, status: 'For Rent' });
-    if (response.status === 200) {
-      console.log('Payment complete!');
-    }
-  }
 
   return (
     <TwoSidedContainer style={{ flexDirection: 'column', justifyContent: 'center', alignItems:'center', gap: '20px', background: 'white', padding: '20px 10px', border: '1px solid #d1e0e0', borderRadius: '5px' }}>

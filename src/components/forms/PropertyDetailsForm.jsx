@@ -92,6 +92,27 @@ export default function PropertyDetailsForm(props) {
     });
   };
 
+
+  const deleteProperty = (e) => {
+  
+    axios.delete(APIS.propertyApis.delete+params.propertyId)
+    .then(response => {
+      if (response.status === 200) {
+        setResponseMessage({ message: response.data.message, severity: 'success' });
+        setOpen(true);
+        dispatch(getProperties());
+        window.location.replace(`/user/${params.fullName}/overview`);
+      }
+    })
+    .catch(error => {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        setResponseMessage({ message: error.response.data.msg, severity: 'error' });
+        setOpen(true);
+        setProgress({ value: '', disabled: false });
+      }
+    });
+  };
+
   return (
     <TwoSidedFormContainer onSubmit={handleUpdateProperty} style={{ flexDirection: 'column', width: '100%', justifyContent: 'flex-tart', gap: '20px', border: '1px solid #d1e0e0', padding: '20px', borderRadius: '5px', background: 'white' }}>
         {formData.ownerId !== userData.id
@@ -408,6 +429,16 @@ export default function PropertyDetailsForm(props) {
                     {progress.value}
                 </Button>
               }
+
+              <Button 
+                type='button' 
+                variant='contained' 
+                color='error' 
+                size='small' 
+                onClick={deleteProperty}>
+                  DELETE
+              </Button>
+
               <Button 
                 type='cancel' 
                 variant='contained' 

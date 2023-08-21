@@ -43,6 +43,7 @@ let APIS = {
         findByOwnerId: `${LINK}property/findByOwnerId?ownerId=`,
         findByPostId: `${LINK}property/findByPostId?postId=`,
         findByStatus: `${LINK}property/findByStatus?status=`,
+        deleteUnpaid: `${LINK}property/deleteUnpaid`,
     },
     joinPostApis: {
         add: `${LINK}joinPost/add`,
