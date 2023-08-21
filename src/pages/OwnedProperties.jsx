@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { InnerContainer } from '../components/styled-components/authenticationPages'
 import { HeaderTwo } from '../components/styled-components/generalComponents'
 import OwnedHousesTable from '../components/tables/OwnedPropertiesTable'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { APIS } from '../utils/APIS'
 
 export default function OwnedProperties() {
   const {ownedProperties} = useSelector(state => state.property);

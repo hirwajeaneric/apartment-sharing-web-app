@@ -6,11 +6,21 @@ import { getOwnedProperties, getProperties } from '../redux/features/propertySli
 import { getRentRequests } from '../redux/features/rentRequestsSlice';
 import { getJoinRequests } from '../redux/features/joinRequestsSlice';
 import { getContracts } from '../redux/features/contractSlice';
+import { APIS } from '../utils/APIS';
+import axios from 'axios';
 
 export default function UserAccount() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    axios.delete(APIS.propertyApis.deleteUnpaid)
+    .then(response => {
+      if (response.status === 200) {
+        console.log(response.data.message);
+      }
+    })
+    .catch(error => console.error(error));
+
     let userInfo = JSON.parse(localStorage.getItem('usrInfo'));
     dispatch(getProperties(userInfo.id));
     dispatch(getOwnedProperties(userInfo.id));
